@@ -105,12 +105,12 @@
                                 <img src="<%= url_for(selectedPromo.image) %>" alt="<%= selectedPromo.title %>">
                             </div>
                             <div class="promo-text">
-                                <div class="promo-label text-xs uppercase tracking-wide text-third-text-color mb-1" style="color: #373D3F;">Интересное</div>
+                                <div class="promo-label text-xs uppercase tracking-wide text-third-text-color mb-1">Интересное</div>
                                 <a href="<%= selectedPromo.url %>" class="title-link">
-                                    <h3 style="color: #202124; font-weight: 600;"><%= selectedPromo.title %></h3>
+                                    <h3 class="text-second-text-color font-semibold"><%= selectedPromo.title %></h3>
                                 </a>
                                 <a href="<%= selectedPromo.url %>" class="description-link">
-                                    <p style="color: #373D3F;"><%= selectedPromo.description %></p>
+                                    <p class="text-third-text-color"><%= selectedPromo.description %></p>
                                 </a>
                                 <a href="<%= selectedPromo.url %>" class="promo-button">
                                     Подробнее
@@ -132,12 +132,12 @@
                                 </a>
                             </div>
                             <div class="telegram-promo-text">
-                                <div class="promo-label text-xs uppercase tracking-wide mb-1" style="color: #373D3F;">Наш канал</div>
+                                <div class="promo-label text-xs uppercase tracking-wide mb-1 text-third-text-color">Наш канал</div>
                                 <a href="https://t.me/Nikto_Archive" target="_blank" rel="noopener noreferrer" class="title-link">
-                                    <h3 style="color: #202124; font-weight: 600;">PsyГрибоАрхив Экзотики🗿</h3>
+                                    <h3 class="text-second-text-color font-semibold">PsyГрибоАрхив Экзотики🗿</h3>
                                 </a>
                                 <a href="https://t.me/Nikto_Archive" target="_blank" rel="noopener noreferrer" class="description-link">
-                                    <p style="color: #373D3F;">Авторские материалы о глубинных вопросах сознания, психологии и метафизике опыта измененных состояний.</p>
+                                    <p class="text-third-text-color">Авторские материалы о глубинных вопросах сознания, психологии и метафизике опыта измененных состояний.</p>
                                 </a>
                                 <a href="https://t.me/Nikto_Archive" target="_blank" rel="noopener noreferrer" class="flex">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#0066CC" viewBox="0 0 16 16">
@@ -251,20 +251,17 @@
         font-size: 20px;
         font-weight: 600;
         margin: 0 0 10px 0;
-        color: #202124 !important;
         text-align: left;
     }
     
     .promo-text p {
         font-size: 15px;
         margin: 0 0 15px 0;
-        color: #373D3F !important;
         line-height: 1.5;
         text-align: left;
     }
     
     .promo-text .promo-label, .telegram-promo-text .promo-label {
-        color: #373D3F !important;
         font-size: 11px;
         letter-spacing: 0.5px;
     }
@@ -409,7 +406,6 @@
     .telegram-promo-text h3 {
         font-size: 16px !important;
         margin: 0 0 5px 0 !important;
-        color: #202124 !important;
         font-weight: 600 !important;
     }
     
@@ -417,7 +413,6 @@
         font-size: 13px !important;
         margin: 0 0 8px 0 !important;
         line-height: 1.3 !important;
-        color: #373D3F !important;
     }
 
     /* Специфические настройки для контейнера Telegram */
@@ -439,7 +434,6 @@
     .telegram-promo-text h3 {
         font-size: 16px !important;
         margin: 0 0 5px 0 !important;
-        color: #202124 !important;
         font-weight: 600 !important;
     }
     
@@ -447,7 +441,6 @@
         font-size: 13px !important;
         margin: 0 0 8px 0 !important;
         line-height: 1.3 !important;
-        color: #373D3F !important;
     }
     
     .telegram-promo-text .flex {
@@ -456,7 +449,6 @@
     }
 
     .telegram-promo-text .promo-label {
-        color: #373D3F !important;
         font-size: 11px;
         text-transform: uppercase;
         letter-spacing: 0.5px;
