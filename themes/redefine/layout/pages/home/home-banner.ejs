@@ -1,0 +1,588 @@
+<% if (theme.home_banner.style === "fixed") { %>
+    <style>
+        .home-banner-container {
+            background: none !important;
+        }
+        .home-article-item,
+        .sidebar-links,
+        .sidebar-content,
+        a.page-number,
+        a.extend,
+        .sidebar-links .links:hover,
+        .right-bottom-tools,
+        footer.footer {
+            background-color: var(--background-color-transparent-80) !important;
+        }
+        .right-bottom-tools:hover,
+        a.page-number:hover,
+        a.extend:hover {
+            background-color: var(--primary-color) !important;
+        }
+        .site-info,
+        .home-article-sticky-label {
+            background-color: var(--background-color-transparent-15) !important;
+        }
+        .home-article-sticky-label {
+            backdrop-filter: none !important;
+        }
+    </style>
+    <div class="home-banner-background transition-fade fixed top-0 left-0 w-screen h-screen scale-125 sm:scale-110 box-border will-change-transform bg-cover">
+        <img src="<%- url_for(theme.home_banner.image.light) %>" alt="home-banner-background" class="w-full h-full object-cover dark:hidden">
+        <img src="<%- url_for(theme.home_banner.image.dark) %>" alt="home-banner-background" class="w-full h-full object-cover hidden dark:block">
+    </div>
+<% } %>
+
+<div class="home-banner-container flex justify-center items-center transition-fade relative">
+    <% if (theme.home_banner.style !== "fixed") {%>
+    <div class="home-banner-background transition-fade absolute top-0 left-0 w-screen h-screen scale-125 sm:scale-110 box-border will-change-transform bg-cover">
+        <img src="<%- url_for(theme.home_banner.image.light) %>" alt="home-banner-background" class="w-full h-full object-cover dark:hidden">
+        <img src="<%- url_for(theme.home_banner.image.dark) %>" alt="home-banner-background" class="w-full h-full object-cover hidden dark:block">
+    </div>
+    <% } %>
+    
+    <!-- Подключение шрифтов -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700&family=Russo+One&family=Lobster&family=Comfortaa:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Контейнер Последняя статья в верхнем левом углу -->
+    <div class="top-left-container">
+        <%
+        const latestPost = site.posts.sort('date', -1).limit(1).toArray()[0];
+        if (latestPost) {
+          // Получаем изображение для статьи
+          let articleThumbnail = "";
+          if (latestPost.cover || latestPost.banner || (latestPost.thumbnail && latestPost.thumbnail !== false)) {
+            if (latestPost.thumbnail && latestPost.thumbnail !== null) {
+              articleThumbnail = latestPost.thumbnail;
+            } else if (latestPost.cover && latestPost.cover.includes("/")) {
+              articleThumbnail = latestPost.cover;
+            } else if (latestPost.banner && latestPost.banner.includes("/")) {
+              articleThumbnail = latestPost.banner;
+            } else if (config.marked.postAsset && config.marked.postAsset == true) {
+              articleThumbnail = [latestPost.path, latestPost.cover || latestPost.banner].join("/");
+            }
+          }
+        %>
+        <div class="latest-post-container">
+          <div class="latest-post-card">
+            <div class="latest-post-header">
+              <h2>Последняя статья</h2>
+              <time datetime="<%= latestPost.date.toISOString() %>">
+                <%= latestPost.date.format('YYYY-MM-DD') %>
+              </time>
+            </div>
+            
+            <% if (latestPost.thumbnail !== false && (latestPost.thumbnail || latestPost.cover || latestPost.banner)) { %>
+              <div class="latest-post-thumbnail">
+                <a href="<%- url_for(latestPost.path) %>" class="block h-full">
+                  <img src="<%- url_for(articleThumbnail) %>" alt="<%= latestPost.title %>" class="w-full h-full object-cover dark:brightness-75 transition-all" />
+                </a>
+              </div>
+            <% } %>
+            
+            <div class="latest-post-content">
+              <h3><a href="<%- url_for(latestPost.path) %>"><%= latestPost.title %></a></h3>
+              <div class="latest-post-excerpt">
+                <% if (latestPost.excerpt && latestPost.excerpt == "false") { %>
+                <% } else if (latestPost.excerpt && latestPost.excerpt !== "false") { %>
+                  <%- render(latestPost.excerpt, "markdown") %>
+                <% } else { %>
+                  <%
+                    const excerptLength = theme.home.excerpt_length || 200;
+                  %>
+                  <%- truncate(strip_html(latestPost.content), {length: excerptLength}) %>
+                <% } %>
+              </div>
+            </div>
+            <div class="latest-post-footer">
+              <div class="latest-post-tags">
+                <% if (latestPost.tags && latestPost.tags.length) { %>
+                  <% latestPost.tags.each(function(tag){ %>
+                    <a href="<%- url_for(tag.path) %>" class="tag"><%= tag.name %></a>
+                  <% }); %>
+                <% } %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% } %>
+    </div>
+    
+    <div class="content mt-8 flex flex-col justify-center items-center transition-fade-down">
+        <div class="description flex flex-col justify-center items-center w-screen font-medium text-center"
+        <% if (theme.home_banner.custom_font.enable) { %>
+             style="font-family: '<%- theme.home_banner.custom_font.family %>', sans-serif; !important;"
+                <% } %>
+        >
+            <span class="custom-title"><%- theme.home_banner.title || theme.style.first_screen.description || config.description %></span>
+            <%# theme.style.first_screen.description is deprecated %>
+            <% if (theme.home_banner.subtitle.length !== 0) { %>
+                <p class="subtitle-wrapper"><i id="subtitle"></i></p>
+            <% } %>
+        </div>
+        <!-- Всегда показываем наши контейнеры независимо от настроек -->
+        <div class="absolute bottom-0.5 flex flex-row justify-between max-w-[1340px] items-center w-full px-8 sm:px-12">
+            <!-- Контейнер для текста "внизу сайта самое вкусное" в центре -->
+            <div class="center-text-container px-6 py-3 mx-auto bg-gray-300/50 dark:bg-gray-500/40 backdrop-blur-lg border border-white/20 dark:border-gray-500/30 shadow-redefine-flat rounded-full">
+                <span class="glow-text">...Внизу Сайта Самое Вкусное...</span>
+            </div>
+            
+            <!-- Правый текстовый контейнер с Telegram -->
+            <div class="telegram-container px-6 py-3 ml-4 bg-gray-300/50 dark:bg-gray-500/40 backdrop-blur-lg border border-white/20 dark:border-gray-500/30 shadow-redefine-flat rounded-full">
+                <div class="custom-text flex flex-col items-center">
+                    <div>Моя Группа в <a href="https://t.me/Nikto_Archive" target="_blank" class="telegram-link">Telegram</a></div>
+                    <div><a href="https://t.me/+3b6ahucAN8EzYTNi" target="_blank" class="group-chat-link">Чат Группы</a></div>
+                    <div><a href="https://t.me/Nikto_Archivarius" target="_blank" class="personal-link">Обратиться ко мне в ЛС</a></div>
+                </div>
+            </div>
+        </div>
+        
+        <% if (theme.home_banner.social_links.enable) { %>
+            <%
+                const flexDirection = theme.home_banner.social_links.style === "reverse" ? "flex-row-reverse" : "flex-row";
+                const justify = theme.home_banner.social_links.style === "center" ? "justify-center" : "justify-between";
+                const display = theme.home_banner.social_links.style === "center" ? "hidden" : "flex";
+            %>
+            <div class="absolute bottom-8 hidden">
+                <!-- Скрытый контейнер с социальными ссылками -->
+                <div class="social-contacts px-6 py-3 bg-gray-300/50 dark:bg-gray-500/40 backdrop-blur-lg border border-white/20 dark:border-gray-500/30 shadow-redefine-flat rounded-full flex flex-row gap-3 items-center">
+                    <% for (const key in theme.home_banner.social_links.links) { %>
+                        <% if(theme.home_banner.social_links.links[key]) { %>
+                            <% if(key === 'email') { %>
+                                <span class="social-contact-item <%= key %> ">
+                                    <a href="mailto:<%- theme.home_banner.social_links.links[key] %>">
+                                        <i class="fa-solid fa-fw fa-at fa-lg"></i>
+                                    </a>
+                                </span>
+                            <% } else if(key.includes("fa-")) { %>
+                                <span class="social-contact-item">
+                                    <a target="_blank" href="<%- theme.home_banner.social_links.links[key] %>">
+                                        <i class="<%= key %> fa-fw fa-lg"></i>
+                                    </a>
+                                </span>
+                            <% } else { %>
+                                <span class="social-contact-item <%= key %>">
+                                    <a target="_blank" href="<%- theme.home_banner.social_links.links[key] %>">
+                                        <i class="fa-brands fa-fw fa-lg fa-<%= key %>"></i>
+                                    </a>
+                                </span>
+                            <% } %>
+                        <% } %>
+                    <% } %>
+                    <%
+                        let qrs = theme.home_banner.social_links.qrs;
+                        let qrCount = 0;
+                        for (const key in qrs) {
+                            if(qrs[key]) {
+                                qrCount++;
+                            }
+                        }
+                    if (qrs && qrCount >= 1) { %>
+
+                        <div class="social-links-divider vertical-separator w-[1px] h-4 bg-third-text-color mx-0.5"></div>
+
+                        <% for (const key in qrs) { %>
+                            <% if(qrs[key]) { %>
+                                <% if(key.includes("fa-")) { %>
+                                    <span class="social-contact-item-qr cursor-pointer group">
+                                        <a target="_blank">
+                                            <i class="<%= key %> fa-fw fa-lg"></i>
+                                            <div class="social-qr-container absolute h-auto bg-background-color-transparent-40 border border-white/20 dark:border-gray-500/30 overflow-hidden rounded-2xl bottom-0 mb-14 right-0 invisible group-hover:visible opacity-0 group-hover:opacity-100 translate-y-0.5 group-hover:translate-y-0 transition-all">
+                                                <img class="social-contacts-qr w-64"
+                                                     src="<%- url_for(theme.home_banner.social_links.qrs[key]) %>"/>
+                                            </div>
+                                        </a>
+                                    </span>
+                                <% } else { %>
+                                    <span class="social-contact-item-qr <%= key %> cursor-pointer group">
+                                        <a target="_blank">
+                                            <i class="fa-brands fa-fw fa-lg fa-<%= key %>"></i>
+                                            <div class="social-qr-container absolute h-auto bg-background-color-transparent-40 border border-white/20 dark:border-gray-500/30 overflow-hidden rounded-2xl bottom-0 mb-14 right-0 invisible group-hover:visible opacity-0 group-hover:opacity-100 translate-y-0.5 group-hover:translate-y-0 transition-all">
+                                                <img class="social-contacts-qr w-64"
+                                                     src="<%- url_for(theme.home_banner.social_links.qrs[key]) %>"/>
+                                            </div>
+                                        </a>
+                                    </span>
+                                <% } %>
+                            <% } %>
+                        <% } %>
+                    <% } %>
+                </div>
+            </div>
+        <% } %>
+    </div>
+    <script>
+        const scrollToMain = ()=> {
+            console.log('scroll');
+            const target = document.querySelector('.main-content-container');
+            target.scrollIntoView({ behavior: 'smooth'});
+        }
+        
+        // Применение шрифта к подзаголовку после загрузки страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                const subtitleElement = document.getElementById('subtitle');
+                if (subtitleElement) {
+                    subtitleElement.style.fontFamily = "'Comfortaa', cursive";
+                    subtitleElement.style.fontSize = "1.5rem";
+                    subtitleElement.style.textShadow = "0 1px 3px rgba(0, 0, 0, 0.3)";
+                }
+            }, 1000); // Задержка, чтобы скрипт успел инициализироваться
+        });
+    </script>
+</div>
+
+<!-- Стили для контейнера "Последняя статья" -->
+<style>
+.top-left-container {
+  width: 240px;
+  max-width: 240px;
+  position: absolute;
+  left: 140px;
+  top: 15%;
+  z-index: 10;
+}
+
+.home-banner-container {
+  justify-content: center !important;
+  padding-left: 0;
+}
+
+.latest-post-container {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  max-width: 240px;
+}
+
+.latest-post-card {
+  background: var(--background-color-transparent-80) !important;
+  border-radius: 12px;
+  padding: 1.2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  border: 1px solid var(--border-color);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  overflow: hidden;
+}
+
+.latest-post-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--redefine-box-shadow-hover);
+}
+
+.latest-post-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.latest-post-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: var(--primary-color);
+}
+
+.latest-post-thumbnail {
+  height: 150px;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.latest-post-content h3 {
+  margin: 0 0 1rem 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--second-text-color);
+  font-family: sans-serif;
+  line-height: 1.5;
+}
+
+.latest-post-content h3 a {
+  color: var(--second-text-color);
+  text-decoration: none;
+}
+
+.latest-post-content h3 a:hover {
+  color: var(--primary-color);
+}
+
+.latest-post-excerpt {
+  color: var(--text-color);
+  opacity: 0.8;
+  margin-bottom: 1rem;
+  max-height: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+}
+
+.latest-post-footer {
+  border-top: 1px solid var(--border-color);
+  padding-top: 1rem;
+}
+
+.latest-post-tags {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.latest-post-tags .tag {
+  background: var(--primary-color);
+  color: white;
+  padding: 0.2rem 0.8rem;
+  border-radius: 15px;
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.latest-post-tags .tag:hover {
+  opacity: 0.9;
+}
+
+@media screen and (max-width: 768px) {
+  .top-left-container {
+    position: relative !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100%;
+    max-width: 100%;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    order: 1;
+  }
+  
+  .home-banner-container {
+    justify-content: center !important;
+    padding-left: 0;
+  }
+  
+  .latest-post-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .content {
+    margin-top: 2rem !important;
+    order: 2;
+  }
+  
+  .latest-post-content h3 {
+    font-size: 1.3rem;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .latest-post-content h3 {
+    font-size: 1.2rem;
+  }
+}
+</style>
+
+<!-- Стили для текстового контейнера -->
+<style>
+.center-text-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 200px;
+  max-width: 400px;
+  position: absolute;
+  left: 50%;
+  bottom: 0px;
+  transform: translateX(-50%);
+  z-index: 5;
+}
+
+.telegram-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 220px;
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  z-index: 5;
+}
+
+.custom-text {
+  text-align: center;
+  font-weight: 700;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  padding: 0.2rem 0;
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4), 0 0 15px var(--primary-color);
+  animation: glow 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4), 0 0 10px var(--primary-color);
+  }
+  to {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4), 0 0 20px var(--primary-color), 0 0 30px var(--primary-color);
+  }
+}
+
+.telegram-link {
+  color: #6cc9ff;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  font-size: 0.95rem;
+}
+
+.telegram-link:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.personal-link {
+  color: #ff9966;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  font-size: 0.95rem;
+}
+
+.personal-link:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.group-chat-link {
+  color: #7bff9e; /* Яркий мятно-зеленый цвет */
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  font-size: 0.95rem;
+}
+
+.group-chat-link:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+@media screen and (max-width: 768px) {
+  .center-text-container {
+    position: relative;
+    left: 0;
+    transform: none;
+    order: 1;
+    margin: 10px auto;
+    min-width: 150px;
+  }
+  
+  .telegram-container {
+    position: relative;
+    right: 0;
+    order: 3;
+    margin: 10px auto;
+    min-width: 220px;
+  }
+  
+  .absolute.bottom-0\.5 {
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 15px;
+  }
+}
+</style>
+
+<!-- Стиль для главного заголовка -->
+<style>
+.custom-title {
+  font-family: 'Russo One', sans-serif;
+  font-size: 2.8rem;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.4), 0 0 15px var(--primary-color);
+  color: #fff;
+  display: inline-block;
+  transform: perspective(500px) rotateX(10deg);
+  margin-bottom: 1rem;
+}
+
+/* Новый стиль с эффектом яркого свечения */
+.glow-text {
+  text-align: center;
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.4;
+  padding: 0.2rem 0;
+  color: #fff;
+  text-shadow: 0 0 5px #fff, 0 0 10px #fff, 
+               0 0 15px #f7b731, 0 0 20px #f7b731, 0 0 25px #f7b731,
+               0 0 30px var(--primary-color), 0 0 35px var(--primary-color);
+  animation: rainbow-glow 8s ease-in-out infinite alternate;
+}
+
+@keyframes rainbow-glow {
+  0% {
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 
+                 0 0 15px #f7b731, 0 0 20px #f7b731, 0 0 25px #f7b731,
+                 0 0 30px var(--primary-color), 0 0 35px var(--primary-color);
+  }
+  25% {
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 
+                 0 0 15px #ff7b5c, 0 0 20px #ff7b5c, 0 0 25px #ff7b5c,
+                 0 0 30px #ff5e62, 0 0 35px #ff5e62;
+  }
+  50% {
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 
+                 0 0 15px #43e97b, 0 0 20px #43e97b, 0 0 25px #43e97b,
+                 0 0 30px #38f9d7, 0 0 35px #38f9d7;
+  }
+  75% {
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 
+                 0 0 15px #a177ff, 0 0 20px #a177ff, 0 0 25px #a177ff,
+                 0 0 30px #8a5fff, 0 0 35px #8a5fff;
+  }
+  100% {
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 
+                 0 0 15px #f7b731, 0 0 20px #f7b731, 0 0 25px #f7b731,
+                 0 0 40px var(--primary-color), 0 0 50px var(--primary-color);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .custom-title {
+    font-size: 2.2rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .custom-title {
+    font-size: 1.8rem;
+  }
+}
+
+/* Стиль для подзаголовка с печатным эффектом */
+.subtitle-wrapper {
+  margin: 0;
+  opacity: 0.9;
+  font-family: 'Comfortaa', cursive !important;
+  font-weight: 400 !important;
+  line-height: 1.4;
+}
+
+.subtitle-wrapper i,
+#subtitle,
+.home-banner-container .description p i,
+.home-banner-container .description i#subtitle,
+.content .description p i,
+.content .description i#subtitle {
+  font-size: 1.5rem !important;
+  font-style: normal !important;
+  color: #fff !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
+  font-family: 'Comfortaa', cursive !important;
+}
+</style>

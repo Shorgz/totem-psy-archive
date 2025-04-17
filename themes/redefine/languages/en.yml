@@ -1,0 +1,93 @@
+# ----------------------------------------
+# Site Translation
+# ----------------------------------------
+search: Найти...
+toc: На этой странице
+prev: Предыдущий
+next: Следующий
+prev_posts: Пред. посты
+next_posts: След. посты
+page: Страница %d
+recent_posts: Последние статьи
+share: Поделиться
+powered_by: "POWERED BY %s"
+theme: THEME
+rss_feed: RSS Feed
+category: Категория
+categories: Категории
+tag: Тэг
+tags: Тэги
+post: Пост
+posts: Посты
+tagcloud: Облако Тэгов
+comment: Комментарий
+comments: Комментарии
+home: Главная Страница
+archive: Архив
+archives: Архивы
+top: TOP
+sticky: Закреплено
+go-back-home: Вернуться на Главную
+
+
+# ----------------------------------------
+# Menu Translation
+# ----------------------------------------
+about: Об...
+changelog: Журнал Изменений
+links: Ссылки
+link: Ссылка
+friends: Друзья
+friend: Друг
+timeline: Временная шкала
+shuoshuo: Shuoshuo
+
+# ----------------------------------------
+# Website count
+# ----------------------------------------
+site_uv: Количество посетителей
+site_pv: Общее количество просмотров
+read_more: Читать далее
+wordcount: Слова
+min2read: Минут
+status: Статус
+
+# ----------------------------------------
+# Footer
+# ----------------------------------------
+runtime: Блог работает в течение
+days: дней
+hours: час
+minutes: Мин
+seconds: Сек
+optimized_by: and Optimized by Evan
+rights: Все права защищены
+site_posts: "%s от общего количества сообщений"
+site_wordcount: "%s от общего количества слов"
+
+# ----------------------------------------
+# Post
+# ----------------------------------------
+copyright:
+  author: Автор
+  title: Название
+  link: Ссылка
+  create_time: Создан в
+  update_time: Обновлен в
+  license_title: Лицензия
+  license_content: "This work is licensed under %s."
+  all_rights_reserved: "All Rights Reserved &#169; %s"
+  public_domain: "This work is in the public domain."
+
+ago:
+  second: "%s секунд назад"
+  minute: "%s минут назад"
+  hour: "%s часов назад"
+  day: "%s дней назад"
+  week: "%s недель назад"
+  month: "%s месяцев назад"
+  year: "%s лет назад"
+
+create_time: Создано
+update_time: Обновлено
+expired: "Этот пост написан %s дней назад, и его содержание может быть устаревшим."
