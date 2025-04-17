@@ -1,0 +1,48 @@
+---
+title: Официальное открытие «Архива в Сети»
+thumbnail: images/start-head.jpg
+date: 2025-04-01 22:36:09
+tags:
+---
+
+{% note yellow fa-circle-exclamation %} Часть контента создана с помощью ChatGPT и доработана вручную. Если вы заметили неточности или ошибки — не стесняйтесь сообщить об этом. {% endnote %}
+
+## Общая информация
+### Что это за сайт?
+
+Добро пожаловать в мой блог — **PsyГрибоАрхив Экзотику**! Это моё креативное пространство, которое я создал во время изучения технологий, цифровых гаджетов, ИИ и программирования. Здесь я делюсь своим опытом, публикую полезные руководства и делаю заметки о процессе обучения. Будь то заметки по ИИ, лайфхаки для техники или решения повседневных технических задач — всё это отражает мой путь и размышления.
+
+**PsyГрибоАрхив Экзотика** — не просто статичный блокнот. Она постоянно обновляется вместе с моими знаниями и растёт вместе со мной. Каждая статья — это шаг на пути моего развития. В будущем я продолжу наполнять блог интересным контентом, делиться открытиями и вдохновением. Надеюсь, этот блог станет платформой для общения и обмена идеями с единомышленниками.
+
+Здесь вы найдёте не только технические фишки, но и почувствуете мой энтузиазм и любовь к технологиям как активного и креативного студента. Независимо от того, новичок вы или опытный разработчик — уверен, вы найдёте что-то полезное и интересное для себя.
+
+### Кто я такой?
+
+Привет! Я выпускник 2024 года по специальности «Дизайн цифровых медиа». Я увлечён технологиями, особенно цифровыми устройствами, ИИ и программированием. Хотя я относительно недавно начал изучать код, мне нравится процесс познания и я стремлюсь к росту. В будущем планирую расширить блог, улучшить качество материалов, сочетая креатив и пользу. Буду рад делиться заметками по ИИ, лайфхаками и решениями технических задач. Надеюсь на общение и рост вместе с вами — единомышленниками!
+
+### Как со мной связаться?
+{% tabs Social-links %}
+<!-- tab ... -->
+{% btn regular::Telegram::https://t.me/Nikto_Archivarius/::fa-brands fa-telegram-alt %} 
+<!-- endtab -->
+
+## Портфолио
+### Учебные проекты
+#### Musae — проект по визуальному дизайну для e-commerce
+<div style="position: relative; width: 100%; aspect-ratio: 16 / 9; border: 3px solid #43A047; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=411822088&bvid=BV1ZV411Q7tR&cid=1419223204&p=1&autoplay=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" frameborder="0" allowfullscreen></iframe></div>
+
+#### «Тяньцю» — дипломный проект по дизайну для фермерской платформы
+<div style="position: relative; width: 100%; aspect-ratio: 16 / 9; border: 3px solid #43A047; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=880908557&bvid=BV1vK4y167rz&cid=1397077410&p=1&autoplay=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" frameborder="0" allowfullscreen></iframe></div>
+
+### Хобби и увлечения
+#### Создание MMD-видео (хоть и давно уже не занимался этим)
+<div style="position: relative; width: 100%; aspect-ratio: 16 / 9; border: 3px solid #43A047; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=870290873&bvid=BV1AV4y1174w&cid=1178461315&p=1&autoplay=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" frameborder="0" allowfullscreen></iframe></div>
+
+#### Прошивка Android-устройств (ниже — мой собственный гайд)
+
+<div style="position: relative; width: 100%; aspect-ratio: 1 / 1; border: 3px solid #43A047; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);"><iframe src="https://kdocs.cn/l/cke7zj8L2Kps" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" frameborder="0" allowfullscreen></iframe></div>
+
+---
+{% notel success fa-circle-check Заключение %}
+Спасибо, что заглянули! Надеюсь, вы найдёте здесь что-то интересное и полезное. Если у вас есть вопросы или предложения — оставляйте комментарии, буду рад пообщаться. Давайте учиться и расти вместе!
+{% endnotel %}
