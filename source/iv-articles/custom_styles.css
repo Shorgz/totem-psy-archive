@@ -1,0 +1,79 @@
+body {
+    font-family:'Noto Sans SC', -apple-system, system-ui, 'Segoe UI',
+               Roboto, Ubuntu, Cantarell, 'Noto Sans', sans-serif,
+               BlinkMacSystemFont, 'Helvetica Neue', 'PingFang SC',
+               'Hiragino Sans GB', 'Microsoft YaHei', Arial;
+
+    background-color: #202124;
+    color: #CBCBD1;
+    margin: 40px; 
+    line-height: 1.6; /* Межстрочный отступ */
+}
+
+
+.page_wrap {
+  max-width: 800px;        /* Ограничиваем ширину на больших экранах */
+  margin: 0 auto;          /* Центрируем по горизонтали */
+  padding: 20px;           /* Отступы для мобильных */
+  display: flex;
+  flex-direction: column;  /* Вертикальное выравнивание */
+  align-items: center;     /* Центрировать содержимое по центру */
+  box-sizing: border-box;
+}
+
+/* Стили для всех изображений внутри .page_wrap */
+.page_wrap img {
+  max-width: 100%;         /* Адаптивная ширина */
+  height: auto;            /* Сохраняем пропорции */
+  display: block;
+  margin: 10px 0;          /* Отступ сверху и снизу */
+  object-fit: contain;
+}
+
+@media (max-width: 600px) { /* Мобильная адаптация */
+  .page_wrap {
+    padding: 10px;
+  }
+}
+
+blockquote {
+  margin: 1.5em 0;
+  padding: 0.5em 1em;
+  border-left: 4px solid #ccc;
+  background: #202124;
+  color: #CBCBD1;
+  font-style: italic;
+}
+
+
+a {
+  color: #CBCBD1;
+}
+
+
+body { 
+  
+}
+img { 
+  max-width: 100%; 
+  height: auto; 
+}
+
+.article { 
+  max-width: 800px; 
+  margin: 0 auto; 
+}
+
+iframe { 
+  max-width: 100%; 
+}
+
+/* Стили для изображений в превью */
+
+.is-imageBackgrounded { 
+  margin-bottom: 20px; 
+}
+.is-imageBackgrounded img { 
+  width: 100%; 
+  height: auto; 
+}
