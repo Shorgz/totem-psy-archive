@@ -94,7 +94,7 @@ global:
   open_graph:
     enable: true
     image: /images/redefine-og.webp  # default og:image
-    description: Добро пожаловать в PsyГрибоАрхив Экзотики
+    description: НейроШаманизм Психоделических Миксов
   # Google Analytics
   google_analytics:
     enable: false # Whether to enable Google Analytics
