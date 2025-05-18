@@ -431,11 +431,11 @@ footer:
 # Docs: https://redefine-docs.ohevan.com/inject
 inject:
   # Whether to enable inject
-  enable: false
+  enable: true
   # Inject custom head html code
   head: 
-    -
-    -
+    - '<meta property="al:android:app_name" content="Medium">'
+    - '<style>body{font-family:Arial,sans-serif;margin:40px;line-height:1.6}img{max-width:100%;height:auto}.article{max-width:800px;margin:0 auto}iframe{max-width:100%}.is-imageBackgrounded{margin-bottom:20px}.is-imageBackgrounded img{width:100%;height:auto}</style>'
   # Inject custom footer html code
   footer:
     -
