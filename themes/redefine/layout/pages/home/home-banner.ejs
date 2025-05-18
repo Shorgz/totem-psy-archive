@@ -1,0 +1,2295 @@
+<% if (theme.home_banner.style === "fixed") { %>
+    <!-- Предварительное скрытие мобильного контейнера на ПК -->
+    <style>
+        @media (min-width: 769px) {
+            .mobile-important-posts-static {
+                display: none !important;
+                visibility: hidden !important;
+                opacity: 0 !important;
+                width: 0 !important;
+                height: 0 !important;
+                overflow: hidden !important;
+                position: absolute !important;
+                pointer-events: none !important;
+                left: -9999px !important;
+                z-index: -9999 !important;
+            }
+        }
+    </style>
+    <style>
+        .home-banner-container {
+            background: none !important;
+        }
+        .home-article-item,
+        .sidebar-links,
+        .sidebar-content,
+        a.page-number,
+        a.extend,
+        .sidebar-links .links:hover,
+        .right-bottom-tools,
+        footer.footer {
+            background-color: var(--background-color-transparent-80) !important;
+        }
+        .right-bottom-tools:hover,
+        a.page-number:hover,
+        a.extend:hover {
+            background-color: var(--primary-color) !important;
+        }
+        .site-info,
+        .home-article-sticky-label {
+            background-color: var(--background-color-transparent-15) !important;
+        }
+        .home-article-sticky-label {
+            backdrop-filter: none !important;
+        }
+    </style>
+    <div class="home-banner-background transition-fade fixed top-0 left-0 w-screen h-screen scale-125 sm:scale-110 box-border will-change-transform bg-cover">
+        <img src="<%- url_for(theme.home_banner.image.light) %>" alt="home-banner-background" class="w-full h-full object-cover dark:hidden">
+        <img src="<%- url_for(theme.home_banner.image.dark) %>" alt="home-banner-background" class="w-full h-full object-cover hidden dark:block">
+    </div>
+<% } %>
+
+<div class="home-banner-container flex justify-center items-center transition-fade relative">
+    <% if (theme.home_banner.style !== "fixed") {%>
+    <div class="home-banner-background transition-fade absolute top-0 left-0 w-screen h-screen scale-125 sm:scale-110 box-border will-change-transform bg-cover">
+        <img src="<%- url_for(theme.home_banner.image.light) %>" alt="home-banner-background" class="w-full h-full object-cover dark:hidden">
+        <img src="<%- url_for(theme.home_banner.image.dark) %>" alt="home-banner-background" class="w-full h-full object-cover hidden dark:block">
+    </div>
+    <% } %>
+    
+    <!-- Подключение шрифтов из Google Fonts заменено на локальные -->
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700&family=Russo+One&family=Lobster&family=Comfortaa:wght@400;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'"> -->
+    
+    <!-- Контейнер Последняя статья в верхнем левом углу -->
+    <div class="top-left-container">
+        <%
+        const latestPost = site.posts.sort('date', -1).limit(1).toArray()[0];
+        if (latestPost) {
+          // Получаем изображение для статьи
+          let articleThumbnail = "";
+          if (latestPost.cover || latestPost.banner || (latestPost.thumbnail && latestPost.thumbnail !== false)) {
+            if (latestPost.thumbnail && latestPost.thumbnail !== null) {
+              articleThumbnail = latestPost.thumbnail;
+            } else if (latestPost.cover && latestPost.cover.includes("/")) {
+              articleThumbnail = latestPost.cover;
+            } else if (latestPost.banner && latestPost.banner.includes("/")) {
+              articleThumbnail = latestPost.banner;
+            } else if (config.marked.postAsset && config.marked.postAsset == true) {
+              articleThumbnail = [latestPost.path, latestPost.cover || latestPost.banner].join("/");
+            }
+          }
+        %>
+        <div class="latest-post-container">
+          <div class="latest-post-card">
+            <div class="latest-post-header">
+              <h2>Последняя статья</h2>
+              <time datetime="<%= latestPost.date.toISOString() %>">
+                <%= latestPost.date.format('YYYY-MM-DD') %>
+              </time>
+            </div>
+            
+            <% if (latestPost.thumbnail !== false && (latestPost.thumbnail || latestPost.cover || latestPost.banner)) { %>
+              <div class="latest-post-thumbnail">
+                <a href="<%- url_for(latestPost.path) %>" class="block h-full">
+                  <img src="<%- url_for(articleThumbnail) %>" alt="<%= latestPost.title %>" class="w-full h-full object-cover dark:brightness-75 transition-all" />
+                </a>
+              </div>
+            <% } %>
+            
+            <div class="latest-post-content">
+              <h3><a href="<%- url_for(latestPost.path) %>"><%= latestPost.title %></a></h3>
+              <div class="latest-post-excerpt">
+                <% if (latestPost.excerpt && latestPost.excerpt == "false") { %>
+                <% } else if (latestPost.excerpt && latestPost.excerpt !== "false") { %>
+                  <%- render(latestPost.excerpt, "markdown") %>
+                <% } else { %>
+                  <%
+                    // Уменьшаем длину описания для компьютерной версии
+                    const excerptLength = 80; // Уменьшено с 200 до 80
+                  %>
+                  <%- truncate(strip_html(latestPost.content), {length: excerptLength}) %>...
+                <% } %>
+              </div>
+            </div>
+            <div class="latest-post-footer">
+              <div class="latest-post-tags">
+                <% if (latestPost.tags && latestPost.tags.length) { %>
+                  <% latestPost.tags.each(function(tag){ %>
+                    <a href="<%- url_for(tag.path) %>" class="tag"><%= tag.name %></a>
+                  <% }); %>
+                <% } %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% } %>
+    </div>
+    
+    <div class="content mt-8 flex flex-col justify-center items-center transition-fade-down">
+        <div class="description flex flex-col justify-center items-center w-screen font-medium text-center"
+        <% if (theme.home_banner.custom_font.enable) { %>
+             style="font-family: '<%- theme.home_banner.custom_font.family %>', sans-serif; !important;"
+                <% } %>
+        >
+            <span class="custom-title"><%- theme.home_banner.title || theme.style.first_screen.description || config.description %></span>
+            <%# theme.style.first_screen.description is deprecated %>
+            <% if (theme.home_banner.subtitle.length !== 0) { %>
+                <p class="subtitle-wrapper"><i id="subtitle"></i></p>
+            <% } %>
+        </div>
+        <!-- Всегда показываем наши контейнеры независимо от настроек -->
+        <div class="absolute bottom-0.5 flex flex-row justify-between max-w-[1340px] items-center w-full px-8 sm:px-12">
+            <!-- Контейнер для текста "внизу сайта самое вкусное" в центре -->
+            <div class="center-text-container px-6 py-3 mx-auto bg-gray-300/50 dark:bg-gray-500/40 backdrop-blur-sm border border-white/20 dark:border-gray-500/30 shadow-redefine-flat rounded-full">
+                <span class="glow-text">...Внизу Сайта Самое Вкусное...</span>
+            </div>
+            
+            <!-- Правый текстовый контейнер с Telegram -->
+            <div class="telegram-container px-6 py-3 ml-4 bg-gray-300/50 dark:bg-gray-500/40 backdrop-blur-sm border border-white/20 dark:border-gray-500/30 shadow-redefine-flat rounded-full">
+                <div class="custom-text flex flex-col items-center">
+                    <div>Моя Группа в <a href="https://t.me/Nikto_Archive" target="_blank" class="telegram-link">Telegram</a></div>
+                    <div><a href="https://t.me/+3b6ahucAN8EzYTNi" target="_blank" class="group-chat-link">Чат Группы</a></div>
+                    <div><a href="https://t.me/Nikto_Archivarius" target="_blank" class="personal-link">Обратиться ко мне в ЛС</a></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Мобильный видео-контейнер (только для мобильных) -->
+        <div class="mobile-video-container hide-on-pc" style="display:none">
+            <div class="mobile-video-wrapper bg-gray-300/50 dark:bg-gray-500/40 bg-white/50 border border-white/20 dark:border-gray-500/30 shadow-redefine-flat rounded-xl">
+                <video id="mobileThumbnailVideo" class="w-full h-full object-cover" playsinline muted loop preload="auto" autoplay>
+                    <source src="/videos/testvideo.mp4" type="video/mp4">
+                    Ваш браузер не поддерживает видео.
+                </video>
+            </div>
+        </div>
+        
+        <!-- Контейнер для полноэкранного видео (дублирующий для мобильной версии) -->
+        <div id="fullscreen-video-container-mobile" class="fullscreen-video-container">
+            <div class="fullscreen-video-wrapper">
+                <video id="fullscreenVideoMobile" class="fullscreen-video" playsinline preload="auto" controls controlsList="nodownload">
+                    <source src="/videos/high_resolution_bitrate.mp4" type="video/mp4">
+                    Ваш браузер не поддерживает видео.
+                </video>
+                <button id="close-fullscreen-mobile" class="close-fullscreen">&times;</button>
+            </div>
+        </div>
+        
+        <!-- Специальные стили для браузеров без JavaScript -->
+        <noscript>
+            <style>
+                @media (max-width: 768px) {
+                    .mobile-important-posts-static {
+                        display: block !important;
+                        visibility: visible !important;
+                        opacity: 1 !important;
+                        z-index: 9999 !important;
+                        max-width: 200px !important;
+                    }
+                }
+                
+                @media (max-width: 480px) {
+                    .mobile-important-posts-static {
+                        max-width: 160px !important;
+                        right: 5px !important;
+                    }
+                }
+            </style>
+        </noscript>
+        
+        <% if (theme.home_banner.social_links.enable) { %>
+            <%
+                const flexDirection = theme.home_banner.social_links.style === "reverse" ? "flex-row-reverse" : "flex-row";
+                const justify = theme.home_banner.social_links.style === "center" ? "justify-center" : "justify-between";
+                const display = theme.home_banner.social_links.style === "center" ? "hidden" : "flex";
+            %>
+            <div class="absolute bottom-8 hidden">
+                <!-- Скрытый контейнер с социальными ссылками -->
+                <div class="social-contacts px-6 py-3 bg-gray-300/50 dark:bg-gray-500/40 backdrop-blur-lg border border-white/20 dark:border-gray-500/30 shadow-redefine-flat rounded-full flex flex-row gap-3 items-center">
+                    <% for (const key in theme.home_banner.social_links.links) { %>
+                        <% if(theme.home_banner.social_links.links[key]) { %>
+                            <% if(key === 'email') { %>
+                                <span class="social-contact-item <%= key %> ">
+                                    <a href="mailto:<%- theme.home_banner.social_links.links[key] %>">
+                                        <i class="fa-solid fa-fw fa-at fa-lg"></i>
+                                    </a>
+                                </span>
+                            <% } else if(key.includes("fa-")) { %>
+                                <span class="social-contact-item">
+                                    <a target="_blank" href="<%- theme.home_banner.social_links.links[key] %>">
+                                        <i class="<%= key %> fa-fw fa-lg"></i>
+                                    </a>
+                                </span>
+                            <% } else { %>
+                                <span class="social-contact-item <%= key %>">
+                                    <a target="_blank" href="<%- theme.home_banner.social_links.links[key] %>">
+                                        <i class="fa-brands fa-fw fa-lg fa-<%= key %>"></i>
+                                    </a>
+                                </span>
+                            <% } %>
+                        <% } %>
+                    <% } %>
+                    <%
+                        let qrs = theme.home_banner.social_links.qrs;
+                        let qrCount = 0;
+                        for (const key in qrs) {
+                            if(qrs[key]) {
+                                qrCount++;
+                            }
+                        }
+                    if (qrs && qrCount >= 1) { %>
+
+                        <div class="social-links-divider vertical-separator w-[1px] h-4 bg-third-text-color mx-0.5"></div>
+
+                        <% for (const key in qrs) { %>
+                            <% if(qrs[key]) { %>
+                                <% if(key.includes("fa-")) { %>
+                                    <span class="social-contact-item-qr cursor-pointer group">
+                                        <a target="_blank">
+                                            <i class="<%= key %> fa-fw fa-lg"></i>
+                                            <div class="social-qr-container absolute h-auto bg-background-color-transparent-40 border border-white/20 dark:border-gray-500/30 overflow-hidden rounded-2xl bottom-0 mb-14 right-0 invisible group-hover:visible opacity-0 group-hover:opacity-100 translate-y-0.5 group-hover:translate-y-0 transition-all">
+                                                <img class="social-contacts-qr w-64"
+                                                     src="<%- url_for(theme.home_banner.social_links.qrs[key]) %>"/>
+                                            </div>
+                                        </a>
+                                    </span>
+                                <% } else { %>
+                                    <span class="social-contact-item-qr <%= key %> cursor-pointer group">
+                                        <a target="_blank">
+                                            <i class="fa-brands fa-fw fa-lg fa-<%= key %>"></i>
+                                            <div class="social-qr-container absolute h-auto bg-background-color-transparent-40 border border-white/20 dark:border-gray-500/30 overflow-hidden rounded-2xl bottom-0 mb-14 right-0 invisible group-hover:visible opacity-0 group-hover:opacity-100 translate-y-0.5 group-hover:translate-y-0 transition-all">
+                                                <img class="social-contacts-qr w-64"
+                                                     src="<%- url_for(theme.home_banner.social_links.qrs[key]) %>"/>
+                                            </div>
+                                        </a>
+                                    </span>
+                                <% } %>
+                            <% } %>
+                        <% } %>
+                    <% } %>
+                </div>
+            </div>
+        <% } %>
+    </div>
+    <div class="mobile-important-posts-static">
+        <div class="mobile-important-posts-container bg-gray-300/50 dark:bg-gray-500/40 backdrop-blur-lg border border-white/20 dark:border-gray-500/30 shadow-redefine-flat rounded-xl px-3 py-1.5 sm:px-4 sm:py-2 max-w-[300px] w-auto">
+            <div class="mobile-important-posts-list flex flex-row">
+                <div class="vertical-bar flex flex-col items-center mr-2">
+                    <button class="expand-btn mb-1" id="expandMobilePosts" aria-label="Увеличить" style="width:32px;height:32px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.7);border:none;border-radius:8px;cursor:pointer;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" style="transform:rotate(90deg)"><path fill="#1976d2" d="M12 16l-6-6h12z"/></svg>
+                    </button>
+                    <span class="bar-letter">У</span>
+                    <span class="bar-letter">В</span>
+                    <span class="bar-letter">Е</span>
+                    <span class="bar-letter">Л</span>
+                    <span class="bar-letter">И</span>
+                    <span class="bar-letter">Ч</span>
+                    <span class="bar-letter">И</span>
+                    <span class="bar-letter">Т</span>
+                    <span class="bar-letter">Ь</span>
+                </div>
+                <div class="posts-list flex flex-col justify-between">
+                    <a href="/TOP/" class="post-link py-0.5 hover:text-primary-color transition-colors font-bold">• ☕️ [ РsyЧай от БЭДов/ПcиOрехоБут/Разница РsyВидов/ОСы ]</a>
+                    <div class="post-divider"></div>
+                    <a href="/antiversus/" class="post-link py-0.5 hover:text-primary-color transition-colors font-bold">• 🥶 [ Избавляемся от Побочек на Входе и Последствий ]</a>
+                    <div class="post-divider"></div>
+                    <a href="/Muskat-Matsis/" class="post-link py-0.5 hover:text-primary-color transition-colors font-bold">• ☘️ [ Муcкaтный орeх / Масло Мaциcа ]</a>
+                    <div class="post-divider"></div>
+                    <a href="/NZT-Nootrop/" class="post-link py-0.5 hover:text-primary-color transition-colors font-bold">• 🧬 [ NZT Ноотроп из фильма Области Тьмы ]</a>
+                    <div class="post-divider"></div>
+                    <a href="/PsyMixes-and-etc/" class="post-link py-0.5 hover:text-primary-color transition-colors font-bold">• 🔮 [ ПcиМиксы, Пcилохуaскa, ПcиСома ]</a>
+                    <div class="post-divider"></div>
+                    <a href="/for-new/" class="post-link py-0.5 hover:text-primary-color transition-colors font-bold">• 🍄 [ НОВИЧКАМ!!! Что такое Tpип? ]</a>
+                    <div class="post-divider"></div>
+                    <a href="/trip-reports/" class="post-link py-0.5 hover:text-primary-color transition-colors font-bold">• 🟥 [ Tpип-Рeпopты ]</a>
+                    <div class="post-divider"></div>
+                    <a href="/grow-reports-etc/" class="post-link py-0.5 hover:text-primary-color transition-colors font-bold">• ☔️ [ Гpoв-Peпoрты / Поиск на Полях ]</a>
+                    <div class="post-divider"></div>
+                    <a href="/razborbi/" class="post-link py-0.5 hover:text-primary-color transition-colors font-bold">• ✏️ [ Разбор LеmonTеk-Рапэ-Зверобой ]</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script data-swup-reload-script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Глобальный обработчик для нажатия на видео-контейнер, работающий даже после SWUP-переходов
+            document.body.addEventListener('click', function(e) {
+                // Находим ближайший видео-контейнер или его обертку от места клика
+                const videoWrapper = e.target.closest('.mobile-video-wrapper');
+                
+                if (videoWrapper) {
+                    console.log("Глобальный обработчик: клик на видео-контейнер");
+                    
+                    // Получаем ссылки на элементы
+                    const fullscreenContainer = document.getElementById('fullscreen-video-container-mobile');
+                    const topLeftContainer = document.querySelector('.top-left-container');
+                    const fixedPostsContainers = document.querySelectorAll('.fixed-important-posts-container, .mobile-important-posts-static');
+                    const smallVideo = document.getElementById('mobileThumbnailVideo');
+                    
+                    // Проверяем наличие полноэкранного контейнера
+                    if (!fullscreenContainer) {
+                        console.error("Контейнер для полноэкранного видео не найден");
+                        return;
+                    }
+                    
+                    // Паузим малое видео
+                    if (smallVideo) {
+                        console.log("Ставим малое видео на паузу");
+                        smallVideo.pause();
+                    }
+                    
+                    // Показываем полноэкранный режим
+                    fullscreenContainer.style.display = 'flex';
+                    fullscreenContainer.style.zIndex = '9999999999';
+                    
+                    // Скрываем другие элементы
+                    if (topLeftContainer) {
+                        topLeftContainer.style.zIndex = '-999';
+                        topLeftContainer.style.visibility = 'hidden';
+                        topLeftContainer.style.opacity = '0';
+                        topLeftContainer.style.pointerEvents = 'none';
+                    }
+                    
+                    fixedPostsContainers.forEach(container => {
+                        container.style.zIndex = '-999';
+                        container.style.visibility = 'hidden';
+                        container.style.opacity = '0';
+                        container.style.pointerEvents = 'none';
+                    });
+                    
+                    // Добавляем класс-маркер
+                    document.body.classList.add('video-is-open');
+                    
+                    // Блокируем скролл
+                    document.body.style.overflow = 'hidden';
+                    
+                    // Запускаем полноэкранное видео
+                    const bigVideo = document.getElementById('fullscreenVideoMobile');
+                    if (bigVideo) {
+                        bigVideo.currentTime = 0;
+                        const playPromise = bigVideo.play();
+                        if (playPromise !== undefined) {
+                            playPromise.catch(err => {
+                                console.error("Ошибка воспроизведения видео:", err);
+                            });
+                        }
+                    }
+                    
+                    // Предотвращаем всплытие события
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+            });
+            
+            // Глобальный обработчик для закрытия полноэкранного видео
+            document.body.addEventListener('click', function(e) {
+                // Находим ближайшую кнопку закрытия от места клика
+                const closeButton = e.target.closest('.close-fullscreen');
+                const fullscreenContainer = document.getElementById('fullscreen-video-container-mobile');
+                
+                // Если клик был на кнопке закрытия или на самом контейнере (но не на его дочерних элементах)
+                if ((closeButton || (fullscreenContainer && e.target === fullscreenContainer)) && fullscreenContainer.style.display === 'flex') {
+                    console.log("Глобальный обработчик: закрытие видео");
+                    
+                    // Ставим большое видео на паузу
+                    const bigVideo = document.getElementById('fullscreenVideoMobile');
+                    if (bigVideo) {
+                        console.log("Ставим большое видео на паузу");
+                        bigVideo.pause();
+                    }
+                    
+                    // Скрываем контейнер
+                    fullscreenContainer.style.display = 'none';
+                    
+                    // Восстанавливаем элементы
+                    const topLeftContainer = document.querySelector('.top-left-container');
+                    if (topLeftContainer) {
+                        topLeftContainer.style.zIndex = '';
+                        topLeftContainer.style.visibility = '';
+                        topLeftContainer.style.opacity = '';
+                        topLeftContainer.style.pointerEvents = '';
+                    }
+                    
+                    const fixedPostsContainers = document.querySelectorAll('.fixed-important-posts-container, .mobile-important-posts-static');
+                    fixedPostsContainers.forEach(container => {
+                        container.style.zIndex = '';
+                        container.style.visibility = '';
+                        container.style.opacity = '';
+                        container.style.pointerEvents = '';
+                    });
+                    
+                    // Удаляем класс-маркер
+                    document.body.classList.remove('video-is-open');
+                    
+                    // Восстанавливаем скролл
+                    document.body.style.overflow = '';
+                    
+                    // Запускаем малое видео на главной странице
+                    if (isHomePage()) {
+                        const smallVideo = document.getElementById('mobileThumbnailVideo');
+                        if (smallVideo) {
+                            console.log("Запускаем воспроизведение малого видео");
+                            setTimeout(() => {
+                                const playPromise = smallVideo.play();
+                                if (playPromise !== undefined) {
+                                    playPromise.catch(err => {
+                                        console.warn("Ошибка воспроизведения малого видео:", err);
+                                    });
+                                }
+                            }, 100);
+                        }
+                    }
+                    
+                    // Предотвращаем всплытие события
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+            });
+            
+            function initMobileVideo() {
+                console.log("Инициализация мобильного видео");
+                
+                // Проверка видимости мобильного видеоконтейнера
+                function updateMobileVideoVisibility() {
+                    try {
+                        const currentPath = window.location.pathname;
+                        const isHome = isHomePage();
+                        console.log("Проверка видимости видео, текущий путь:", currentPath, "isHomePage:", isHome);
+                        
+                        // Получаем элементы
+                        const container = document.querySelector('.mobile-video-container');
+                        const video = document.getElementById('mobileThumbnailVideo');
+                        
+                        if (!container || !video) {
+                            console.log("Элементы не найдены, прерываем обновление");
+                            return;
+                        }
+                        
+                        if (window.innerWidth <= 768 && isHome) {
+                            console.log("Показываем видео контейнер");
+                            container.style.display = 'block';
+                            
+                            // Проверяем, не открыто ли полноэкранное видео
+                            const isVideoOpen = document.body.classList.contains('video-is-open');
+                            if (isVideoOpen) {
+                                console.log("Полноэкранное видео открыто, не запускаем малое видео");
+                                return;
+                            }
+                            
+                            // Проверяем, находится ли видео в области видимости
+                            if (isElementInViewport(container) && video.paused) {
+                                console.log("Запускаем воспроизведение малого видео");
+                                const playPromise = video.play();
+                                if (playPromise !== undefined) {
+                                    playPromise.catch(err => {
+                                        console.warn("Ошибка автозапуска видео:", err);
+                                    });
+                                }
+                            }
+                        } else {
+                            console.log("Скрываем видео контейнер");
+                            container.style.display = 'none';
+                            
+                            // Ставим видео на паузу, если мы не на главной
+                            if (video && !video.paused) {
+                                console.log("Ставим видео на паузу, т.к. не на главной");
+                                video.pause();
+                            }
+                        }
+                    } catch (e) {
+                        console.error("Ошибка при обновлении видимости видео:", e);
+                    }
+                }
+                
+                // Функция для проверки, находится ли элемент в области видимости
+                function isElementInViewport(el) {
+                    if (!el) return false;
+                    
+                    const rect = el.getBoundingClientRect();
+                    
+                    // Учитываем только вертикальное положение
+                    return (
+                        rect.top >= -rect.height &&
+                        rect.top <= window.innerHeight
+                    );
+                }
+                
+                // Обработчик прокрутки для управления воспроизведением видео
+                function handleVideoOnScroll() {
+                    // Работаем только на главной странице и на мобильных устройствах
+                    if (!isHomePage() || window.innerWidth > 768) return;
+                    
+                    // Получаем видео контейнер и видео элемент
+                    const container = document.querySelector('.mobile-video-container');
+                    const video = document.getElementById('mobileThumbnailVideo');
+                    
+                    if (!container || !video) return;
+                    
+                    // Проверяем, открыто ли полноэкранное видео
+                    const isVideoOpen = document.body.classList.contains('video-is-open');
+                    if (isVideoOpen) return;
+                    
+                    // Проверяем видимость видео
+                    if (isElementInViewport(container)) {
+                        // Видео в зоне видимости - воспроизводим, если оно на паузе
+                        if (video.paused) {
+                            console.log("Возобновляем воспроизведение видео после прокрутки");
+                            const playPromise = video.play();
+                            if (playPromise !== undefined) {
+                                playPromise.catch(err => {
+                                    console.warn("Ошибка возобновления видео:", err);
+                                });
+                            }
+                        }
+                    } else {
+                        // Видео не в зоне видимости - ставим на паузу
+                        if (!video.paused) {
+                            console.log("Ставим видео на паузу, так как оно вне экрана");
+                            video.pause();
+                        }
+                    }
+                }
+                
+                // Обработчик для видео
+                const videoElement = document.getElementById('mobileThumbnailVideo');
+                if (videoElement) {
+                    // Обработчик окончания видео
+                    videoElement.addEventListener('ended', function() {
+                        console.log('Малое видео завершилось, начинаем заново');
+                        if (isHomePage() && !document.body.classList.contains('video-is-open')) {
+                            videoElement.currentTime = 0;
+                            videoElement.play().catch(err => {
+                                console.warn('Ошибка при перезапуске видео:', err);
+                            });
+                        }
+                    });
+                    
+                    // Обработчик ошибок
+                    videoElement.addEventListener('error', function(e) {
+                        console.error('Ошибка видео:', e);
+                        // Пробуем перезагрузить
+                        setTimeout(() => {
+                            const currentSrc = videoElement.currentSrc;
+                            videoElement.src = '';
+                            videoElement.src = currentSrc;
+                            videoElement.load();
+                        }, 1000);
+                    });
+                }
+                
+                // Инициализируем видимость
+                updateMobileVideoVisibility();
+                
+                // Обработчик прокрутки страницы для видео
+                window.addEventListener('scroll', handleVideoOnScroll, { passive: true });
+                
+                // Обновляем при изменении размера окна
+                window.addEventListener('resize', updateMobileVideoVisibility);
+                
+                return { 
+                    updateMobileVideoVisibility,
+                    handleVideoOnScroll
+                };
+            }
+            
+            // Функция для проверки главной страницы
+            function isHomePage() {
+                const path = window.location.pathname;
+                return path === '/' || path === '/index.html' || path === '/index.php';
+            }
+            
+            // Запускаем инициализацию
+            const { updateMobileVideoVisibility, handleVideoOnScroll } = initMobileVideo();
+            
+            // Обработка SWUP
+            try {
+                if (typeof swup !== 'undefined') {
+                    // Обновление при всех переходах
+                    swup.hooks.on('page:view', function() {
+                        console.log("SWUP page:view");
+                        setTimeout(() => {
+                            // Инициализация только на главной странице
+                            if (isHomePage()) {
+                                console.log("Мы на главной странице - инициализируем видео");
+                                initMobileVideo();
+                                updateMobileVideoVisibility();
+                            }
+                        }, 100);
+                    });
+                    
+                    swup.hooks.on('animation:in:end', function() {
+                        console.log("SWUP animation:in:end");
+                        setTimeout(() => {
+                            if (isHomePage()) {
+                                updateMobileVideoVisibility();
+                            }
+                        }, 200);
+                    });
+                }
+            } catch (e) {
+                console.error('SWUP не найден или произошла ошибка:', e);
+            }
+        });
+    </script>
+</div>
+
+<!-- Стили для контейнера "Последняя статья" -->
+<style>
+.top-left-container {
+  width: 240px;
+  max-width: 240px;
+  position: absolute;
+  left: 140px;
+  top: 15%;
+  z-index: 10;
+}
+
+.home-banner-container {
+  justify-content: center !important;
+  padding-left: 0;
+}
+
+.latest-post-container {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  max-width: 240px;
+}
+
+.latest-post-card {
+  background: var(--background-color-transparent-80) !important;
+  border-radius: 12px;
+  padding: 1.2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  border: 1px solid var(--border-color);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  overflow: hidden;
+}
+
+.latest-post-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--redefine-box-shadow-hover);
+}
+
+.latest-post-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.latest-post-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: var(--primary-color);
+}
+
+.latest-post-thumbnail {
+  height: 120px;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 8px;
+  margin-bottom: 0.8rem;
+}
+
+.latest-post-content h3 {
+  margin: 0 0 0.7rem 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--second-text-color);
+  font-family: sans-serif;
+  line-height: 1.3;
+}
+
+.latest-post-content h3 a {
+  color: var(--second-text-color);
+  text-decoration: none;
+}
+
+.latest-post-content h3 a:hover {
+  color: var(--primary-color);
+}
+
+.latest-post-excerpt {
+  color: var(--text-color);
+  opacity: 0.8;
+  margin-bottom: 1rem;
+  max-height: 80px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.latest-post-footer {
+  border-top: 1px solid var(--border-color);
+  padding-top: 1rem;
+}
+
+.latest-post-tags {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.latest-post-tags .tag {
+  background: var(--primary-color);
+  color: white;
+  padding: 0.2rem 0.8rem;
+  border-radius: 15px;
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.latest-post-tags .tag:hover {
+  opacity: 0.9;
+}
+
+@media screen and (max-width: 1280px) {
+  .top-left-container {
+    left: 80px;
+    width: 220px;
+  }
+  
+  .latest-post-container {
+    max-width: 220px;
+  }
+  
+  .latest-post-header h2 {
+    font-size: 1.3rem;
+  }
+  
+  .latest-post-content h3 {
+    font-size: 1.2rem;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .top-left-container {
+    left: 40px;
+    width: 200px;
+  }
+  
+  .latest-post-container {
+    max-width: 200px;
+  }
+  
+  .latest-post-card {
+    padding: 1rem;
+  }
+  
+  .latest-post-header h2 {
+    font-size: 1.2rem;
+  }
+  
+  .latest-post-content h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.7rem;
+  }
+  
+  .latest-post-thumbnail {
+    height: 100px;
+    margin-bottom: 0.7rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .top-left-container {
+    position: fixed !important;
+    top: 60px !important;
+    left: 5px !important;
+    right: auto !important;
+    z-index: 100 !important;
+    width: 140px !important;
+    max-width: 140px !important;
+    margin: 0 !important;
+    display: block !important;
+  }
+  
+  .latest-post-container {
+    max-width: 100%;
+  }
+
+  .latest-post-card {
+    padding: 0.7rem;
+  }
+  
+  .latest-post-header h2 {
+    font-size: 1rem;
+  }
+  
+  .latest-post-content h3 {
+    font-size: 0.9rem;
+    margin: 0;
+  }
+  
+  .latest-post-excerpt {
+    display: none;
+  }
+  
+  .latest-post-footer {
+    display: none;
+  }
+  
+  .latest-post-thumbnail {
+    height: 80px;
+    margin-bottom: 0.5rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .top-left-container {
+    width: 140px;
+    max-width: 140px;
+    left: 10px !important;
+    top: 64px !important;
+    right: auto !important;
+  }
+  
+  .latest-post-card {
+    padding: 0.5rem;
+  }
+  
+  .latest-post-header h2 {
+    font-size: 0.8rem;
+  }
+  
+  .latest-post-content h3 {
+    font-size: 0.8rem;
+  }
+  
+  .latest-post-thumbnail {
+    height: 60px;
+  }
+}
+
+@media screen and (min-width: 901px) and (max-width: 1280px) {
+  .latest-post-excerpt {
+    max-height: 70px;
+    -webkit-line-clamp: 3;
+    font-size: 0.85rem;
+    line-height: 1.3;
+  }
+  
+  .latest-post-thumbnail {
+    height: 110px;
+  }
+  
+  .latest-post-card {
+    padding: 1rem;
+  }
+  
+  .latest-post-footer {
+    padding-top: 0.7rem;
+  }
+}
+
+@media screen and (min-width: 901px) and (max-width: 1024px) {
+  .latest-post-excerpt {
+    max-height: 60px;
+    -webkit-line-clamp: 3;
+    font-size: 0.8rem;
+    line-height: 1.2;
+  }
+  
+  .latest-post-thumbnail {
+    height: 100px;
+    margin-bottom: 0.7rem;
+  }
+}
+</style>
+
+<!-- Стили для текстового контейнера -->
+<style>
+.center-text-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 200px;
+  max-width: 400px;
+  position: absolute;
+  left: 50%;
+  bottom: 0px;
+  transform: translateX(-50%);
+  z-index: 5;
+}
+
+.telegram-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 220px;
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  z-index: 5;
+}
+
+.custom-text {
+  text-align: center;
+  font-weight: 700;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  padding: 0.2rem 0;
+  color: #fff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3), 0 0 10px var(--primary-color);
+  animation: glow 3s ease-in-out infinite alternate;
+  will-change: text-shadow;
+  transform: translateZ(0);
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3), 0 0 8px var(--primary-color);
+  }
+  to {
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3), 0 0 15px var(--primary-color);
+  }
+}
+
+/* Оптимизированная анимация для мобильных устройств */
+@keyframes mobile-glow {
+  from {
+    text-shadow: 0 0 5px var(--primary-color);
+  }
+  to {
+    text-shadow: 0 0 10px var(--primary-color);
+  }
+}
+
+/* Оптимизированная анимация для текстовых ссылок на мобильных устройствах */
+@keyframes mobile-text-glow {
+  from {
+    text-shadow: 0 0 5px currentColor;
+  }
+  to {
+    text-shadow: 0 0 8px currentColor;
+  }
+}
+
+.telegram-link {
+  color: #6cc9ff;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  font-size: 0.95rem;
+}
+
+.telegram-link:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.personal-link {
+  color: #ff9966;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  font-size: 0.95rem;
+}
+
+.personal-link:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.group-chat-link {
+  color: #7bff9e; /* Яркий мятно-зеленый цвет */
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  font-size: 0.95rem;
+}
+
+.group-chat-link:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+@media screen and (max-width: 768px) {
+  .center-text-container {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 10px;
+    transform: none;
+    order: 1;
+    margin: 0 auto;
+    min-width: 150px;
+    width: 80%;
+    font-size: 0.85rem;
+    padding: 6px 10px !important;
+    z-index: 100;
+  }
+  
+  .telegram-container {
+    position: fixed;
+    bottom: 60px;
+    right: 0;
+    left: auto;
+    order: 3;
+    margin: 0 10px;
+    min-width: 45%;
+    max-width: 45%;
+    width: 45%;
+    padding: 5px 10px !important;
+    z-index: 100;
+    border-width: 3px !important;
+    border-color: rgba(255, 255, 255, 0.4) !important;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2) !important; /* Уменьшенная тень */
+    transform: scale(1.05) translateZ(0); /* Добавлено аппаратное ускорение */
+    border-radius: 20px;
+    will-change: transform; /* Подсказка для браузера */
+    backface-visibility: hidden; /* Предотвращает мерцание */
+  }
+  
+  /* Оптимизация анимации и теней для мобильных устройств */
+  .custom-text {
+    font-size: 1rem;
+    line-height: 1.6;
+    font-weight: bold;
+    animation: mobile-glow 3s ease-in-out infinite alternate; /* Более медленная анимация для мобильных */
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3), 0 0 8px var(--primary-color); /* Упрощенная тень */
+    transform: translateZ(0); /* Аппаратное ускорение */
+    will-change: text-shadow; /* Подсказка для браузера */
+  }
+
+  .custom-text a {
+    font-size: 1rem;
+    animation: mobile-text-glow 3s ease-in-out infinite alternate;
+    transform: translateZ(0);
+    will-change: text-shadow;
+  }
+  
+  .telegram-link {
+    text-shadow: 0 0 5px #6cc9ff; /* Уменьшенная тень */
+  }
+  
+  .group-chat-link {
+    text-shadow: 0 0 5px #7bff9e; /* Уменьшенная тень */
+  }
+  
+  .personal-link {
+    text-shadow: 0 0 5px #ff9966; /* Уменьшенная тень */
+  }
+  
+  .latest-post-card:hover {
+    transform: none;
+    box-shadow: none;
+  }
+  
+  .latest-post-content h3 a:hover {
+    color: inherit;
+  }
+  
+  .absolute.bottom-0\.5 {
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 15px;
+    bottom: 0;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .center-text-container {
+    bottom: 5px;
+    min-width: 140px;
+    width: 90%;
+    font-size: 0.75rem;
+    padding: 4px 8px !important;
+  }
+
+  .telegram-container {
+    bottom: 50px;
+    left: auto;
+    right: 5px;
+    transform: scale(1.05) translateZ(0);
+    min-width: 45%;
+    max-width: 45%;
+    width: 45%;
+    padding: 5px 10px !important;
+    border-radius: 20px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.15) !important; /* Еще более уменьшенная тень */
+  }
+  
+  /* Еще больше упрощаем эффекты на маленьких устройствах */
+  .custom-text {
+    animation: none; /* Отключаем анимацию на самых маленьких экранах */
+    text-shadow: 0 0 5px var(--primary-color); /* Минимальная тень */
+  }
+  
+  .custom-text a {
+    animation: none;
+    text-shadow: 0 0 3px currentColor; /* Минимальная тень */
+  }
+  
+  /* Стили для мобильного видео-контейнера на маленьких экранах */
+  .mobile-video-container {
+    bottom: 50px !important;
+    left: 5px;
+    right: auto;
+    transform: scale(1.05) translateZ(0);
+    min-width: 45%;
+    max-width: 45%;
+    width: 45%;
+  }
+}
+</style>
+
+<!-- Стиль для главного заголовка -->
+<style>
+.custom-title {
+  font-family: 'Russo One', sans-serif;
+  font-size: 2.8rem;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.4), 0 0 15px var(--primary-color);
+  color: #fff;
+  display: inline-block;
+  transform: perspective(500px) rotateX(10deg);
+  margin-bottom: 1rem;
+}
+
+/* Новый стиль с эффектом яркого свечения */
+.glow-text {
+  text-align: center;
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.4;
+  padding: 0.2rem 0;
+  color: #fff;
+  text-shadow: 0 0 5px #fff, 0 0 10px #fff, 
+               0 0 15px #f7b731, 0 0 20px #f7b731,
+               0 0 25px var(--primary-color);
+  animation: rainbow-glow 10s ease-in-out infinite alternate;
+  will-change: text-shadow;
+  transform: translateZ(0);
+}
+
+@keyframes rainbow-glow {
+  0% {
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 
+                 0 0 15px #f7b731, 0 0 20px #f7b731,
+                 0 0 25px var(--primary-color);
+  }
+  33% {
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 
+                 0 0 15px #ff7b5c, 0 0 20px #ff5e62;
+  }
+  66% {
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 
+                 0 0 15px #43e97b, 0 0 20px #38f9d7;
+  }
+  100% {
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 
+                 0 0 15px #a177ff, 0 0 20px #8a5fff;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .custom-title {
+    font-size: 2.2rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .custom-title {
+    font-size: 1.8rem;
+  }
+}
+
+/* Стиль для подзаголовка с печатным эффектом */
+.subtitle-wrapper {
+  margin: 0;
+  opacity: 0.9;
+  font-family: 'Comfortaa', cursive !important;
+  font-weight: 400 !important;
+  line-height: 1.4;
+}
+
+.subtitle-wrapper i,
+#subtitle,
+.home-banner-container .description p i,
+.home-banner-container .description i#subtitle,
+.content .description p i,
+.content .description i#subtitle {
+  font-size: 1.5rem !important;
+  font-style: normal !important;
+  color: #fff !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
+  font-family: 'Comfortaa', cursive !important;
+}
+</style>
+
+<!-- Стили для контейнера с важными постами -->
+<style>
+    :root {
+        --primary-color-rgb: 71, 161, 255;
+    }
+    .mobile-important-posts-static {
+        /* position: fixed !important; */
+        /* top: 60px !important; */
+        /* right: 10px !important; */
+        /* z-index: 100 !important; */
+        /* display: none !important; */
+    }
+    .mobile-important-posts-container {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), 0 0 15px rgba(var(--primary-color-rgb), 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    .mobile-important-posts-list a {
+        text-decoration: none;
+        display: block;
+        transition: none;
+        font-size: 0.7rem;
+        line-height: 1.15;
+    }
+    .mobile-important-posts-list a:hover {
+        transform: translateX(0);
+    }
+    .mobile-important-posts-container::-webkit-scrollbar {
+        width: 4px;
+    }
+    .mobile-important-posts-container::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    .mobile-important-posts-container::-webkit-scrollbar-thumb {
+        background-color: var(--primary-color);
+        border-radius: 20px;
+    }
+    @media screen and (max-width: 768px) {
+        .mobile-important-posts-list {
+            flex-direction: row;
+            align-items: flex-start;
+            height: auto;
+        }
+        .vertical-bar {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 0;
+            min-width: 28px;
+            max-width: 28px;
+            margin-right: 8px;
+            height: auto;
+        }
+        .posts-list {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            flex: 1 1 auto;
+            min-width: 0;
+        }
+        .mobile-important-posts-container {
+            transition:
+              transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1),
+              max-width 0.7s cubic-bezier(0.34, 1.56, 0.64, 1),
+              max-height 0.7s cubic-bezier(0.34, 1.56, 0.64, 1),
+              padding 0.7s cubic-bezier(0.34, 1.56, 0.64, 1),
+              font-size 0.7s ease-in-out,
+              box-shadow 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transform-origin: right top;
+            max-width: 200px;
+            max-height: 75vh;
+            overflow-y: auto;
+            padding: 0.7rem 0.7rem;
+            transform: scale(1);
+            z-index: 1000;
+            display: block;
+            height: auto;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1), 0 0 5px rgba(var(--primary-color-rgb), 0.2);
+        }
+        .mobile-important-posts-container.expanded {
+            width: 95vw;
+            max-width: 320px;
+            height: auto;
+            max-height: 400px;
+            overflow-y: auto;
+            padding: 1.1rem 0.8rem;
+            transform: scale(1.05, 1.08) translateY(5px);
+            z-index: 11000;
+            right: 10px;
+            left: auto;
+            top: 60px;
+            display: block;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15), 0 0 15px rgba(var(--primary-color-rgb), 0.4);
+        }
+        .mobile-important-posts-container.expanded .posts-list a,
+        .mobile-important-posts-container.expanded .bar-letter {
+            font-size: 1.25rem !important;
+            line-height: 1.5 !important;
+        }
+        .mobile-important-posts-container.expanded .bar-letter {
+            font-size: 1.4rem !important;
+            letter-spacing: 0.1em;
+        }
+        .mobile-important-posts-container.expanded .posts-list a {
+            font-size: 1rem !important;
+            line-height: 1.1 !important;
+        }
+    }
+    @media screen and (max-width: 480px) {
+        .mobile-important-posts-static {
+            /* top: 8px !important; */
+            /* right: 5px !important; */
+        }
+        .mobile-important-posts-container {
+            padding: 0.4rem 0.6rem;
+        }
+        .mobile-important-posts-list a {
+            font-size: 0.6rem;
+            padding: 0.1rem 0;
+        }
+    }
+</style>
+
+<style>
+    /* Сброс для старых контейнеров и стилей, чтобы избежать конфликтов */
+    .md\:hidden.absolute.top-\[5\%\].right-\[40px\].sm\:right-\[80px\],
+    .important-posts-container,
+    .important-posts-list,
+    .mobile-important-posts,
+    .only-mobile {
+        display: none !important;
+        position: absolute !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        width: 0 !important;
+        height: 0 !important;
+        overflow: hidden !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        z-index: -999 !important;
+    }
+</style>
+
+<style>
+    /* Скрываем мобильный видео-контейнер на ПК */
+    .mobile-video-container {
+        display: none;
+    }
+
+    @media screen and (min-width: 769px) {
+        .mobile-video-container {
+            display: none !important;
+        }
+    }
+</style>
+
+<style>
+    /* Стили для мобильного видео-контейнера */
+    .mobile-video-container {
+        display: none;
+        position: fixed;
+        bottom: 60px;
+        left: 0;
+        right: auto;
+        margin: 0 10px;
+        min-width: 45%;
+        max-width: 45%;
+        width: 45%;
+        z-index: 100;
+        transform: scale(1.05);
+    }
+
+    .mobile-video-wrapper {
+        width: 100%;
+        overflow: hidden;
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.4) !important;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.3) !important;
+        background-color: rgba(211, 211, 211, 0.5) !important;
+        backdrop-filter: blur(10px) !important;
+        cursor: pointer; /* Добавляем курсор указатель */
+        transition: transform 0.2s ease, box-shadow 0.2s ease; /* Добавляем плавный переход */
+    }
+    
+    .mobile-video-wrapper:hover, 
+    .mobile-video-wrapper:active {
+        transform: scale(1.00); /* Небольшое увеличение при наведении/нажатии */
+        box-shadow: 0 0 25px rgba(0, 0, 0, 0.4), 0 0 15px rgba(var(--primary-color-rgb), 0.5) !important;
+    }
+
+    .mobile-video-container #mobileThumbnailVideo {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 15px;
+        pointer-events: none; /* Передаем события клика родителю */
+    }
+    
+    /* Стили для полноэкранного видео-контейнера */
+    .fullscreen-video-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999999999;
+    }
+    
+    /* Специальный стиль для мобильного полноэкранного контейнера */
+    #fullscreen-video-container-mobile {
+        z-index: 9999999999 !important; /* Очень высокий z-index */
+        isolation: isolate !important; /* Создает новый контекст наложения */
+    }
+    
+    /* Повышаем z-index мобильного видео контейнера */
+    @media screen and (max-width: 768px) {
+        .mobile-video-container {
+            z-index: 1000 !important; /* Выше, чем у контейнеров на странице */
+        }
+        
+        #fullscreen-video-container-mobile {
+            z-index: 99999999999 !important; /* Еще выше значение для полноэкранного видео */
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            bottom: 0 !important;
+        }
+        
+        /* Принудительно скрываем элементы при открытом видео */
+        body.video-is-open .top-left-container,
+        body.video-is-open .fixed-important-posts-container,
+        body.video-is-open .mobile-important-posts-static {
+            visibility: hidden !important;
+            opacity: 0 !important;
+            z-index: -999 !important;
+            pointer-events: none !important;
+        }
+    }
+    
+    .fullscreen-video-wrapper {
+        width: 90vw;
+        max-width: 900px;
+        height: 80vh;
+        max-height: 600px;
+        position: relative;
+        margin-top: 0;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 30px rgba(var(--primary-color-rgb), 0.5);
+        background-color: #000;
+    }
+    
+    .fullscreen-video {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+    
+    .close-fullscreen {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: rgba(0, 0, 0, 0.5);
+        color: white;
+        border: none;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        font-size: 24px;
+        z-index: 10;
+    }
+    
+    /* Адаптив для полноэкранного видео на мобильных */
+    @media screen and (max-width: 480px) {
+        .fullscreen-video-wrapper {
+            width: 95vw;
+            height: 60vh;
+        }
+    }
+    
+    @media screen and (max-width: 768px) {
+        .mobile-video-container {
+            display: block !important;
+        }
+        
+        .mobile-video-wrapper {
+            height: 96px; /* Высота для соответствия контейнеру с Telegram */
+            padding: 2px !important;
+        }
+        
+        /* Улучшенный стиль для полноэкранного контейнера на мобильных устройствах */
+        #fullscreen-video-container-mobile {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            background: rgba(0, 0, 0, 0.85) !important;
+            z-index: 99999999999 !important;
+        }
+        
+        #fullscreen-video-container-mobile .fullscreen-video-wrapper {
+            width: 95vw !important;
+            height: auto !important;
+            max-height: 80vh !important;
+            aspect-ratio: 16/9;
+            position: relative !important;
+            border-radius: 16px !important;
+        }
+        
+        #fullscreenVideoMobile {
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: contain !important;
+            border-radius: 12px !important;
+        }
+        
+        /* Предотвращаем скролл документа при открытом видео */
+        body.video-is-open {
+            overflow: hidden !important;
+        }
+    }
+    
+    @media screen and (max-width: 480px) {
+        .mobile-video-container {
+            bottom: 50px !important;
+        }
+        
+        .mobile-video-wrapper {
+            height: 96px; /* Такая же высота как для большего экрана */
+        }
+    }
+</style>
+
+<style>
+  /* Дополнительные стили для видеоплеера с максимальным приоритетом */
+  #fullscreen-video-container-mobile {
+    isolation: isolate !important; /* Создает новый контекст наложения */
+  }
+  
+  /* Гарантируем, что все элементы, которые могут перекрывать видео, скрыты */
+  body.video-is-open .top-left-container,
+  body.video-is-open .fixed-important-posts-container,
+  body.video-is-open .mobile-important-posts-static,
+  body.video-is-open .important-posts-container-mobile {
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transition: none !important;
+  }
+</style>
+
+<style>
+.vertical-bar {
+  background: rgba(255,255,255,0.25) !important;
+  border: 1px solid rgba(255,255,255,0.3) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border-radius: 16px !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 6px 2px 6px 2px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+  gap: 0;
+}
+.expand-btn {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  margin-bottom: 0;
+  width: 22px !important;
+  height: 22px !important;
+  min-width: 22px !important;
+  min-height: 22px !important;
+  max-width: 22px !important;
+  max-height: 22px !important;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.expand-btn svg {
+  background: rgba(255,255,255,0.25);
+  border-radius: 50%;
+  padding: 2px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.bar-letter {
+  margin: 0;
+  padding: 0;
+  font-weight: bold;
+  color: #1976d2;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  text-align: center;
+  transition: font-size 0.4s, letter-spacing 0.4s;
+}
+@media screen and (max-width: 768px) {
+  .mobile-important-posts-list {
+    flex-direction: row;
+    align-items: flex-start;
+    height: auto;
+  }
+  .mobile-important-posts-container {
+    transition:
+      transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1),
+      max-width 0.7s cubic-bezier(0.34, 1.56, 0.64, 1),
+      max-height 0.7s cubic-bezier(0.34, 1.56, 0.64, 1),
+      padding 0.7s cubic-bezier(0.34, 1.56, 0.64, 1),
+      font-size 0.7s ease-in-out,
+      box-shadow 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transform-origin: right top;
+    max-width: 200px;
+    max-height: 75vh;
+    overflow-y: auto;
+    padding: 0.7rem 0.7rem;
+    transform: scale(1);
+    z-index: 1000;
+    display: block;
+    height: auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1), 0 0 5px rgba(var(--primary-color-rgb), 0.2);
+  }
+  .mobile-important-posts-container.expanded {
+    width: 95vw;
+    max-width: 320px;
+    height: auto;
+    max-height: 400px;
+    overflow-y: auto;
+    padding: 1.1rem 0.8rem;
+    transform: scale(1.05, 1.08) translateY(5px);
+    z-index: 11000;
+    right: 10px;
+    left: auto;
+    top: 60px;
+    display: block;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15), 0 0 15px rgba(var(--primary-color-rgb), 0.4);
+  }
+  
+  /* Оптимизация для кнопки "УВЕЛИЧИТЬ" и вертикальной полосы на мобильных устройствах */
+  .vertical-bar {
+    background: rgba(255,255,255,0.7) !important; /* Более непрозрачный фон */
+    backdrop-filter: none !important; /* Отключаем эффект размытия */
+    -webkit-backdrop-filter: none !important;
+    transform: translateZ(0); /* Аппаратное ускорение */
+    will-change: transform; /* Подсказка для браузера */
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1) !important; /* Упрощенная тень */
+    transition: transform 0.3s ease !important;
+  }
+  
+  /* Темная тема */
+  .dark .vertical-bar {
+    background: rgba(70,70,70,0.7) !important;
+  }
+  
+  /* Оптимизация кнопки в вертикальной полосе */
+  .expand-btn svg {
+    background: rgba(255,255,255,0.7) !important; /* Более непрозрачный фон */
+    transform: translateZ(0); /* Аппаратное ускорение */
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1) !important; /* Упрощенная тень */
+  }
+  
+  /* Оптимизация для букв */
+  .bar-letter {
+    transform: translateZ(0); /* Аппаратное ускорение */
+  }
+}
+</style>
+
+<script data-swup-reload-script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var container = document.querySelector('.mobile-important-posts-container');
+    var expandBtn = document.getElementById('expandMobilePosts');
+    var barLetters = document.querySelectorAll('.bar-letter');
+    var verticalBar = document.querySelector('.vertical-bar');
+    if (!container || !expandBtn) return;
+    var expanded = false;
+    
+    // Подготовка SVG для анимации
+    var svg = expandBtn.querySelector('svg');
+    svg.innerHTML = '<path fill="#1976d2" d="M12 16l-6-6h12z" class="arrow-path"/>';
+    svg.classList.add('expand-arrow');
+    
+    function toggleExpand(e) {
+      e.stopPropagation();
+      expanded = !expanded;
+      container.classList.toggle('expanded', expanded);
+      
+      // Плавная анимация поворота стрелки с упругим эффектом
+      expandBtn.querySelector('svg').style.transition = 'transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1)';
+      expandBtn.querySelector('svg').style.transform = expanded ? 'rotate(270deg) scale(1.1)' : 'rotate(90deg)';
+      
+      // Добавляем класс для анимации SVG
+      expandBtn.querySelector('svg').classList.toggle('expanded-arrow', expanded);
+      
+      // Добавим временный класс для анимации ripple-эффекта при клике
+      expandBtn.classList.add('button-clicked');
+      setTimeout(() => {
+        expandBtn.classList.remove('button-clicked');
+      }, 700);
+      
+      // Анимация появления/исчезновения текста
+      var links = container.querySelectorAll('a');
+      
+      if (expanded) {
+        // Разворачивание контейнера: плавное появление текста
+        links.forEach(function(link, index) {
+          link.style.opacity = '0';
+          link.style.transform = 'translateX(-10px)';
+          
+          // Задержка для каждой следующей ссылки
+          setTimeout(function() {
+            link.style.opacity = '1';
+            link.style.transform = 'translateX(0)';
+          }, 100 + (index * 50)); // Увеличивающаяся задержка для эффекта каскада
+        });
+      } else {
+        // Сохраняем текущее состояние ссылок видимым, пока идет анимация закрытия
+        links.forEach(function(link) {
+          // Используем transition только для transform, чтобы избежать мерцания opacity
+          link.style.transition = 'transform 0.3s ease';
+          link.style.transform = 'translateX(-5px)';
+          // Сохраняем opacity без изменений
+          link.style.opacity = '1';
+        });
+        
+        // Сбрасываем стили после завершения анимации закрытия
+        setTimeout(function() {
+          // Первым делом мягко возвращаем ссылки в исходное положение
+          links.forEach(function(link) {
+            // Не отключаем transition, а делаем его быстрым и плавным
+            link.style.transition = 'transform 0.2s ease-out';
+            link.style.opacity = '1';
+            link.style.transform = 'translateX(0)';
+          });
+          
+          // Затем сбрасываем стили контейнера
+          container.removeAttribute('style');
+          
+          // И только после полного завершения анимации возвращения текста
+          // сбрасываем transition, чтобы не влиять на будущие анимации
+          setTimeout(function() {
+            links.forEach(function(link) {
+              // Теперь можно безопасно сбросить transition для будущих анимаций
+              link.style.transition = '';
+            });
+          }, 200);
+        }, 350);
+        
+        return; // Предотвращаем немедленное удаление стилей
+      }
+      
+      container.removeAttribute('style');
+    }
+    
+    expandBtn.addEventListener('click', toggleExpand);
+    barLetters.forEach(function(letter) {
+      letter.style.cursor = 'pointer';
+      letter.addEventListener('click', toggleExpand);
+    });
+    
+    // Оптимизация для предотвращения мерцания
+    function optimizeVerticalBar() {
+      if (verticalBar) {
+        // Добавляем класс для предзагрузки
+        verticalBar.classList.add('preloaded');
+      }
+    }
+    
+    // Запускаем оптимизацию сразу
+    optimizeVerticalBar();
+    
+    // Поддержка SWUP - инициализация после перехода между страницами
+    try {
+      if (typeof swup !== 'undefined') {
+        swup.hooks.on('page:view', function() {
+          // Переинициализация при новом просмотре страницы
+          setTimeout(function() {
+            container = document.querySelector('.mobile-important-posts-container');
+            expandBtn = document.getElementById('expandMobilePosts');
+            barLetters = document.querySelectorAll('.bar-letter');
+            verticalBar = document.querySelector('.vertical-bar');
+            
+            if (!container || !expandBtn) return;
+            expanded = false;
+            expandBtn.addEventListener('click', toggleExpand);
+            barLetters.forEach(function(letter) {
+              letter.style.cursor = 'pointer';
+              letter.addEventListener('click', toggleExpand);
+            });
+            
+            // Повторная оптимизация вертикальной полосы
+            optimizeVerticalBar();
+          }, 50);
+        });
+      }
+    } catch (e) {
+      console.log('SWUP не найден, используем стандартный режим инициализации.');
+    }
+  });
+</script>
+
+<script data-swup-reload-script>
+    // Инициализация субтитров и других элементов интерфейса
+    document.addEventListener('DOMContentLoaded', function() {
+        const subtitleElement = document.getElementById('subtitle');
+        if (subtitleElement) {
+            subtitleElement.style.fontFamily = "'Comfortaa', cursive";
+            subtitleElement.style.fontSize = "1.5rem";
+            subtitleElement.style.textShadow = "0 1px 3px rgba(0, 0, 0, 0.3)";
+        }
+        
+        // Функция для прокрутки к основному контенту
+        window.scrollToMain = function() {
+            console.log('scroll');
+            const target = document.querySelector('.main-content-container');
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth'});
+            }
+        }
+    });
+</script>
+
+<style>
+@media screen and (max-width: 768px) {
+  .mobile-important-posts-static {
+    position: fixed !important;
+    top: 60px !important;
+    right: 10px !important;
+    left: auto !important;
+    z-index: 100 !important;
+    margin: 0 !important;
+    max-width: none !important;
+    display: block !important;
+  }
+  .mobile-important-posts-container {
+    transition:
+      transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1),
+      max-width 0.7s cubic-bezier(0.34, 1.56, 0.64, 1),
+      max-height 0.7s cubic-bezier(0.34, 1.56, 0.64, 1),
+      padding 0.7s cubic-bezier(0.34, 1.56, 0.64, 1),
+      font-size 0.7s ease-in-out,
+      box-shadow 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transform-origin: right top;
+    max-width: 200px;
+    max-height: 75vh;
+    overflow-y: auto;
+    padding: 0.7rem 0.7rem;
+    transform: scale(1);
+    z-index: 1000;
+    display: block;
+    height: auto;
+    right: 10px;
+    left: auto;
+    top: 60px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1), 0 0 5px rgba(var(--primary-color-rgb), 0.2);
+  }
+  .mobile-important-posts-container.expanded {
+    width: 95vw;
+    max-width: 320px;
+    height: auto;
+    max-height: 400px;
+    overflow-y: auto;
+    padding: 1.1rem 0.8rem;
+    transform: scale(1.05, 1.08) translateY(5px);
+    z-index: 11000;
+    right: 10px;
+    left: auto;
+    top: 60px;
+    display: block;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15), 0 0 15px rgba(var(--primary-color-rgb), 0.4);
+  }
+}
+</style>
+
+<script data-swup-reload-script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var container = document.querySelector('.mobile-important-posts-container');
+    var expandBtn = document.getElementById('expandMobilePosts');
+    var barLetters = document.querySelectorAll('.bar-letter');
+    if (!container || !expandBtn) return;
+    var expanded = false;
+    function toggleExpand(e) {
+      e.stopPropagation();
+      expanded = !expanded;
+      container.classList.toggle('expanded', expanded);
+      
+      // Плавная анимация поворота стрелки с упругим эффектом
+      expandBtn.querySelector('svg').style.transition = 'transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1)';
+      expandBtn.querySelector('svg').style.transform = expanded ? 'rotate(270deg) scale(1.1)' : 'rotate(90deg)';
+      
+      // Добавим временный класс для анимации ripple-эффекта при клике
+      expandBtn.classList.add('button-clicked');
+      setTimeout(() => {
+        expandBtn.classList.remove('button-clicked');
+      }, 700);
+      
+      container.removeAttribute('style');
+    }
+    expandBtn.addEventListener('click', toggleExpand);
+    barLetters.forEach(function(letter) {
+      letter.style.cursor = 'pointer';
+      letter.addEventListener('click', toggleExpand);
+    });
+    
+    // Поддержка SWUP - инициализация после перехода между страницами
+    try {
+      if (typeof swup !== 'undefined') {
+        swup.hooks.on('page:view', function() {
+          // Переинициализация при новом просмотре страницы
+          container = document.querySelector('.mobile-important-posts-container');
+          expandBtn = document.getElementById('expandMobilePosts');
+          barLetters = document.querySelectorAll('.bar-letter');
+          if (!container || !expandBtn) return;
+          expanded = false;
+          expandBtn.addEventListener('click', toggleExpand);
+          barLetters.forEach(function(letter) {
+            letter.style.cursor = 'pointer';
+            letter.addEventListener('click', toggleExpand);
+          });
+        });
+      }
+    } catch (e) {
+      console.log('SWUP не найден, используем стандартный режим инициализации.');
+    }
+  });
+</script>
+
+<style>
+    /* Стили для разделителей между постами */
+    .post-divider {
+        display: none; /* По умолчанию скрыты */
+        height: 1px;
+        margin: 5px 0;
+        background: linear-gradient(to right, 
+                    rgba(255,255,255,0), 
+                    rgba(255,255,255,0.5) 50%, 
+                    rgba(255,255,255,0));
+        opacity: 0;
+        transform: scaleX(0.7);
+        transition: opacity 0.5s ease-in-out, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    
+    @media screen and (max-width: 768px) {
+        /* Показываем разделители только в раскрытом мобильном контейнере */
+        .mobile-important-posts-container.expanded .post-divider {
+            display: block;
+            background: linear-gradient(to right, 
+                        rgba(25,118,210,0.1), 
+                        rgba(25,118,210,0.7) 50%, 
+                        rgba(25,118,210,0.1));
+            opacity: 1;
+            transform: scaleX(1);
+            animation: divider-appear 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        
+        /* В темной теме другой цвет */
+        .dark .mobile-important-posts-container.expanded .post-divider {
+            background: linear-gradient(to right, 
+                        rgba(255,255,255,0), 
+                        rgba(255,255,255,0.3) 50%, 
+                        rgba(255,255,255,0));
+        }
+        
+        /* Анимация появления разделителей с задержкой для каждого следующего */
+        @keyframes divider-appear {
+            0% {
+                opacity: 0;
+                transform: scaleX(0.7);
+            }
+            100% {
+                opacity: 1;
+                transform: scaleX(1);
+            }
+        }
+        
+        /* Анимация для разделителей с разной задержкой */
+        .mobile-important-posts-container.expanded .post-divider:nth-child(2n) {
+            animation-delay: 0.1s;
+        }
+        .mobile-important-posts-container.expanded .post-divider:nth-child(3n) {
+            animation-delay: 0.2s;
+        }
+        .mobile-important-posts-container.expanded .post-divider:nth-child(4n) {
+            animation-delay: 0.3s;
+        }
+    }
+</style>
+
+<!-- Оптимизированные стили для мобильной версии текста "Внизу Сайта Самое Вкусное" -->
+<style>
+    /* Мобильная оптимизация для контейнера с текстом "Внизу Сайта Самое Вкусное" */
+    @media screen and (max-width: 768px) {
+        /* Новый класс для мобильной версии текста */
+        .center-text-container .glow-text {
+            /* Отключаем тяжелую анимацию для мобильных */
+            animation: mobile-glow 4s ease-in-out infinite alternate;
+            /* Аппаратное ускорение */
+            transform: translateZ(0);
+            will-change: text-shadow, color;
+            /* Упрощенная тень */
+            text-shadow: 0 0 3px #fff, 0 0 5px var(--primary-color);
+        }
+        
+        /* Облегченная анимация для мобильных устройств */
+        @keyframes mobile-glow {
+            0% {
+                color: #fff;
+                text-shadow: 0 0 3px #fff, 0 0 5px #f7b731;
+            }
+            50% {
+                color: #fff;
+                text-shadow: 0 0 4px #fff, 0 0 8px var(--primary-color);
+            }
+            100% {
+                color: #fff;
+                text-shadow: 0 0 3px #fff, 0 0 5px #f7b731;
+            }
+        }
+        
+        /* Улучшение производительности контейнера */
+        .center-text-container {
+            /* Предотвращаем перерисовку */
+            backface-visibility: hidden;
+            /* Снижаем кол-во слоев */
+            backdrop-filter: none;
+        }
+    }
+    
+    /* Для очень слабых устройств дополнительная оптимизация */
+    @media screen and (max-width: 480px) {
+        .center-text-container .glow-text {
+            /* Еще более простая анимация */
+            animation-duration: 6s;
+            /* Убираем тени для старых устройств */
+            text-shadow: 0 0 2px var(--primary-color);
+        }
+    }
+</style>
+
+<!-- Оптимизированные стили для контейнера с закрепленными постами на мобильных устройствах -->
+<style>
+    /* Стиль-заглушка для предварительного рендеринга backdrop-filter */
+    .backdrop-filter-prerender {
+        position: fixed;
+        top: -100px;
+        left: -100px;
+        width: 1px;
+        height: 1px;
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        z-index: -9999;
+        opacity: 0.01;
+        pointer-events: none;
+    }
+    
+    /* Оптимизация стилей контейнера для мобильных устройств */
+    @media screen and (max-width: 768px) {
+        /* Отключаем backdrop-filter при SWUP-переходах и добавляем полупрозрачный фон */
+        .mobile-important-posts-container {
+            background-color: rgba(200, 200, 200, 0.85) !important; /* Более непрозрачный фон вместо blur */
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+            transform: translateZ(0);  /* Аппаратное ускорение */
+            will-change: transform;
+            transition: transform 0.3s ease, background-color 0.3s ease !important;
+        }
+        
+        /* Темная тема */
+        .dark .mobile-important-posts-container {
+            background-color: rgba(80, 80, 80, 0.85) !important;
+        }
+        
+        /* Добавляем класс для плавного появления */
+        .mobile-important-posts-container.preloaded {
+            opacity: 1 !important;
+            visibility: visible !important;
+        }
+    }
+    
+    /* Для очень слабых устройств дополнительная оптимизация */
+    @media screen and (max-width: 480px) {
+        .mobile-important-posts-container {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important; /* Упрощенная тень */
+            border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        }
+    }
+    
+    /* НОВОЕ ПРАВИЛО: принудительно скрывать мобильный контейнер на ПК */
+    @media screen and (min-width: 769px) {
+        .mobile-important-posts-static {
+            display: none !important;
+            opacity: 0 !important;
+            visibility: hidden !important;
+            position: absolute !important;
+            left: -9999px !important;
+            width: 0 !important;
+            height: 0 !important;
+            overflow: hidden !important;
+            pointer-events: none !important;
+            z-index: -9999 !important;
+        }
+    }
+</style>
+
+<!-- Элемент для предварительного рендеринга backdrop-filter -->
+<div class="backdrop-filter-prerender"></div>
+
+<script data-swup-reload-script>
+    // Функция для оптимизации контейнера с закрепленными постами
+    function optimizeMobilePostsContainer() {
+        // Элементы, которые нужно оптимизировать
+        const postsContainer = document.querySelector('.mobile-important-posts-container');
+        
+        if (!postsContainer) return;
+        
+        // Установка начальных стилей для плавного появления
+        postsContainer.classList.add('preloaded');
+        
+        // Обработчик для SWUP-переходов
+        try {
+            if (typeof swup !== 'undefined') {
+                // Предварительная обработка перед появлением страницы
+                swup.hooks.on('page:view', function() {
+                    setTimeout(function() {
+                        const newPostsContainer = document.querySelector('.mobile-important-posts-container');
+                        if (newPostsContainer) {
+                            newPostsContainer.classList.add('preloaded');
+                        }
+                    }, 50);
+                });
+            }
+        } catch (e) {
+            console.warn('SWUP недоступен для оптимизации контейнера', e);
+        }
+    }
+    
+    // Запускаем оптимизацию после загрузки DOM
+    document.addEventListener('DOMContentLoaded', optimizeMobilePostsContainer);
+    
+    // Экспортируем функцию для возможности вызова из других скриптов
+    window.optimizeMobilePostsContainer = optimizeMobilePostsContainer;
+</script>
+
+<!-- Мгновенное скрытие мобильного контейнера на ПК -->
+<script>
+    // Запускаем немедленно, без ожидания загрузки DOM
+    (function() {
+        if (window.innerWidth >= 769) {
+            // На ПК немедленно скрываем мобильный контейнер
+            const mobileContainers = document.querySelectorAll('.mobile-important-posts-static, .mobile-video-container, .hide-on-pc');
+            mobileContainers.forEach(container => {
+                if (container) {
+                    container.style.display = 'none';
+                    container.style.visibility = 'hidden';
+                    container.style.opacity = '0';
+                    container.style.position = 'absolute';
+                    container.style.left = '-9999px';
+                    container.style.pointerEvents = 'none';
+                    // Отключаем анимации для скрытых контейнеров
+                    container.style.animation = 'none';
+                }
+            });
+            
+            // Отключаем ненужные анимации на ПК для оптимизации
+            document.addEventListener('DOMContentLoaded', function() {
+                // Используем requestAnimationFrame для выполнения после отрисовки
+                requestAnimationFrame(function() {
+                    // Ограничиваем частоту обновления rainbow-glow анимации на больших экранах
+                    const style = document.createElement('style');
+                    style.innerHTML = `
+                        @media (min-width: 769px) {
+                            .glow-text {
+                                animation-duration: 12s !important; /* Замедляем анимацию для экономии ресурсов */
+                            }
+                        }
+                    `;
+                    document.head.appendChild(style);
+                });
+            });
+        }
+    })();
+</script>
+
+<style>
+    /* Возвращаем backdrop-blur-lg только для ПК версии контейнера с Telegram */
+    @media screen and (min-width: 769px) {
+        .telegram-container {
+            backdrop-filter: blur(16px) !important;
+            -webkit-backdrop-filter: blur(16px) !important;
+        }
+    }
+</style>
+
+<style>
+/* Стили для эффекта пульсации кнопки при клике */
+@keyframes button-ripple {
+  0% {
+    box-shadow: 0 0 0 rgba(var(--primary-color-rgb), 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(var(--primary-color-rgb), 0.5);
+  }
+  100% {
+    box-shadow: 0 0 0 rgba(var(--primary-color-rgb), 0.3);
+  }
+}
+
+.button-clicked {
+  animation: button-ripple 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.expand-btn {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.3s ease;
+}
+
+.expand-btn:hover {
+  transform: scale(1.1);
+  background: rgba(255,255,255,0.9) !important;
+}
+
+.expanded .expand-btn {
+  background: rgba(var(--primary-color-rgb), 0.1) !important;
+}
+
+/* В темном режиме */
+.dark .expand-btn:hover {
+  background: rgba(80,80,80,0.9) !important;
+}
+
+.dark .expanded .expand-btn {
+  background: rgba(var(--primary-color-rgb), 0.2) !important;
+}
+
+/* Стили для анимации SVG стрелки */
+.expand-arrow {
+  transition: transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1), fill 0.5s ease;
+}
+
+.expanded-arrow .arrow-path {
+  fill: var(--primary-color);
+  transition: fill 0.5s ease;
+}
+
+/* Анимация для текста в контейнере */
+.mobile-important-posts-container.expanded a {
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+
+/* Улучшенный эффект hover для ссылок */
+.mobile-important-posts-container.expanded a:hover {
+  color: var(--primary-color) !important;
+  text-shadow: 0 0 5px rgba(var(--primary-color-rgb), 0.3);
+  transform: translateX(3px) !important;
+}
+</style>

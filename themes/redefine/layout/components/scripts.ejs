@@ -1,0 +1,209 @@
+<%- renderJS([
+    'tools/imageViewer.js',
+    'utils.js',
+    'main.js',
+    'layouts/navbarShrink.js',
+    'tools/scrollTopBottom.js',
+    'tools/lightDarkSwitch.js',
+    'layouts/categoryList.js'
+],{
+    module: true
+}) %>
+
+<% if (theme.navbar.search.enable) { %>
+    <%- renderJS('tools/localSearch.js', {
+        module: true
+    }) %>
+<% } %>
+
+<% if (theme.articles.code_block.copy) { %>
+    <%- renderJS('tools/codeBlock.js', {
+        module: true
+    }) %>
+<% } %>
+
+<% if (theme.articles.lazyload) { %>
+    <%- renderJS('layouts/lazyload.js', {
+        module: true
+    }) %>
+<% } %>
+
+<% if (theme.footer.runtime) { %>
+    <%- renderJS('tools/runtime.js') %>
+    <%- renderJS('libs/odometer.min.js') %>
+    <%- renderCSS('assets/odometer-theme-minimal.css') %>
+<% } %>
+
+<% if (theme.home_banner.subtitle.length !== 0) { %>
+  <%- renderJS('libs/Typed.min.js') %>
+  <%- renderJS('plugins/typed.js', {
+      module: true
+  }) %>
+<% } %>
+
+<% if (theme.plugins.mermaid.enable) { %>
+    <% if (theme.plugins.mermaid.version === '11.4.1') { %>
+        <%- renderJS('libs/mermaid.min.js') %>
+    <% } else { %>
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@<%= theme.plugins.mermaid.version %>/dist/mermaid.min.js"></script>
+    <% } %>
+    <%- renderJS('plugins/mermaid.js') %>
+<% } %>
+
+<% if (theme.masonry || theme.photos || theme.gallery) { %>
+    <%- renderJS('libs/minimasonry.min.js') %>
+    <%- renderJS('plugins/masonry.js', {
+        module: true
+    }) %>
+<% } %>
+
+<% if (theme.global.preloader === false || theme.global.preloader.enable === false) { %>
+    <%- renderJS('libs/anime.min.js')%>
+<% } %>
+
+
+<% if (theme.articles.toc.enable) { %>
+    <%- renderJS([
+        'tools/tocToggle.js',
+        'layouts/toc.js',
+        'plugins/tabs.js'
+    ], {
+        module: true,
+        swupReload: true
+    }) %>
+<% } %>
+
+<%- renderJS('libs/moment-with-locales.min.js', { swupReload: true }) %>
+<%- renderJS('layouts/essays.js', { swupReload: true, module: true }) %>
+
+<% if (theme.articles.pangu_js) { %>
+    <%- renderJS([
+        'libs/pangu.min.js',
+        'plugins/pangu.js'
+    ]) %>
+<% } %>
+
+<% if (theme.bookmarks && theme.bookmarks.length !== 0) { %>
+    <%- renderJS('layouts/bookmarkNav.js', {
+        module: true
+    }) %>
+<% } %>
+
+<script data-swup-reload-script>
+    // Установка мобильных стилей на этапе загрузки страницы
+    (function() {
+        // Сразу проверяем ширину экрана и применяем нужные стили
+        function setupMobileElements() {
+            const isMobile = window.innerWidth <= 768;
+            
+            // Для десктопного контейнера, который появляется на мобильных
+            const desktopContainer = document.querySelector('.fixed-important-posts-container');
+            if (desktopContainer) {
+                if (isMobile) {
+                    desktopContainer.style.display = 'none';
+                    desktopContainer.style.visibility = 'hidden';
+                } else {
+                    // Проверяем, находимся ли мы на главной странице для ПК версии
+                    const path = window.location.pathname;
+                    const isHomePage = path === '/' || path === '/index.html' || path === '/index.php';
+                    
+                    if (isHomePage) {
+                        desktopContainer.style.display = 'block';
+                        desktopContainer.style.visibility = 'visible';
+                        
+                        // Проверяем положение прокрутки
+                        const scrollPosition = window.scrollY || document.documentElement.scrollTop;
+                        if (scrollPosition > 100) {
+                            desktopContainer.classList.add('hide-on-scroll-active');
+                        } else {
+                            desktopContainer.classList.remove('hide-on-scroll-active');
+                        }
+                    } else {
+                        desktopContainer.style.display = 'none';
+                        desktopContainer.style.visibility = 'hidden';
+                    }
+                }
+            }
+            
+            // Для мобильного контейнера
+            const mobileContainer = document.querySelector('.mobile-important-posts-static');
+            if (mobileContainer) {
+                if (isMobile) {
+                    mobileContainer.style.display = 'block';
+                    mobileContainer.style.visibility = 'visible';
+                    mobileContainer.style.top = '8px';
+                } else {
+                    mobileContainer.style.display = 'none';
+                    mobileContainer.style.visibility = 'hidden';
+                }
+            }
+        }
+        
+        // Вызываем функцию до загрузки DOM для максимально раннего применения стилей
+        setupMobileElements();
+        
+        // Запускаем снова при загрузке страницы
+        document.addEventListener('DOMContentLoaded', setupMobileElements);
+        
+        // И еще раз при загрузке всех ресурсов
+        window.addEventListener('load', setupMobileElements);
+        
+        // Запуск при изменении размера окна
+        window.addEventListener('resize', setupMobileElements);
+        
+        // Обработчик прокрутки страницы
+        window.addEventListener('scroll', function() {
+            // Только для ПК версии
+            if (window.innerWidth > 768) {
+                const desktopContainer = document.querySelector('.fixed-important-posts-container');
+                if (desktopContainer) {
+                    const scrollPosition = window.scrollY || document.documentElement.scrollTop;
+                    if (scrollPosition > 100) {
+                        desktopContainer.classList.add('hide-on-scroll-active');
+                    } else {
+                        desktopContainer.classList.remove('hide-on-scroll-active');
+                    }
+                }
+            }
+        });
+        
+        // Совместимость с SWUP
+        try {
+            swup.hooks.on('page:view', setupMobileElements);
+            
+            // Также добавляем прослушивание события перехода между страницами
+            swup.hooks.on('content:replace', function() {
+                // Маленькая задержка для уверенности, что DOM обновился
+                setTimeout(setupMobileElements, 50);
+            });
+        } catch (e) {}
+    })();
+</script>
+
+<script data-swup-reload-script>
+    // Функция для замены мобильного фона
+    function replaceMobileBackground() {
+        if (window.innerWidth <= 767) {
+            const lightImages = document.querySelectorAll('.home-banner-background img[src*="/images/wallhaven-wqery6-light.webp"]');
+            const darkImages = document.querySelectorAll('.home-banner-background img[src*="/images/wallhaven-wqery6-dark.webp"]');
+            
+            lightImages.forEach(img => {
+                img.src = '/images/mobile/mobile-bg-light.webp';
+            });
+            
+            darkImages.forEach(img => {
+                img.src = '/images/mobile/mobile-bg-dark.webp';
+            });
+        }
+    }
+    
+    // Запуск при загрузке страницы
+    document.addEventListener('DOMContentLoaded', replaceMobileBackground);
+    // Запуск при изменении размера окна
+    window.addEventListener('resize', replaceMobileBackground);
+    
+    // Совместимость с SWUP
+    try {
+        swup.hooks.on('page:view', replaceMobileBackground);
+    } catch (e) {}
+</script>

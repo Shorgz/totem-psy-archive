@@ -1,0 +1,484 @@
+<div class="home-content-container">
+    <ul class="home-article-list">
+        <% page.posts.forEach((post, index) => { %>
+            <li class="home-article-item">
+
+                <% if (post.sticky) { %>
+                    <div class="absolute top-[12px] right-[12px] text-[0.7rem] text-third-text-color rounded-medium bg-background-color-transparent-15 py-[2px] px-[10px] border border-border-color z-1 hover:text-first-text-color cursor-default">
+                        <i class="fa-regular fa-thumbtack mr-[3px] text-[0.65rem]"></i><%- __('sticky') %>
+                    </div>
+                <% } %>
+
+                <%  let articleThumbnail = "";
+                if (post.cover || post.banner || (post.thumbnail && post.thumbnail !== false)) { %>
+                    <%
+                    if (post.thumbnail && post.thumbnail !== null) {
+                      articleThumbnail = post.thumbnail;
+                    } else if (post.cover && post.cover.includes("/")) {
+                      articleThumbnail = post.cover;
+                    } else if (post.banner && post.banner.includes("/")) {
+                      articleThumbnail = post.banner;
+                    } else if (config.marked.postAsset && config.marked.postAsset == true) {
+                      articleThumbnail = [post.path, post.cover || post.banner].join("/");
+                    }
+                    %>
+                <% } %>
+
+                <% if (post.thumbnail !== false && (post.thumbnail || post.cover || post.banner)) { %>
+                    <div id="home-article-thumbnail" class="home-article-thumbnail relative overflow-hidden rounded-t-large mx-auto" style="height: 250px; width: 90%;">
+                        <a href="<%- url_for(post.path) %>" class="block h-full">
+                            <img src="<%- url_for(articleThumbnail) %>" alt="<%= post.title %>" class="w-full h-full object-cover dark:brightness-75 transition-all" />
+                        </a>
+                    </div>
+                <% } %>
+                <div class="w-[90%] mx-auto">
+                    <div class="flex flex-col gap-5 px-7 pb-7 <%= post.thumbnail !== false && (post.thumbnail || post.cover || post.banner) ? "pt-5" : "pt-7" %>">
+                        <h3 class="home-article-title">
+                            <a href="<%- url_for(post.path) %>">
+                                <%= post.title %>
+                            </a>
+                        </h3>
+
+                        <div class="home-article-content markdown-body">
+                            <% if (post.excerpt && post.excerpt == "false") { %>
+                            <% } else if (post.excerpt && post.excerpt !== "false") { %>
+                                <%- render(post.excerpt, "markdown") %>
+                            <% } else { %>
+                                <%
+                                    const excerptLength = theme.home.excerpt_length || 200;
+                                %>
+                                <%- truncate(strip_html(post.content), {length: excerptLength}) %>
+                            <% } %>
+                        </div>
+
+                        <%- partial('pages/home/home-article', {post: post}) %>
+                    </div>
+                </div>
+            </li>
+            
+            <!-- Интересный блок после каждой 3-й статьи -->
+            <% if ((index + 1) % 3 === 0 && (index + 1) !== page.posts.length) { %>
+                <% 
+                // Массив интересных материалов
+                const promoList = [
+                  {
+                    image: '/images/ads/mushroom-kit.jpg',
+                    title: 'Где Найти и Купить наши ингридиенты',
+                    description: 'Всё необходимое в одном месте, что и где взять что-либо, будь-то аптека за ромашкой, или OZON/WB за витаминкой, до прочих...',
+                    url: '/2025/04/01/Gde-Nayti-i-Kupit/'
+                  },
+                  {
+                    image: '/images/ads/magiccacao.jpg',
+                    title: 'Волшебный Шоколад',
+                    description: '🍫  Церемониальный Какао Шоколад с Маслами Мациса и Муската, приготовленный по особому рецепту для погружения в Сердце и Душу.',
+                    url: 'https://t.me/+HLA4fDbFyTMyODQy'
+                  },
+                  {
+                    image: '/images/ads/hypnocouch.jpg',
+                    title: 'Перезагрузка Жизни',
+                    description: 'Современный гипноподход к лечению своей души, можно даже вместе с психоделиками. Методики, интеграции, личные практики.',
+                    url: 'https://t.me/newsphere_newrealms'
+                  },
+                  {
+                    image: '/images/ads/gribcult.jpg',
+                    title: 'Грибная Культура',
+                    description: 'Полный комплект для домашнего выращивания волшебных грибов. Простые инструкции, высокая урожайность, экзотические виды',
+                    url: 'https://t.me/gribnai'
+                  },
+                  {
+                    image: '/images/ads/maslomatsis.jpg',
+                    title: 'Масло Мациса',
+                    description: 'Легальный Каннабис Хай прямиком с OZON/WB, эйфория, расслабление на единороге по волнам тепла и удовольствия',
+                    url: 'https://t.me/OilMacis'
+                  }
+                ];
+                
+                // Выбор случайного материала
+                const randomPromoIndex = Math.floor(Math.random() * promoList.length);
+                const selectedPromo = promoList[randomPromoIndex];
+                %>
+                
+                <li class="home-article-item promo-container">
+                    <div class="promo-content-wrapper">
+                        <div class="promo-content">
+                            <div class="promo-image">
+                                <img src="<%= url_for(selectedPromo.image) %>" alt="<%= selectedPromo.title %>">
+                            </div>
+                            <div class="promo-text">
+                                <div class="promo-label text-xs uppercase tracking-wide text-third-text-color mb-1">Интересное</div>
+                                <a href="<%= selectedPromo.url %>" class="title-link">
+                                    <h3 class="text-second-text-color font-semibold"><%= selectedPromo.title %></h3>
+                                </a>
+                                <a href="<%= selectedPromo.url %>" class="description-link">
+                                    <p class="text-third-text-color"><%= selectedPromo.description %></p>
+                                </a>
+                                <a href="<%= selectedPromo.url %>" class="promo-button">
+                                    Подробнее
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            <% } %>
+            
+            <!-- Добавляем блок Telegram после первой статьи -->
+            <% if (index === 0) { %>
+                <li class="home-article-item telegram-promo-container">
+                    <div class="telegram-promo-content-wrapper">
+                        <div class="telegram-promo-content">
+                            <div class="telegram-promo-image">
+                                <a href="https://t.me/Nikto_Archive" target="_blank" rel="noopener noreferrer">
+                                    <img src="/images/logo.png" alt="Архив" class="telegram-channel-logo">
+                                </a>
+                            </div>
+                            <div class="telegram-promo-text">
+                                <div class="promo-label text-xs uppercase tracking-wide mb-1 text-third-text-color">Наш канал</div>
+                                <a href="https://t.me/Nikto_Archive" target="_blank" rel="noopener noreferrer" class="title-link">
+                                    <h3 class="text-second-text-color font-semibold">PsyГрибоАрхив Экзотики🗿</h3>
+                                </a>
+                                <a href="https://t.me/Nikto_Archive" target="_blank" rel="noopener noreferrer" class="description-link">
+                                    <p class="text-third-text-color">Авторские материалы о глубинных вопросах сознания, психологии и метафизике опыта измененных состояний.</p>
+                                </a>
+                                <a href="https://t.me/Nikto_Archive" target="_blank" rel="noopener noreferrer" class="flex">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#0066CC" viewBox="0 0 16 16">
+                                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.287 5.906c-.778.324-2.334.994-4.666 2.01-.378.15-.577.298-.595.442-.03.243.275.339.69.47l.175.055c.408.133.958.288 1.243.294.26.006.549-.1.868-.32 2.179-1.471 3.304-2.214 3.374-2.23.05-.012.12-.026.166.016.047.041.042.12.037.141-.03.129-1.227 1.241-1.846 1.817-.193.18-.33.307-.358.336a8.154 8.154 0 0 1-.188.186c-.38.366-.664.64.015 1.088.327.216.589.393.85.571.284.194.568.387.936.629.093.06.183.125.27.187.331.236.63.448.997.414.214-.02.435-.22.547-.82.265-1.417.786-4.486.906-5.751a1.426 1.426 0 0 0-.013-.315.337.337 0 0 0-.114-.217.526.526 0 0 0-.31-.093c-.3.005-.763.166-2.984 1.09z"/>
+                                    </svg>
+                                    <span>Подписаться</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            <% } %>
+        <% }) %>
+    </ul>
+
+    <div class="home-paginator px-7 py-5">
+        <%- partial('utils/paginator', {pageObject: page}) %>
+    </div>
+</div>
+
+<!-- Дополнительные стили для контейнеров статей и рекомендуемого контента -->
+<style>
+    .home-article-item, .promo-container {
+        background-color: var(--background-color-transparent-80) !important;
+        backdrop-filter: blur(10px) !important;
+        -webkit-backdrop-filter: blur(10px) !important;
+    }
+    
+    .promo-container, .telegram-promo-container {
+        background-color: var(--background-color-transparent-80) !important;
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        border-radius: 12px;
+        margin: 20px auto;
+        padding: 0;
+        overflow: hidden;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        width: 90%;
+        max-width: 800px;
+    }
+    
+    /* Удаляем hover эффекты для десктопа */
+    @media screen and (min-width: 769px) {
+        .promo-container:hover, .telegram-promo-container:hover {
+            transform: none;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .promo-container:hover .promo-image img {
+            transform: none;
+        }
+        
+        /* Возвращаем изменение цвета текста при наведении */
+        .description-link:hover p {
+            color: var(--primary-color) !important;
+            opacity: 1 !important;
+        }
+        
+        .title-link:hover h3 {
+            color: var(--primary-color) !important;
+        }
+        
+        .promo-button:hover, .telegram-promo-text .flex:hover {
+            opacity: 1;
+            transform: none;
+        }
+    }
+    
+    .promo-content-wrapper, .telegram-promo-content-wrapper {
+        width: 100%;
+    }
+    
+    .promo-content, .telegram-promo-content {
+        display: flex;
+        padding: 20px;
+        align-items: center;
+        width: 100%;
+        box-sizing: border-box;
+        gap: 0;
+    }
+    
+    /* Стили для изображений */
+    .promo-image, .telegram-promo-image {
+        flex-shrink: 0;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+        border-radius: 15px;
+    }
+
+    .promo-image {
+        width: 180px;
+        height: 150px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+    }
+    
+    .telegram-promo-image {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .promo-image img, .telegram-channel-logo {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    
+    /* Стили для текстовых блоков */
+    .promo-text, .telegram-promo-text {
+        flex: 1;
+        padding-left: 20px;
+    }
+    
+    .promo-text {
+        max-width: calc(100% - 200px);
+    }
+    
+    .telegram-promo-text {
+        max-width: calc(100% - 100px);
+    }
+    
+    .promo-text h3 {
+        font-size: 20px;
+        font-weight: 600;
+        margin: 0 0 10px 0;
+        text-align: left;
+    }
+    
+    .promo-text p {
+        font-size: 15px;
+        margin: 0 0 15px 0;
+        line-height: 1.5;
+        text-align: left;
+    }
+    
+    .promo-text .promo-label, .telegram-promo-text .promo-label {
+        font-size: 11px;
+        letter-spacing: 0.5px;
+    }
+    
+    /* Стили для кнопок */
+    .promo-button, .telegram-promo-text .flex {
+        display: inline-flex;
+        align-items: center;
+        font-size: 14px;
+        font-weight: 500;
+        text-decoration: none;
+        transition: all 0.2s ease;
+        padding: 5px 12px;
+        border-radius: 20px;
+    }
+    
+    .promo-button {
+        color: #fff;
+        background-color: var(--primary-color);
+        padding: 6px 15px;
+        font-size: 15px;
+    }
+    
+    .telegram-promo-text .flex {
+        color: #0066CC;
+        background-color: rgba(0, 102, 204, 0.1);
+    }
+    
+    /* Удаляем hover эффекты для всех промо-элементов */
+    .promo-button:hover {
+        opacity: 1;
+        transform: none;
+    }
+    
+    .telegram-promo-text .flex:hover {
+        background-color: rgba(0, 102, 204, 0.1);
+        opacity: 1;
+        transform: none;
+    }
+    
+    .telegram-promo-text .flex svg {
+        margin-right: 6px;
+    }
+    
+    /* Общие стили для всех типов рекламы */
+    .title-link, .description-link {
+        text-decoration: none;
+        color: inherit;
+        transition: color 0.2s ease;
+    }
+    
+    .description-link:hover p {
+        color: var(--primary-color) !important;
+        opacity: 1 !important;
+    }
+    
+    .title-link:hover h3 {
+        color: var(--primary-color) !important;
+    }
+    
+    /* Медиа-запросы для адаптивности */
+    @media (min-width: 769px) and (max-width: 1024px) {
+        .promo-container {
+            width: 80%;
+            max-width: 600px;
+        }
+        
+        .telegram-promo-container {
+            width: 90% !important;
+            max-width: 800px !important;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        /* Скрываем контейнер "Наш канал" для мобильных */
+        .telegram-promo-container {
+            display: none !important;
+        }
+        
+        .promo-container {
+            width: 90% !important;
+            max-width: 400px !important;
+        }
+        
+        .promo-content {
+            flex-direction: column;
+            text-align: center;
+            padding: 15px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+        
+        .promo-image {
+            width: 180px !important;
+            height: 120px !important;
+            margin: 0 auto 10px;
+        }
+        
+        .promo-text {
+            padding-left: 0;
+            text-align: center;
+            max-width: 100%;
+        }
+        
+        .promo-text h3 {
+            text-align: center;
+            font-size: 16px;
+            margin: 0 0 5px 0;
+        }
+        
+        .promo-text p {
+            text-align: center;
+            font-size: 13px;
+            margin: 0 0 8px 0;
+            line-height: 1.3;
+        }
+        
+        .promo-button {
+            justify-content: center;
+            margin: 0 auto;
+            padding: 4px 12px;
+            font-size: 13px;
+        }
+        
+        .promo-button:hover {
+            opacity: 1;
+            transform: none;
+        }
+        
+        /* Отключаем эффекты наведения для мобильных */
+        .description-link:hover p {
+            color: var(--third-text-color) !important;
+            opacity: 0.8 !important;
+        }
+        
+        .title-link:hover h3 {
+            color: var(--second-text-color) !important;
+        }
+        
+        .telegram-promo-text .flex:hover {
+            background-color: rgba(0, 102, 204, 0.1);
+            opacity: 1;
+            transform: none;
+        }
+        
+        .description a:hover, .title a:hover {
+            color: inherit;
+            opacity: 1;
+        }
+    }
+    
+    .telegram-promo-text h3 {
+        font-size: 16px !important;
+        margin: 0 0 5px 0 !important;
+        font-weight: 600 !important;
+    }
+    
+    .telegram-promo-text p {
+        font-size: 13px !important;
+        margin: 0 0 8px 0 !important;
+        line-height: 1.3 !important;
+    }
+
+    /* Специфические настройки для контейнера Telegram */
+    .telegram-promo-container {
+        width: 90% !important;
+        max-width: 800px !important;
+        padding: 0 !important;
+    }
+    
+    .telegram-promo-content {
+        padding: 10px 20px !important;
+    }
+    
+    .telegram-promo-image {
+        width: 60px !important;
+        height: 60px !important;
+    }
+    
+    .telegram-promo-text h3 {
+        font-size: 16px !important;
+        margin: 0 0 5px 0 !important;
+        font-weight: 600 !important;
+    }
+    
+    .telegram-promo-text p {
+        font-size: 13px !important;
+        margin: 0 0 8px 0 !important;
+        line-height: 1.3 !important;
+    }
+    
+    .telegram-promo-text .flex {
+        padding: 4px 10px !important;
+        font-size: 13px !important;
+    }
+
+    .telegram-promo-text .promo-label {
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 4px;
+    }
+
+    .description a:hover, .title a:hover {
+        color: inherit;
+        opacity: 1;
+    }
+</style>

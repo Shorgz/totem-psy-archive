@@ -1,0 +1,188 @@
+<!-- Medium-specific стили для интеграции в Hexo Redefine -->
+<style>
+/* Базовые стили Medium для статей */
+.medium-article {
+  font-family: 'Charter', 'Fira Sans', 'Nunito', sans-serif;
+  line-height: 1.58;
+  letter-spacing: -0.003em;
+  color: rgba(41, 41, 41, 1);
+  padding: 20px 0;
+}
+
+.medium-article h1 {
+  font-size: 40px;
+  margin-top: 2em;
+  margin-bottom: 0.6em;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.medium-article h2 {
+  font-size: 30px;
+  margin-top: 1.72em;
+  margin-bottom: 0.6em;
+  font-weight: 600;
+  line-height: 1.18;
+}
+
+.medium-article h3 {
+  font-size: 24px;
+  margin-top: 1.56em;
+  margin-bottom: 0.6em;
+  font-weight: 600;
+  line-height: 1.22;
+}
+
+.medium-article p, 
+.medium-article ul, 
+.medium-article ol {
+  font-size: 21px;
+  margin-top: 2em;
+  margin-bottom: 0;
+}
+
+.medium-article ul, 
+.medium-article ol {
+  padding-left: 30px;
+}
+
+.medium-article li {
+  margin-bottom: 0.65em;
+}
+
+.medium-article a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: rgba(41, 41, 41, 0.4);
+  transition: text-decoration-color 300ms ease;
+}
+
+.medium-article a:hover {
+  text-decoration-color: rgba(41, 41, 41, 1);
+}
+
+.medium-article blockquote {
+  border-left: 3px solid rgba(41, 41, 41, 0.8);
+  font-style: italic;
+  margin-left: -20px;
+  padding-left: 20px;
+  font-size: 21px;
+  line-height: 1.58;
+  letter-spacing: -0.003em;
+  color: rgba(41, 41, 41, 0.8);
+}
+
+.medium-article figure {
+  margin: 2em 0;
+}
+
+.medium-article figcaption {
+  text-align: center;
+  font-size: 16px;
+  color: rgba(117, 117, 117, 1);
+  margin-top: 10px;
+}
+
+.medium-article img {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  display: block;
+}
+
+.medium-article pre {
+  background-color: rgba(242, 242, 242, 1);
+  padding: 20px;
+  font-size: 16px;
+  line-height: 1.4;
+  overflow-x: auto;
+  border-radius: 5px;
+}
+
+.medium-article code {
+  background-color: rgba(242, 242, 242, 1);
+  padding: 3px 5px;
+  font-size: 0.9em;
+  border-radius: 3px;
+}
+
+/* Адаптация для темной темы */
+[data-theme="dark"] .medium-article {
+  color: rgba(230, 230, 230, 1);
+}
+
+[data-theme="dark"] .medium-article blockquote {
+  border-left-color: rgba(230, 230, 230, 0.8);
+  color: rgba(230, 230, 230, 0.8);
+}
+
+[data-theme="dark"] .medium-article figcaption {
+  color: rgba(180, 180, 180, 1);
+}
+
+[data-theme="dark"] .medium-article pre,
+[data-theme="dark"] .medium-article code {
+  background-color: rgba(30, 30, 30, 1);
+}
+
+/* Стили для блока автора */
+.medium-author {
+  display: flex;
+  align-items: center;
+  margin: 30px 0;
+}
+
+.medium-author-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 15px;
+  object-fit: cover;
+}
+
+.medium-author-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.medium-author-name {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.medium-author-date {
+  font-size: 14px;
+  color: rgba(117, 117, 117, 1);
+}
+
+[data-theme="dark"] .medium-author-date {
+  color: rgba(180, 180, 180, 1);
+}
+
+/* Мобильная адаптация */
+@media screen and (max-width: 768px) {
+  .medium-article h1 {
+    font-size: 32px;
+  }
+  
+  .medium-article h2 {
+    font-size: 24px;
+  }
+  
+  .medium-article h3 {
+    font-size: 20px;
+  }
+  
+  .medium-article p, 
+  .medium-article ul, 
+  .medium-article ol {
+    font-size: 18px;
+  }
+  
+  .medium-article blockquote {
+    font-size: 18px;
+    margin-left: -15px;
+    padding-left: 15px;
+  }
+}
+</style> 

@@ -1,0 +1,499 @@
+<!-- Фиксированный контейнер с важными постами (только для ПК) -->
+<div class="fixed-important-posts-container hide-on-mobile hide-on-scroll" style="opacity: 1; visibility: visible;">
+    <div class="important-posts-container-pc bg-gray-300/50 dark:bg-gray-500/40 backdrop-blur-lg border border-white/20 dark:border-gray-500/30 shadow-redefine-flat rounded-xl px-3 py-1.5 sm:px-4 sm:py-2 max-w-[300px] w-auto">
+        <div class="important-posts-list-pc flex flex-col text-xs sm:text-sm">
+            <a href="/TOP/" class="post-link py-0.5 hover:text-primary-color transition-colors font-bold">• ☕️ [ РsyЧай от БЭДов/ПcиOрехоБут/Разница РsyВидов/ОСы ]</a>
+            <a href="/antiversus/" class="post-link py-0.5 hover:text-primary-color transition-colors font-bold">• 🥶 [ Избавляемся от Побочек на Входе и Последствий ]</a>
+            <a href="/Muskat-Matsis/" class="post-link py-0.5 hover:text-primary-color transition-colors font-bold">• ☘️ [ Муcкaтный орeх / Масло Мaциcа ]</a>
+            <a href="/NZT-Nootrop/" class="post-link py-0.5 hover:text-primary-color transition-colors font-bold">• 🧬 [ NZT Ноотроп из фильма Области Тьмы ]</a>
+            <a href="/PsyMixes-and-etc/" class="post-link py-0.5 hover:text-primary-color transition-colors font-bold">• 🔮 [ ПcиМиксы, Пcилохуaскa, ПcиСома ]</a>
+            <a href="/for-new/" class="post-link py-0.5 hover:text-primary-color transition-colors font-bold">• 🍄 [ НОВИЧКАМ!!! Что такое Tpип? ]</a>
+            <a href="/trip-reports/" class="post-link py-0.5 hover:text-primary-color transition-colors font-bold">• 🟥 [ Tpип-Рeпopты ]</a>
+            <a href="/grow-reports-etc/" class="post-link py-0.5 hover:text-primary-color transition-colors font-bold">• ☔️ [ Гpoв-Peпoрты / Поиск на Полях ]</a>
+            <a href="/razborbi/" class="post-link py-0.5 hover:text-primary-color transition-colors font-bold">• ✏️ [ Разбор LеmonTеk-Рапэ-Зверобой ]</a>
+        </div>
+    </div>
+</div>
+
+<!-- Фиксированный видео-контейнер (только для ПК) -->
+<div class="fixed-video-container hide-on-mobile hide-on-scroll" style="opacity: 1; visibility: visible; position: fixed; top: 300px; right: 40px; z-index: 999; display:none;">
+    <div class="video-container-small bg-gray-300/50 dark:bg-gray-500/40 backdrop-blur-lg border border-white/20 dark:border-gray-500/30 shadow-redefine-flat rounded-xl overflow-hidden cursor-pointer">
+        <video id="loopVideo" class="w-full h-full object-cover" playsinline muted loop preload="auto" autoplay>
+            <source src="/videos/testvideo.mp4" type="video/mp4">
+            Ваш браузер не поддерживает видео.
+        </video>
+    </div>
+</div>
+
+<!-- Контейнер для полноэкранного видео (независимый от обычного) -->
+<div id="fullscreen-video-container" class="fullscreen-video-container">
+    <div class="fullscreen-video-wrapper">
+        <video id="fullscreenVideo" class="fullscreen-video" playsinline preload="auto" controls controlsList="nodownload">
+            <source src="/videos/high_resolution_bitrate.mp4" type="video/mp4">
+            Ваш браузер не поддерживает видео.
+        </video>
+        <button id="close-fullscreen" class="close-fullscreen">&times;</button>
+    </div>
+</div>
+
+<!-- Специальные стили для браузеров без JavaScript -->
+<noscript>
+    <style>
+        @media (max-width: 768px) {
+            .fixed-important-posts-container { 
+                display: none !important; 
+                visibility: hidden !important;
+                opacity: 0 !important;
+            }
+        }
+    </style>
+</noscript>
+
+<script>
+if (window.innerWidth <= 768) {
+  document.write('<style>.fixed-video-container{display:none!important}</style>');
+}
+
+// Немедленное выполнение, устанавливаем стиль до загрузки DOM
+(function() {
+    // Установка фиксированной начальной прозрачности
+    function setInitialOpacity() {
+        const container = document.querySelector('.fixed-important-posts-container');
+        if (container) {
+            container.style.opacity = '1';
+            container.style.visibility = 'visible';
+        }
+    }
+    
+    // Выполняем сразу
+    setInitialOpacity();
+    
+    // И еще раз, когда DOM загружен
+    document.addEventListener('DOMContentLoaded', setInitialOpacity);
+})();
+
+// Функция для проверки, находимся ли мы на главной странице
+function isHomePage() {
+    // Получаем текущий путь без хоста и параметров
+    const path = window.location.pathname;
+    
+    // Проверяем, является ли это главной страницей (/ или /index.html)
+    return path === '/' || path === '/index.html' || path === '/index.php';
+}
+
+// Функция для скрытия контейнера с закрепом на не-главных страницах (только для ПК)
+function toggleFixedPostsVisibility() {
+    // Не делаем ничего для мобильной версии
+    if (window.innerWidth <= 768) {
+        return;
+    }
+    
+    const container = document.querySelector('.fixed-important-posts-container');
+    const videoContainer = document.querySelector('.fixed-video-container');
+    
+    if (!container) return;
+    
+    if (isHomePage()) {
+        // Устанавливаем стили для плавного появления
+        container.style.display = 'block';
+        container.style.visibility = 'visible';
+        // Не меняем opacity здесь, чтобы избежать резкого перехода
+        // Показываем видео-контейнер только на главной странице
+        if (videoContainer) {
+            if (window.innerWidth > 768) {
+                videoContainer.removeAttribute('hidden');
+                videoContainer.style.display = 'block';
+                videoContainer.style.visibility = 'visible';
+            } else {
+                videoContainer.setAttribute('hidden', '');
+                videoContainer.style.display = 'none';
+                videoContainer.style.visibility = 'hidden';
+            }
+        }
+    } else {
+        container.style.display = 'none';
+        container.style.visibility = 'hidden';
+        // Не меняем opacity здесь, чтобы избежать резкого перехода при возврате
+        // Скрываем видео-контейнер на всех страницах, кроме главной
+        if (videoContainer) {
+            videoContainer.setAttribute('hidden', '');
+            videoContainer.style.display = 'none';
+            videoContainer.style.visibility = 'hidden';
+        }
+    }
+}
+
+// Функция для скрытия контейнера при прокрутке (только для ПК)
+function handleScroll() {
+    // Не делаем ничего для мобильной версии
+    if (window.innerWidth <= 768) {
+        return;
+    }
+    
+    const container = document.querySelector('.fixed-important-posts-container');
+    const videoContainer = document.querySelector('.fixed-video-container');
+    
+    if (!container) return;
+    
+    // Получаем текущую позицию прокрутки
+    const scrollPosition = window.scrollY || document.documentElement.scrollTop;
+    
+    // Начинаем скрывать при прокрутке больше 100px
+    if (scrollPosition > 100) {
+        container.classList.add('hide-on-scroll-active');
+        
+        // Скрываем видео при прокрутке вниз
+        if (videoContainer) {
+            videoContainer.classList.add('video-hide');
+        }
+    } else {
+        container.classList.remove('hide-on-scroll-active');
+        
+        // Показываем видео только на главной странице и только вверху
+        if (videoContainer && isHomePage()) {
+            videoContainer.classList.remove('video-hide');
+        } else if (videoContainer) {
+            videoContainer.classList.add('video-hide');
+        }
+    }
+}
+
+// Запуск при загрузке страницы
+document.addEventListener('DOMContentLoaded', function() {
+    toggleFixedPostsVisibility();
+    handleScroll(); // Проверяем начальное положение прокрутки
+    
+    // Инициализация видео-контейнера
+    initVideoContainer();
+});
+
+// Запуск при изменении истории (навигации по сайту)
+window.addEventListener('popstate', function() {
+    toggleFixedPostsVisibility();
+    handleScroll();
+});
+
+// Обработчик прокрутки страницы
+window.addEventListener('scroll', handleScroll);
+
+// Запускаем при загрузке страницы и после завершения переходов
+try {
+    if (typeof swup !== 'undefined') {
+        swup.hooks.on('page:view', function() {
+            toggleFixedPostsVisibility();
+            handleScroll();
+            initVideoContainer(); // Переинициализируем видео при навигации через swup
+        });
+    }
+} catch (e) {}
+
+// Функция инициализации видео-контейнера
+function initVideoContainer() {
+    const videoContainer = document.querySelector('.fixed-video-container');
+    const videoElement = document.getElementById('loopVideo');
+    const fullscreenContainer = document.getElementById('fullscreen-video-container');
+    const fullscreenVideo = document.getElementById('fullscreenVideo');
+    const closeButton = document.getElementById('close-fullscreen');
+    
+    // Проверяем видимость видео на основе текущей страницы
+    if (videoElement && isHomePage()) {
+        console.log("Инициализация видео на главной странице");
+        
+        // Устанавливаем начальное состояние видимости
+        if (videoContainer) {
+            // Показываем только если в верхней части страницы
+            const scrollPosition = window.scrollY || document.documentElement.scrollTop;
+            if (scrollPosition <= 100) {
+                videoContainer.classList.remove('hide-on-scroll-active');
+            } else {
+                videoContainer.classList.add('hide-on-scroll-active');
+            }
+        }
+        
+        // Автозапуск видео
+        try {
+            videoElement.play()
+                .catch(err => console.error("Ошибка при запуске видео:", err));
+        } catch(e) {
+            console.error("Ошибка воспроизведения:", e);
+        }
+        
+        // Предзагрузка полноэкранного видео
+        if (fullscreenVideo) {
+            fullscreenVideo.preload = "auto";
+            fullscreenVideo.load();
+        }
+    } else if (videoContainer) {
+        // На других страницах скрываем видео
+        videoContainer.classList.add('hide-on-scroll-active');
+    }
+    
+    // Обработчик клика на видео-контейнер (ПК)
+    if (videoContainer) {
+        videoContainer.addEventListener('click', function(e) {
+            e.stopPropagation();
+            fullscreenContainer.style.display = 'flex';
+            fullscreenVideo.currentTime = 0;
+            fullscreenVideo.play();
+            if (videoElement) {
+                videoElement.pause();
+            }
+        });
+    }
+    // Кнопка закрытия (ПК)
+    if (closeButton) {
+        closeButton.addEventListener('click', function() {
+            fullscreenContainer.style.display = 'none';
+            if (fullscreenVideo) {
+                fullscreenVideo.pause();
+            }
+            if (videoElement && videoElement.paused) {
+                videoElement.play().catch(e => {
+                    console.warn('Не удалось запустить малое видео:', e);
+                });
+            }
+        });
+    }
+    // Закрытие по клику вне видео (ПК)
+    if (fullscreenContainer) {
+        fullscreenContainer.addEventListener('click', function(e) {
+            if (e.target === fullscreenContainer) {
+                fullscreenContainer.style.display = 'none';
+                if (fullscreenVideo) {
+                    fullscreenVideo.pause();
+                }
+                if (videoElement && videoElement.paused) {
+                    videoElement.play().catch(e => {
+                        console.warn('Не удалось запустить малое видео:', e);
+                    });
+                }
+            }
+        });
+    }
+    
+    // Закрытие по ESC (устанавливаем только один раз для страницы)
+    if (!window._hasEscHandler) {
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && fullscreenContainer && 
+                fullscreenContainer.style.display === 'flex') {
+                fullscreenContainer.style.display = 'none';
+            }
+        });
+        
+        // Отмечаем, что обработчик ESC установлен
+        window._hasEscHandler = true;
+    }
+}
+</script>
+
+<style>
+    :root {
+        --primary-color-rgb: 71, 161, 255;
+    }
+    
+    /* Сначала скрываем на мобильных устройствах без анимации */
+    @media screen and (max-width: 768px) {
+        .hide-on-mobile {
+            display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+            width: 0 !important;
+            height: 0 !important;
+        }
+        
+        /* Дополнительный стиль для мобильной версии */
+        /* При открытом видео скрываем все фиксированные контейнеры */
+        body.video-is-open .fixed-important-posts-container,
+        body:has(#fullscreen-video-container-mobile[style*="display: flex"]) .fixed-important-posts-container,
+        body:has(#fullscreen-video-container-mobile[style*="display:flex"]) .fixed-important-posts-container {
+            z-index: -10 !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
+        }
+    }
+    
+    .fixed-important-posts-container {
+        position: fixed !important;
+        top: 80px !important;
+        right: 40px !important;
+        z-index: 1000 !important;
+        max-width: 300px;
+        display: block;
+        opacity: 1 !important; /* Заставляем быть непрозрачным сразу */
+        will-change: transform; /* Подсказка браузеру оптимизировать только трансформацию */
+        transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1); /* Убираем анимацию opacity */
+    }
+    
+    /* Стили для скрытия при прокрутке */
+    .hide-on-scroll-active {
+        opacity: 0 !important;
+        transform: translateY(-20px) !important;
+        pointer-events: none !important;
+        transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), transform 1.2s cubic-bezier(0.25, 1, 0.5, 1); /* Восстанавливаем исходное время анимации */
+    }
+    
+    .important-posts-container-pc {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), 0 0 15px rgba(var(--primary-color-rgb), 0.3);
+        max-height: 75vh;
+        overflow-y: auto;
+        animation: subtle-glow-pc 4s ease-in-out infinite alternate;
+    }
+    
+    @keyframes subtle-glow-pc {
+        0% {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), 0 0 15px rgba(var(--primary-color-rgb), 0.3);
+        }
+        100% {
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2), 0 0 25px rgba(var(--primary-color-rgb), 0.5);
+        }
+    }
+    
+    .important-posts-list-pc a {
+        text-decoration: none;
+        display: block;
+        transition: all 0.2s ease;
+        font-size: 0.7rem;
+        line-height: 1.15;
+    }
+    
+    .important-posts-list-pc a:hover {
+        transform: translateX(5px);
+    }
+    
+    .important-posts-container-pc::-webkit-scrollbar {
+        width: 4px;
+    }
+    
+    .important-posts-container-pc::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    
+    .important-posts-container-pc::-webkit-scrollbar-thumb {
+        background-color: var(--primary-color);
+        border-radius: 20px;
+    }
+    
+    /* Скрываем на мобильных устройствах дублирующим селектором */
+    @media screen and (max-width: 768px) {
+        .fixed-important-posts-container {
+            display: none !important;
+        }
+    }
+    
+    /* Стили для видео-контейнера */
+    .fixed-video-container {
+        position: fixed !important;
+        top: 300px !important;
+        right: 40px !important;
+        z-index: 999 !important;
+        max-width: 150px;
+        max-height: 100px;
+        opacity: 1;
+        visibility: visible;
+        transition: opacity 0.5s ease, visibility 0.5s ease, transform 0.5s ease;
+    }
+    
+    .video-container-small {
+        width: 150px;
+        height: 100px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), 0 0 15px rgba(var(--primary-color-rgb), 0.3);
+        animation: subtle-glow-video 4s ease-in-out infinite alternate;
+        transition: all 0.4s ease-in-out;
+        overflow: hidden;
+        position: relative;
+        z-index: inherit;
+    }
+    
+    /* Новые стили для полноэкранного видео */
+    .fullscreen-video-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 999999999;
+    }
+    
+    .fullscreen-video-wrapper {
+        width: 80vw;
+        max-width: 900px;
+        height: 70vh;
+        max-height: 600px;
+        position: relative;
+        margin-top: 30px;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 30px rgba(var(--primary-color-rgb), 0.5);
+        background-color: #000; /* Добавляем черный фон для видео */
+    }
+    
+    .fullscreen-video {
+        width: 100%;
+        height: 100%;
+        object-fit: contain; /* Сохраняем пропорции */
+    }
+    
+    .close-fullscreen {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: rgba(0, 0, 0, 0.5);
+        color: white;
+        border: none;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        font-size: 20px;
+        z-index: 10;
+    }
+    
+    .video-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0); /* Убираем затемнение фона */
+        z-index: 99999;
+        display: none;
+        opacity: 0;
+        transition: opacity 0.4s ease-in-out;
+    }
+    
+    .video-overlay.active {
+        display: block;
+        opacity: 1;
+    }
+    
+    @keyframes subtle-glow-video {
+        0% {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), 0 0 15px rgba(var(--primary-color-rgb), 0.3);
+        }
+        100% {
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2), 0 0 25px rgba(var(--primary-color-rgb), 0.5);
+        }
+    }
+    
+    /* Скрытие видео-контейнера на мобильных устройствах */
+    @media screen and (max-width: 768px) {
+        .fixed-video-container {
+            display: none !important;
+        }
+    }
+    
+    /* Отдельный класс для скрытия видео-контейнера */
+    .video-hide {
+        opacity: 0 !important;
+        visibility: hidden !important;
+        transform: translateY(-20px) !important;
+        pointer-events: none !important;
+    }
+</style> 

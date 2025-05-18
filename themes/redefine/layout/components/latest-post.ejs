@@ -1,0 +1,184 @@
+<%
+const latestPost = page.posts.sort('date', -1).limit(1).toArray()[0];
+if (latestPost) {
+  // Получаем изображение для статьи
+  let articleThumbnail = "";
+  if (latestPost.cover || latestPost.banner || (latestPost.thumbnail && latestPost.thumbnail !== false)) {
+    if (latestPost.thumbnail && latestPost.thumbnail !== null) {
+      articleThumbnail = latestPost.thumbnail;
+    } else if (latestPost.cover && latestPost.cover.includes("/")) {
+      articleThumbnail = latestPost.cover;
+    } else if (latestPost.banner && latestPost.banner.includes("/")) {
+      articleThumbnail = latestPost.banner;
+    } else if (config.marked.postAsset && config.marked.postAsset == true) {
+      articleThumbnail = [latestPost.path, latestPost.cover || latestPost.banner].join("/");
+    }
+  }
+%>
+<div class="latest-post-container">
+  <div class="latest-post-card">
+    <div class="latest-post-header">
+      <h2>Последняя статья</h2>
+      <time datetime="<%= latestPost.date.toISOString() %>">
+        <%= latestPost.date.format('YYYY-MM-DD') %>
+      </time>
+    </div>
+    
+    <% if (latestPost.thumbnail !== false && (latestPost.thumbnail || latestPost.cover || latestPost.banner)) { %>
+      <div class="latest-post-thumbnail">
+        <a href="<%- url_for(latestPost.path) %>" class="block h-full">
+          <img src="<%- url_for(articleThumbnail) %>" alt="<%= latestPost.title %>" class="w-full h-full object-cover dark:brightness-75 transition-all" />
+        </a>
+      </div>
+    <% } %>
+    
+    <div class="latest-post-content">
+      <h3><a href="<%- url_for(latestPost.path) %>"><%= latestPost.title %></a></h3>
+      <div class="latest-post-excerpt">
+        <% if (latestPost.excerpt && latestPost.excerpt == "false") { %>
+        <% } else if (latestPost.excerpt && latestPost.excerpt !== "false") { %>
+          <%- render(latestPost.excerpt, "markdown") %>
+        <% } else { %>
+          <%
+            const excerptLength = theme.home.excerpt_length || 200;
+          %>
+          <%- truncate(strip_html(latestPost.content), {length: excerptLength}) %>
+        <% } %>
+      </div>
+    </div>
+    <div class="latest-post-footer">
+      <div class="latest-post-tags">
+        <% if (latestPost.tags && latestPost.tags.length) { %>
+          <% latestPost.tags.each(function(tag){ %>
+            <a href="<%- url_for(tag.path) %>" class="tag"><%= tag.name %></a>
+          <% }); %>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.latest-post-container {
+  margin: 2rem auto;
+  padding: 0 1rem;
+  width: 50%;
+  max-width: 600px;
+}
+
+.latest-post-card {
+  background: var(--background-color-transparent-80) !important;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  border: 1px solid var(--border-color);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.latest-post-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--redefine-box-shadow-hover);
+}
+
+.latest-post-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.latest-post-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: var(--primary-color);
+}
+
+@media screen and (max-width: 768px) {
+  .latest-post-header h2 {
+    font-size: 1.8rem;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .latest-post-header h2 {
+    font-size: 1.6rem;
+  }
+}
+
+.latest-post-thumbnail {
+  height: 180px;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.latest-post-content h3 {
+  margin: 0 0 1rem 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--second-text-color);
+  font-family: sans-serif;
+  line-height: 1.5;
+}
+
+.latest-post-content h3 a {
+  color: var(--second-text-color);
+  text-decoration: none;
+}
+
+.latest-post-content h3 a:hover {
+  color: var(--primary-color);
+}
+
+.latest-post-excerpt {
+  color: var(--text-color);
+  opacity: 0.8;
+  margin-bottom: 1rem;
+}
+
+.latest-post-footer {
+  border-top: 1px solid var(--border-color);
+  padding-top: 1rem;
+}
+
+.latest-post-tags {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.latest-post-tags .tag {
+  background: var(--primary-color);
+  color: white;
+  padding: 0.2rem 0.8rem;
+  border-radius: 15px;
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.latest-post-tags .tag:hover {
+  opacity: 0.9;
+}
+
+@media screen and (max-width: 768px) {
+  .latest-post-container {
+    width: 70%;
+  }
+  .latest-post-content h3 {
+    font-size: 1.3rem;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .latest-post-container {
+    width: 90%;
+  }
+  .latest-post-content h3 {
+    font-size: 1.2rem;
+  }
+}
+</style>
+<% } %>
