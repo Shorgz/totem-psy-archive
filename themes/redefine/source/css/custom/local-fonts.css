@@ -1,0 +1,96 @@
+/* Определения локальных шрифтов */
+
+/* Fira Sans */
+@font-face {
+  font-family: 'Fira Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Fira Sans Regular'), local('FiraSans-Regular'), 
+       url('/fonts/FiraSans/FiraSans-Regular.woff2') format('woff2'),
+       url('/fonts/FiraSans/FiraSans-Regular.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Fira Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: local('Fira Sans Medium'), local('FiraSans-Medium'), 
+       url('/fonts/FiraSans/FiraSans-Medium.woff2') format('woff2'),
+       url('/fonts/FiraSans/FiraSans-Medium.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Fira Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: local('Fira Sans SemiBold'), local('FiraSans-SemiBold'), 
+       url('/fonts/FiraSans/FiraSans-SemiBold.woff2') format('woff2'),
+       url('/fonts/FiraSans/FiraSans-SemiBold.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Fira Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Fira Sans Bold'), local('FiraSans-Bold'), 
+       url('/fonts/FiraSans/FiraSans-Bold.woff2') format('woff2'),
+       url('/fonts/FiraSans/FiraSans-Bold.woff') format('woff');
+}
+
+/* Nunito */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Nunito Bold'), local('Nunito-Bold'), 
+       url('/fonts/Nunito/Nunito-Bold.woff2') format('woff2'),
+       url('/fonts/Nunito/Nunito-Bold.woff') format('woff');
+}
+
+/* Russo One */
+@font-face {
+  font-family: 'Russo One';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Russo One'), local('RussoOne-Regular'), 
+       url('/fonts/RussoOne/RussoOne-Regular.woff2') format('woff2'),
+       url('/fonts/RussoOne/RussoOne-Regular.woff') format('woff');
+}
+
+/* Lobster */
+@font-face {
+  font-family: 'Lobster';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lobster'), local('Lobster-Regular'), 
+       url('/fonts/Lobster/Lobster-Regular.woff2') format('woff2'),
+       url('/fonts/Lobster/Lobster-Regular.woff') format('woff');
+}
+
+/* Comfortaa */
+@font-face {
+  font-family: 'Comfortaa';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Comfortaa Regular'), local('Comfortaa-Regular'), 
+       url('/fonts/Comfortaa/Comfortaa-Regular.woff2') format('woff2'),
+       url('/fonts/Comfortaa/Comfortaa-Regular.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Comfortaa';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Comfortaa Bold'), local('Comfortaa-Bold'), 
+       url('/fonts/Comfortaa/Comfortaa-Bold.woff2') format('woff2'),
+       url('/fonts/Comfortaa/Comfortaa-Bold.woff') format('woff');
+} 

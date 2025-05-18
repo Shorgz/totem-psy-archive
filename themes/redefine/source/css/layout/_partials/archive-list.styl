@@ -1,0 +1,81 @@
+$archive-year-font-size = 1.8rem
+$archive-year-count-font-size = 1.2rem
+$article-title-font-size = 1.2rem
+$article-date-font-size = 1rem
+
+@require '../../common/variables'
+
+.archive-list-container
+  .article-item
+    &::before
+      content attr(date-is)
+      position absolute
+      left 2em
+      font-weight bold
+      top 1em
+      display block
+      font-size 0.785rem
+      color var(--third-text-color)
+
+    &::after
+      width 12px
+      height 12px
+      display block
+      top 20px
+      position absolute
+      left -7px
+      border-radius 10px
+      content ''
+      border 2px solid var(--third-text-color)
+      background var(--background-color)
+      transition background 0.2s ease-in-out
+
+    &:last-child
+      border-image var(--archive-timeline-last-child-color)
+		
+    span.article-title
+      position relative
+      display block
+      transition all 0.2s ease
+      
+      &::after
+        content ""
+        width 7px
+        height 7px
+        background var(--fourth-text-color)
+        border 1px solid var(--border-color)
+        position absolute
+        left -1.79rem
+        top 0.5em
+        border-radius 50px
+
+// Мобильные стили
+@media screen and (max-width: 768px)
+  .archive-list-container
+    .archive-item
+      margin-bottom 15px
+      
+      .archive-item-header
+        margin-bottom 10px
+        
+      .article-item
+        transition all 0.3s ease
+        
+        &:hover
+          background-color var(--second-background-color-transparent-80)
+          
+        span.article-title
+          font-size 1.1rem
+          
+          &:hover
+            color var(--primary-color)
+            transform translateX(3px)
+
+@media screen and (max-width: 480px)
+  .archive-list-container
+    .archive-item
+      .article-list
+        margin-left 5px
+        
+      span.article-title
+        font-size 0.95rem

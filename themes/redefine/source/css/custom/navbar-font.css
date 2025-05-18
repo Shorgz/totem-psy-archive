@@ -1,0 +1,63 @@
+/* Локальное определение шрифта Fira Sans */
+@font-face {
+  font-family: 'Fira Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Fira Sans Regular'), local('FiraSans-Regular'), url('/fonts/FiraSans/FiraSans-Regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Fira Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: local('Fira Sans Medium'), local('FiraSans-Medium'), url('/fonts/FiraSans/FiraSans-Medium.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Fira Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: local('Fira Sans SemiBold'), local('FiraSans-SemiBold'), url('/fonts/FiraSans/FiraSans-SemiBold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Fira Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Fira Sans Bold'), local('FiraSans-Bold'), url('/fonts/FiraSans/FiraSans-Bold.woff2') format('woff2');
+}
+
+/* Усиленная специфичность для стилей логотипа */
+body .navbar-container .navbar-content .left .logo-title,
+body .navbar-container .navbar-content .left .logo-title h1 {
+    font-family: 'Fira Sans', sans-serif !important;
+    letter-spacing: 0.005em;
+    display: inline-block;
+    font-size: 1.7rem;
+    color: #E0E0E5 !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+/* Стилизация отдельных частей логотипа с одинаковым шрифтом */
+body .navbar-container .navbar-content .left .logo-title .psy-part {
+    font-weight: 700;
+    color: #E0E0E5 !important;
+}
+
+body .navbar-container .navbar-content .left .logo-title .gribo-part {
+    font-weight: 500;
+    color: #E0E0E5 !important;
+}
+
+/* Обеспечиваем, чтобы шрифт применялся и в мобильной версии */
+@media (max-width: 768px) {
+    body .navbar-container .navbar-content .left .logo-title,
+    body .navbar-container .navbar-content .left .logo-title h1 {
+        font-family: 'Fira Sans', sans-serif !important;
+        color: #E0E0E5 !important;
+    }
+} 
