@@ -24,22 +24,16 @@
         containers: ["#swup"],
     });
     
-    // Добавляем глобальный обработчик события после загрузки контента
+    // Глобальный обработчик события после загрузки контента
     swup.on('contentReplaced', function() {
-        console.log('[Swup] Content replaced, dispatching swupContentReplaced event');
-        
-        // Создаем и диспатчим кастомное событие
+        // Создаем и диспатчим кастомное событие для обработчиков
         const event = new CustomEvent('swupContentReplaced');
         document.dispatchEvent(event);
         
-        // Небольшая пауза для гарантированной загрузки всех элементов
-        setTimeout(function() {
-            // Если функция существует, вызываем её напрямую
-            if (typeof fillPromoContainers === 'function') {
-                console.log('[Swup] Directly calling fillPromoContainers');
-                fillPromoContainers();
-            }
-        }, 200);
+        // Прямой вызов функции заполнения рекламных блоков
+        if (typeof fillPromoContainers === 'function') {
+            fillPromoContainers();
+        }
     });
 </script>
 
