@@ -58,8 +58,101 @@
             
             <!-- Интересный блок после каждой 3-й статьи -->
             <% if ((index + 1) % 3 === 0 && (index + 1) !== page.posts.length) { %>
-                <li class="home-article-item promo-container" data-promo-container="true">
-                    <!-- Контейнер будет заполнен JavaScript -->
+                <li class="home-article-item promo-container">
+                    <div class="promo-content-wrapper">
+                        <div class="promo-content" id="promo-container-<%= index %>">
+                            <!-- Все рекламные блоки готовятся заранее, но скрыты -->
+                            <div class="promo-item" data-promo-id="1" style="display: none;">
+                                <div class="promo-image">
+                                    <img src="<%- url_for('/images/ads/mushroom-kit.jpg') %>" alt="Где Найти и Купить наши ингридиенты">
+                                </div>
+                                <div class="promo-text">
+                                    <div class="promo-label text-xs uppercase tracking-wide text-third-text-color mb-1">Интересное</div>
+                                    <a href="<%- url_for('/2025/04/01/Gde-Nayti-i-Kupit/') %>" class="title-link">
+                                        <h3 class="text-second-text-color font-semibold">Где Найти и Купить наши ингридиенты</h3>
+                                    </a>
+                                    <a href="<%- url_for('/2025/04/01/Gde-Nayti-i-Kupit/') %>" class="description-link">
+                                        <p class="text-third-text-color">Всё необходимое в одном месте, что и где взять что-либо, будь-то аптека за ромашкой, или OZON/WB за витаминкой, до прочих...</p>
+                                    </a>
+                                    <a href="<%- url_for('/2025/04/01/Gde-Nayti-i-Kupit/') %>" class="promo-button">
+                                        Подробнее
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <div class="promo-item" data-promo-id="2" style="display: none;">
+                                <div class="promo-image">
+                                    <img src="<%- url_for('/images/ads/magiccacao.jpg') %>" alt="Волшебный Шоколад">
+                                </div>
+                                <div class="promo-text">
+                                    <div class="promo-label text-xs uppercase tracking-wide text-third-text-color mb-1">Интересное</div>
+                                    <a href="https://t.me/+HLA4fDbFyTMyODQy" class="title-link">
+                                        <h3 class="text-second-text-color font-semibold">Волшебный Шоколад</h3>
+                                    </a>
+                                    <a href="https://t.me/+HLA4fDbFyTMyODQy" class="description-link">
+                                        <p class="text-third-text-color">🍫  Церемониальный Какао Шоколад с Маслами Мациса и Муската, приготовленный по особому рецепту для погружения в Сердце и Душу.</p>
+                                    </a>
+                                    <a href="https://t.me/+HLA4fDbFyTMyODQy" class="promo-button">
+                                        Подробнее
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <div class="promo-item" data-promo-id="3" style="display: none;">
+                                <div class="promo-image">
+                                    <img src="<%- url_for('/images/ads/hypnocouch.jpg') %>" alt="Перезагрузка Жизни">
+                                </div>
+                                <div class="promo-text">
+                                    <div class="promo-label text-xs uppercase tracking-wide text-third-text-color mb-1">Интересное</div>
+                                    <a href="https://t.me/newsphere_newrealms" class="title-link">
+                                        <h3 class="text-second-text-color font-semibold">Перезагрузка Жизни</h3>
+                                    </a>
+                                    <a href="https://t.me/newsphere_newrealms" class="description-link">
+                                        <p class="text-third-text-color">Современный гипноподход к лечению своей души, можно даже вместе с психоделиками. Методики, интеграции, личные практики.</p>
+                                    </a>
+                                    <a href="https://t.me/newsphere_newrealms" class="promo-button">
+                                        Подробнее
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <div class="promo-item" data-promo-id="4" style="display: none;">
+                                <div class="promo-image">
+                                    <img src="<%- url_for('/images/ads/gribcult.jpg') %>" alt="Грибная Культура">
+                                </div>
+                                <div class="promo-text">
+                                    <div class="promo-label text-xs uppercase tracking-wide text-third-text-color mb-1">Интересное</div>
+                                    <a href="https://t.me/gribnai" class="title-link">
+                                        <h3 class="text-second-text-color font-semibold">Грибная Культура</h3>
+                                    </a>
+                                    <a href="https://t.me/gribnai" class="description-link">
+                                        <p class="text-third-text-color">Полный комплект для домашнего выращивания волшебных грибов. Простые инструкции, высокая урожайность, экзотические виды</p>
+                                    </a>
+                                    <a href="https://t.me/gribnai" class="promo-button">
+                                        Подробнее
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <div class="promo-item" data-promo-id="5" style="display: none;">
+                                <div class="promo-image">
+                                    <img src="<%- url_for('/images/ads/maslomatsis.jpg') %>" alt="Масло Мациса">
+                                </div>
+                                <div class="promo-text">
+                                    <div class="promo-label text-xs uppercase tracking-wide text-third-text-color mb-1">Интересное</div>
+                                    <a href="https://t.me/OilMacis" class="title-link">
+                                        <h3 class="text-second-text-color font-semibold">Масло Мациса</h3>
+                                    </a>
+                                    <a href="https://t.me/OilMacis" class="description-link">
+                                        <p class="text-third-text-color">Легальный Каннабис Хай прямиком с OZON/WB, эйфория, расслабление на единороге по волнам тепла и удовольствия</p>
+                                    </a>
+                                    <a href="https://t.me/OilMacis" class="promo-button">
+                                        Подробнее
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </li>
             <% } %>
             
@@ -423,139 +516,54 @@
         color: inherit;
         opacity: 1;
     }
+
+    .promo-item {
+        display: flex;
+        width: 100%;
+    }
 </style>
 
 <!-- Глобальный скрипт для рекламных блоков -->
 <script>
-// Определяем функцию инициализации рекламных блоков
-function initPromoBlocks() {
-    // Массив интересных материалов
-    const promoList = [
-        {
-            image: '<%- url_for("/images/ads/mushroom-kit.jpg") %>',
-            title: 'Где Найти и Купить наши ингридиенты',
-            description: 'Всё необходимое в одном месте, что и где взять что-либо, будь-то аптека за ромашкой, или OZON/WB за витаминкой, до прочих...',
-            url: '<%- url_for("/2025/04/01/Gde-Nayti-i-Kupit/") %>'
-        },
-        {
-            image: '<%- url_for("/images/ads/magiccacao.jpg") %>',
-            title: 'Волшебный Шоколад',
-            description: '🍫  Церемониальный Какао Шоколад с Маслами Мациса и Муската, приготовленный по особому рецепту для погружения в Сердце и Душу.',
-            url: 'https://t.me/+HLA4fDbFyTMyODQy'
-        },
-        {
-            image: '<%- url_for("/images/ads/hypnocouch.jpg") %>',
-            title: 'Перезагрузка Жизни',
-            description: 'Современный гипноподход к лечению своей души, можно даже вместе с психоделиками. Методики, интеграции, личные практики.',
-            url: 'https://t.me/newsphere_newrealms'
-        },
-        {
-            image: '<%- url_for("/images/ads/gribcult.jpg") %>',
-            title: 'Грибная Культура',
-            description: 'Полный комплект для домашнего выращивания волшебных грибов. Простые инструкции, высокая урожайность, экзотические виды',
-            url: 'https://t.me/gribnai'
-        },
-        {
-            image: '<%- url_for("/images/ads/maslomatsis.jpg") %>',
-            title: 'Масло Мациса',
-            description: 'Легальный Каннабис Хай прямиком с OZON/WB, эйфория, расслабление на единороге по волнам тепла и удовольствия',
-            url: 'https://t.me/OilMacis'
-        }
-    ];
-
-    // Находим все пустые рекламные контейнеры на странице
-    const promoContainers = document.querySelectorAll('[data-promo-container="true"]:empty');
-    console.log('Найдено пустых контейнеров:', promoContainers.length);
-    
-    // Заполняем каждый пустой контейнер
-    promoContainers.forEach(function(container) {
-        // Выбираем случайную рекламу
-        const randomIndex = Math.floor(Math.random() * promoList.length);
-        const promo = promoList[randomIndex];
-        
-        // Создаем HTML-контент
-        const promoHTML = `
-            <div class="promo-content-wrapper">
-                <div class="promo-content">
-                    <div class="promo-image">
-                        <img src="${promo.image}" alt="${promo.title}">
-                    </div>
-                    <div class="promo-text">
-                        <div class="promo-label text-xs uppercase tracking-wide text-third-text-color mb-1">Интересное</div>
-                        <a href="${promo.url}" class="title-link">
-                            <h3 class="text-second-text-color font-semibold">${promo.title}</h3>
-                        </a>
-                        <a href="${promo.url}" class="description-link">
-                            <p class="text-third-text-color">${promo.description}</p>
-                        </a>
-                        <a href="${promo.url}" class="promo-button">
-                            Подробнее
-                        </a>
-                    </div>
-                </div>
-            </div>
-        `;
-        
-        // Вставляем HTML в контейнер
-        container.innerHTML = promoHTML;
-        console.log('Заполнен контейнер рекламой:', promo.title);
-    });
-}
-
-// Первичная инициализация при загрузке DOM
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOMContentLoaded сработал');
-    initPromoBlocks();
-    
-    // Настраиваем MutationObserver для отслеживания изменений в DOM
-    const observer = new MutationObserver(function(mutations) {
-        mutations.forEach(function(mutation) {
-            // Проверяем были ли добавлены новые узлы
-            if (mutation.addedNodes.length) {
-                // Проверяем, есть ли среди добавленных узлов контейнеры для рекламы
-                mutation.addedNodes.forEach(function(node) {
-                    if (node.nodeType === 1 && node.matches && node.matches('[data-promo-container="true"]:empty')) {
-                        console.log('Обнаружен новый пустой контейнер для рекламы');
-                        initPromoBlocks();
-                    } else if (node.nodeType === 1 && node.querySelectorAll) {
-                        // Если узел может содержать другие элементы, проверяем их
-                        const emptyContainers = node.querySelectorAll('[data-promo-container="true"]:empty');
-                        if (emptyContainers.length > 0) {
-                            console.log('Обнаружены новые пустые контейнеры внутри добавленного элемента:', emptyContainers.length);
-                            initPromoBlocks();
-                        }
+    // Функция для выбора случайного рекламного блока
+    function showRandomPromo() {
+        // Получаем все контейнеры для рекламы
+        const promoContainers = document.querySelectorAll('.promo-content');
+        
+        // Для каждого контейнера выбираем случайный блок
+        promoContainers.forEach(function(container) {
+            // Получаем все блоки в этом контейнере
+            const promoItems = container.querySelectorAll('.promo-item');
+            
+            // Проверяем, есть ли элементы для выбора
+            if (promoItems.length > 0) {
+                // Выбираем случайный индекс
+                const randomIndex = Math.floor(Math.random() * promoItems.length);
+                
+                // Показываем выбранный блок, остальные оставляем скрытыми
+                promoItems.forEach(function(item, index) {
+                    if (index === randomIndex) {
+                        item.style.display = 'flex';
+                    } else {
+                        item.style.display = 'none';
                     }
                 });
             }
         });
-    });
+    }
     
-    // Конфигурируем observer для отслеживания всего body с учетом подэлементов
-    observer.observe(document.body, {
-        childList: true,     // отслеживаем добавление/удаление дочерних элементов
-        subtree: true,       // и их потомков тоже
-        attributes: false,   // не отслеживаем изменение атрибутов
-        characterData: false // не отслеживаем изменение текстового содержимого
-    });
+    // Показываем случайные блоки при загрузке страницы
+    showRandomPromo();
     
-    console.log('MutationObserver настроен');
-    
-    // Также добавляем обработчик для навигационных событий Swup (для подстраховки)
+    // Обработчик для Swup навигации
     document.addEventListener('swup:contentReplaced', function() {
-        console.log('swup:contentReplaced сработал');
-        initPromoBlocks();
+        setTimeout(showRandomPromo, 50);
     });
     
-    // Обработка прочих событий навигации (для совместимости с разными системами)
+    // Обработчик события навигации
     window.addEventListener('popstate', function() {
-        console.log('popstate сработал');
-        setTimeout(initPromoBlocks, 100); // Небольшая задержка для обновления DOM
+        setTimeout(showRandomPromo, 50);
     });
 });
-
-// Дополнительная инициализация через setTimeout для подстраховки
-setTimeout(function() {
-    console.log('setTimeout сработал');
-    initPromoBlocks();
-}, 1000);
 </script>
