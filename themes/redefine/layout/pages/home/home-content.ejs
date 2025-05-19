@@ -62,17 +62,17 @@
                     <div class="promo-content-wrapper">
                         <div class="promo-content">
                             <div class="promo-image">
-                                <img src="" alt="" id="promo-image-<%= index %>">
+                                <img src="" alt="" class="promo-image-element">
                             </div>
                             <div class="promo-text">
                                 <div class="promo-label text-xs uppercase tracking-wide text-third-text-color mb-1">Интересное</div>
-                                <a href="" class="title-link" id="promo-title-link-<%= index %>">
-                                    <h3 class="text-second-text-color font-semibold" id="promo-title-<%= index %>"></h3>
+                                <a href="" class="title-link promo-title-link">
+                                    <h3 class="text-second-text-color font-semibold promo-title-element"></h3>
                                 </a>
-                                <a href="" class="description-link" id="promo-desc-link-<%= index %>">
-                                    <p class="text-third-text-color" id="promo-desc-<%= index %>"></p>
+                                <a href="" class="description-link promo-desc-link">
+                                    <p class="text-third-text-color promo-desc-element"></p>
                                 </a>
-                                <a href="" class="promo-button" id="promo-button-<%= index %>">
+                                <a href="" class="promo-button promo-button-link">
                                     Подробнее
                                 </a>
                             </div>
@@ -443,6 +443,13 @@
     }
 </style>
 
+<!-- Скрытая кнопка для принудительного обновления рекламы (для отладки) -->
+<div style="position: fixed; bottom: 10px; right: 10px; z-index: 999; opacity: 0.01; cursor: pointer;" 
+     onclick="if(window.refreshPromo) {window.refreshPromo(); this.textContent = 'Обновлено!'} else {this.textContent = 'Ошибка'}" 
+     title="Нажмите, чтобы обновить рекламные блоки">
+    ⟳
+</div>
+
 <!-- JavaScript для динамической рекламы -->
 <script>
     // Функция для заполнения рекламных блоков
@@ -483,76 +490,112 @@
             }
         ];
         
-        // Находим все контейнеры рекламы
-        const promoContainers = document.querySelectorAll('[data-promo-container="true"]');
-        console.log('[PromoSystem] Found', promoContainers.length, 'promo containers');
-        
-        // Заполняем каждый контейнер случайным материалом
-        promoContainers.forEach((container, index) => {
-            // Выбор случайного материала для каждого контейнера
-            const randomPromoIndex = Math.floor(Math.random() * promoList.length);
-            const selectedPromo = promoList[randomPromoIndex];
+        try {
+            // Находим все контейнеры рекламы по атрибуту data-promo-container
+            const promoContainers = document.querySelectorAll('[data-promo-container="true"]');
+            console.log('[PromoSystem] Found', promoContainers.length, 'promo containers');
             
-            console.log('[PromoSystem] Filling promo container', index, 'with', selectedPromo.title);
-            
-            // Получаем идентификатор индекса из атрибутов элементов внутри контейнера
-            const imgElement = container.querySelector('img[id^="promo-image-"]');
-            const titleElement = container.querySelector('h3[id^="promo-title-"]');
-            const descElement = container.querySelector('p[id^="promo-desc-"]');
-            const titleLink = container.querySelector('a[id^="promo-title-link-"]');
-            const descLink = container.querySelector('a[id^="promo-desc-link-"]');
-            const buttonLink = container.querySelector('a[id^="promo-button-"]');
-            
-            // Заполняем содержимое
-            if (imgElement) {
-                imgElement.src = selectedPromo.image;
-                imgElement.alt = selectedPromo.title;
-            } else {
-                console.warn('[PromoSystem] Image element not found for container', index);
+            if (promoContainers.length === 0) {
+                console.log('[PromoSystem] No promo containers found on this page');
+                return;
             }
             
-            if (titleElement) {
-                titleElement.textContent = selectedPromo.title;
-            } else {
-                console.warn('[PromoSystem] Title element not found for container', index);
-            }
-            
-            if (descElement) {
-                descElement.textContent = selectedPromo.description;
-            } else {
-                console.warn('[PromoSystem] Description element not found for container', index);
-            }
-            
-            // Устанавливаем ссылки
-            if (titleLink) titleLink.href = selectedPromo.url;
-            if (descLink) descLink.href = selectedPromo.url;
-            if (buttonLink) buttonLink.href = selectedPromo.url;
-        });
-    }
-
-    // Выполняем при загрузке DOM
-    document.addEventListener('DOMContentLoaded', fillPromoContainers);
-
-    // Для Swup и любых других клиентских маршрутизаторов
-    if (typeof swup !== 'undefined') {
-        console.log('[PromoSystem] Swup detected, registering content replaced event');
-        swup.on('contentReplaced', fillPromoContainers);
-    } else {
-        document.addEventListener('swup:contentReplaced', fillPromoContainers);
-    }
-    
-    // Обработчик после навигации Swup
-    window.addEventListener('popstate', function() {
-        console.log('[PromoSystem] popstate event detected');
-        setTimeout(fillPromoContainers, 100);
-    });
-    
-    // Дополнительный обработчик для обновления рекламы при использовании AJAX пагинации
-    document.addEventListener('click', function(e) {
-        // Проверяем, является ли клик по ссылке пагинации
-        if (e.target.closest('.paginator-link') || e.target.closest('.paginator a')) {
-            console.log('[PromoSystem] Pagination link clicked, scheduling reload');
-            setTimeout(fillPromoContainers, 500); // Больше времени на завершение AJAX
+            // Заполняем каждый контейнер случайным материалом
+            promoContainers.forEach((container, index) => {
+                try {
+                    // Выбор случайного материала для каждого контейнера
+                    const randomPromoIndex = Math.floor(Math.random() * promoList.length);
+                    const selectedPromo = promoList[randomPromoIndex];
+                    
+                    console.log('[PromoSystem] Filling container', index, 'with', selectedPromo.title);
+                    
+                    // Находим элементы по их классам внутри текущего контейнера
+                    const imgElement = container.querySelector('.promo-image-element');
+                    const titleElement = container.querySelector('.promo-title-element');
+                    const descElement = container.querySelector('.promo-desc-element');
+                    const titleLink = container.querySelector('.promo-title-link');
+                    const descLink = container.querySelector('.promo-desc-link');
+                    const buttonLink = container.querySelector('.promo-button-link');
+                    
+                    // Заполняем содержимое, если элементы найдены
+                    if (imgElement) {
+                        imgElement.src = selectedPromo.image;
+                        imgElement.alt = selectedPromo.title;
+                    }
+                    
+                    if (titleElement) {
+                        titleElement.textContent = selectedPromo.title;
+                    }
+                    
+                    if (descElement) {
+                        descElement.textContent = selectedPromo.description;
+                    }
+                    
+                    // Устанавливаем ссылки
+                    if (titleLink) titleLink.href = selectedPromo.url;
+                    if (descLink) descLink.href = selectedPromo.url;
+                    if (buttonLink) buttonLink.href = selectedPromo.url;
+                } catch (err) {
+                    console.error('[PromoSystem] Error filling container', index, err);
+                }
+            });
+        } catch (error) {
+            console.error('[PromoSystem] Error in fillPromoContainers:', error);
         }
-    });
+    }
+
+    // Основная логика инициализации
+    function initPromoSystem() {
+        try {
+            // Запускаем заполнение сразу при загрузке скрипта
+            fillPromoContainers();
+            
+            // Также запускаем через небольшую задержку для уверенности
+            setTimeout(fillPromoContainers, 200);
+            
+            // Регистрируем обработчики событий
+            document.addEventListener('DOMContentLoaded', function() {
+                console.log('[PromoSystem] DOMContentLoaded event fired');
+                setTimeout(fillPromoContainers, 100);
+            });
+            
+            document.addEventListener('swupContentReplaced', function() {
+                console.log('[PromoSystem] swupContentReplaced event caught');
+                setTimeout(fillPromoContainers, 100);
+            });
+            
+            window.addEventListener('popstate', function() {
+                console.log('[PromoSystem] popstate event detected');
+                setTimeout(fillPromoContainers, 100);
+            });
+            
+            document.addEventListener('pageChanged', function() {
+                console.log('[PromoSystem] pageChanged event detected');
+                setTimeout(fillPromoContainers, 100);
+            });
+            
+            // Проверяем наличие рекламных блоков каждые 2 секунды в первые 10 секунд
+            let checkCount = 0;
+            const checkInterval = setInterval(function() {
+                if (checkCount >= 5) { // 5 проверок по 2 секунды = 10 секунд
+                    clearInterval(checkInterval);
+                    return;
+                }
+                
+                const containers = document.querySelectorAll('[data-promo-container="true"]');
+                if (containers.length > 0) {
+                    console.log('[PromoSystem] Found containers in interval check');
+                    fillPromoContainers();
+                }
+                
+                checkCount++;
+            }, 2000);
+            
+        } catch (error) {
+            console.error('[PromoSystem] Error initializing promo system:', error);
+        }
+    }
+    
+    // Запускаем инициализацию
+    initPromoSystem();
 </script>
