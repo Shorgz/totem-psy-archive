@@ -2293,3 +2293,89 @@
   transform: translateX(3px) !important;
 }
 </style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Добавляем специальный обработчик для SWUP навигации,
+        // который запускается только на главной странице
+        setTimeout(function() {
+            if (typeof swup !== 'undefined') {
+                // Функция для проверки, находимся ли мы на главной странице
+                function isHomePage() {
+                    const path = window.location.pathname;
+                    return path === '/' || path === '/index.html' || path === '/index.php';
+                }
+                
+                // Обработчик главной страницы
+                function handleHomePageInit() {
+                    console.log('home-banner: Инициализация главной страницы');
+                    
+                    // Находим видеоконтейнер и видео элемент
+                    const videoContainer = document.querySelector('.fixed-video-container');
+                    const videoElement = document.getElementById('loopVideo');
+                    
+                    if (videoContainer && videoElement && window.innerWidth > 768) {
+                        console.log('home-banner: Обнаружен видеоконтейнер, принудительное отображение');
+                        
+                        // Принудительно показываем контейнер
+                        videoContainer.style.display = 'block';
+                        videoContainer.style.visibility = 'visible';
+                        videoContainer.style.opacity = '1';
+                        videoContainer.classList.remove('video-hide');
+                        videoContainer.style.transform = 'none';
+                        
+                        // Запуск видео через цепочку таймеров для надежности
+                        setTimeout(function() {
+                            console.log('home-banner: Попытка запуска видео #1');
+                            try {
+                                videoElement.play().catch(function(error) {
+                                    console.warn('home-banner: Ошибка запуска #1:', error);
+                                    
+                                    // Повторная попытка через 300мс
+                                    setTimeout(function() {
+                                        console.log('home-banner: Попытка запуска видео #2');
+                                        videoElement.play().catch(function(error) {
+                                            console.warn('home-banner: Ошибка запуска #2:', error);
+                                            
+                                            // Еще одна попытка через 500мс
+                                            setTimeout(function() {
+                                                console.log('home-banner: Попытка запуска видео #3');
+                                                videoElement.autoplay = true;
+                                                videoElement.muted = true; // Принудительно включаем muted для гарантии автозапуска
+                                                videoElement.play().catch(e => {
+                                                    console.warn('home-banner: Ошибка запуска #3, сдаемся:', e);
+                                                });
+                                            }, 500);
+                                        });
+                                    }, 300);
+                                });
+                            } catch(e) {
+                                console.error('home-banner: Критическая ошибка воспроизведения:', e);
+                            }
+                        }, 100);
+                    }
+                }
+                
+                // Устанавливаем обработчики SWUP
+                swup.hooks.on('page:view', function() {
+                    if (isHomePage()) {
+                        console.log('home-banner: Обнаружен переход на главную страницу');
+                        setTimeout(handleHomePageInit, 100);
+                    }
+                });
+                
+                swup.hooks.on('animation:in:end', function() {
+                    if (isHomePage()) {
+                        console.log('home-banner: Завершена анимация перехода на главную');
+                        setTimeout(handleHomePageInit, 200);
+                    }
+                });
+                
+                // Также запускаем при первоначальной загрузке, если мы на главной
+                if (isHomePage()) {
+                    handleHomePageInit();
+                }
+            }
+        }, 500); // Задержка для надежной инициализации SWUP
+    });
+</script>
