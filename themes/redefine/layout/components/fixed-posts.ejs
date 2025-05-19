@@ -170,11 +170,23 @@ function handleScroll() {
     
     const container = document.querySelector('.fixed-important-posts-container');
     const videoContainer = document.querySelector('.fixed-video-container');
+    const videoElement = document.getElementById('loopVideo');
     
     if (!container) return;
     
     // Получаем текущую позицию прокрутки
     const scrollPosition = window.scrollY || document.documentElement.scrollTop;
+    
+    // Функция для проверки видимости элемента
+    function isElementInViewport(el) {
+        if (!el) return false;
+        
+        const rect = el.getBoundingClientRect();
+        return (
+            rect.top >= -rect.height &&
+            rect.top <= window.innerHeight
+        );
+    }
     
     // Начинаем скрывать при прокрутке больше 100px
     if (scrollPosition > 100) {
@@ -183,6 +195,12 @@ function handleScroll() {
         // Скрываем видео при прокрутке вниз
         if (videoContainer) {
             videoContainer.classList.add('video-hide');
+            
+            // Ставим видео на паузу, если оно воспроизводится и ушло из области видимости
+            if (videoElement && !videoElement.paused && !isElementInViewport(videoContainer)) {
+                console.log('Ставим видео на паузу, т.к. оно вне области видимости при прокрутке');
+                videoElement.pause();
+            }
         }
     } else {
         container.classList.remove('hide-on-scroll-active');
@@ -190,8 +208,41 @@ function handleScroll() {
         // Показываем видео только на главной странице и только вверху
         if (videoContainer && isHomePage()) {
             videoContainer.classList.remove('video-hide');
+            
+            // Возобновляем воспроизведение видео, если оно на паузе и видимо
+            if (videoElement && videoElement.paused && isElementInViewport(videoContainer)) {
+                console.log('Возобновляем воспроизведение видео');
+                const playPromise = videoElement.play();
+                if (playPromise !== undefined) {
+                    playPromise.catch(e => {
+                        console.warn('Ошибка возобновления видео:', e);
+                    });
+                }
+            }
         } else if (videoContainer) {
             videoContainer.classList.add('video-hide');
+        }
+    }
+    
+    // Дополнительная проверка видимости независимо от прокрутки
+    if (videoContainer && videoElement && isHomePage()) {
+        if (isElementInViewport(videoContainer)) {
+            // Видео в области видимости - воспроизводим, если на паузе
+            if (videoElement.paused && !document.querySelector('#fullscreen-video-container[style*="display: flex"]')) {
+                console.log('Возобновляем воспроизведение видео при видимости');
+                const playPromise = videoElement.play();
+                if (playPromise !== undefined) {
+                    playPromise.catch(e => {
+                        console.warn('Ошибка запуска видео:', e);
+                    });
+                }
+            }
+        } else {
+            // Видео вне области видимости - ставим на паузу
+            if (!videoElement.paused) {
+                console.log('Ставим видео на паузу, т.к. оно вне области видимости');
+                videoElement.pause();
+            }
         }
     }
 }
