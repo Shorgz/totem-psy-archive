@@ -525,45 +525,131 @@
 
 <!-- Глобальный скрипт для рекламных блоков -->
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Функция для выбора случайного рекламного блока
-    function showRandomPromo() {
-        // Получаем все контейнеры для рекламы
-        const promoContainers = document.querySelectorAll('.promo-content');
+// Определяем основную функцию как глобальную, чтобы она была доступна из любого места
+window.showRandomPromo = function() {
+    console.log('Вызов showRandomPromo');
+    
+    // Получаем все контейнеры для рекламы
+    const promoContainers = document.querySelectorAll('.promo-content');
+    console.log('Найдено контейнеров:', promoContainers.length);
+    
+    // Для каждого контейнера выбираем случайный блок
+    promoContainers.forEach(function(container) {
+        // Получаем все блоки в этом контейнере
+        const promoItems = container.querySelectorAll('.promo-item');
+        console.log('Найдено блоков в контейнере:', promoItems.length);
         
-        // Для каждого контейнера выбираем случайный блок
-        promoContainers.forEach(function(container) {
-            // Получаем все блоки в этом контейнере
-            const promoItems = container.querySelectorAll('.promo-item');
+        // Проверяем, есть ли элементы для выбора
+        if (promoItems.length > 0) {
+            // Выбираем случайный индекс
+            const randomIndex = Math.floor(Math.random() * promoItems.length);
+            console.log('Выбран блок с индексом:', randomIndex);
             
-            // Проверяем, есть ли элементы для выбора
-            if (promoItems.length > 0) {
-                // Выбираем случайный индекс
-                const randomIndex = Math.floor(Math.random() * promoItems.length);
-                
-                // Показываем выбранный блок, остальные оставляем скрытыми
-                promoItems.forEach(function(item, index) {
-                    if (index === randomIndex) {
-                        item.style.display = 'flex';
-                    } else {
-                        item.style.display = 'none';
+            // Показываем выбранный блок, остальные оставляем скрытыми
+            promoItems.forEach(function(item, index) {
+                if (index === randomIndex) {
+                    item.style.display = 'flex';
+                    console.log('Показан блок:', index);
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+    });
+}
+
+// Инициализация при загрузке страницы
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOMContentLoaded сработал');
+    window.showRandomPromo();
+});
+
+// Для обработки Swup мы используем несколько подходов
+
+// 1. Стандартное событие Swup
+document.addEventListener('swup:contentReplaced', function() {
+    console.log('swup:contentReplaced сработал');
+    setTimeout(window.showRandomPromo, 100);
+});
+
+// 2. Обработка через объект window.swup для старых версий
+if (typeof window !== 'undefined') {
+    window.addEventListener('load', function() {
+        if (window.swup) {
+            console.log('Найден объект swup, добавляем обработчики');
+            window.swup.on('contentReplaced', function() {
+                console.log('swup contentReplaced сработал');
+                setTimeout(window.showRandomPromo, 100);
+            });
+        }
+    });
+}
+
+// 3. Обработка popstate для навигации через историю
+window.addEventListener('popstate', function() {
+    console.log('popstate сработал');
+    setTimeout(window.showRandomPromo, 200);
+});
+
+// 4. Добавляем наблюдатель за изменениями в DOM
+window.addEventListener('load', function() {
+    const observer = new MutationObserver(function(mutations) {
+        let needsRefresh = false;
+        
+        mutations.forEach(function(mutation) {
+            if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
+                // Проверяем, есть ли среди добавленных узлов контейнеры для рекламы
+                mutation.addedNodes.forEach(function(node) {
+                    if (node.nodeType === 1 && node.classList && 
+                        (node.classList.contains('promo-container') || 
+                         node.querySelector && node.querySelector('.promo-container'))) {
+                        needsRefresh = true;
                     }
                 });
             }
         });
-    }
-    
-    // Показываем случайные блоки при загрузке страницы
-    showRandomPromo();
-    
-    // Обработчик для Swup навигации
-    document.addEventListener('swup:contentReplaced', function() {
-        setTimeout(showRandomPromo, 50);
+        
+        if (needsRefresh) {
+            console.log('Обнаружены изменения в DOM, обновляем рекламу');
+            setTimeout(window.showRandomPromo, 100);
+        }
     });
     
-    // Обработчик события навигации
-    window.addEventListener('popstate', function() {
-        setTimeout(showRandomPromo, 50);
+    // Наблюдаем за изменениями в DOM
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true
     });
+    
+    console.log('MutationObserver настроен');
 });
+
+// 5. Дополнительная инициализация через setTimeout
+setTimeout(function() {
+    console.log('setTimeout сработал');
+    window.showRandomPromo();
+}, 1000);
+
+// 6. Дополнительно обработка кликов по ссылкам пагинации
+document.addEventListener('click', function(e) {
+    // Ищем клики по ссылкам пагинации
+    let target = e.target;
+    while (target && target !== document) {
+        if (target.tagName === 'A' && 
+            (target.href.includes('/page/') || 
+             target.parentNode && target.parentNode.classList && 
+             target.parentNode.classList.contains('paginator-link'))) {
+            console.log('Клик по ссылке пагинации');
+            setTimeout(window.showRandomPromo, 500);
+            break;
+        }
+        target = target.parentNode;
+    }
+});
+
+// 7. Экспортируем функцию как глобальную
+if (typeof window !== 'undefined') {
+    // Добавляем специальную инструкцию для ручного запуска из консоли
+    console.log('Вы можете вручную запустить обновление рекламы через консоль: window.showRandomPromo()');
+}
 </script>
