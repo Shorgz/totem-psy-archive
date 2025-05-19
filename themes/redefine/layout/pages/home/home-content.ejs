@@ -157,7 +157,7 @@
             <% } %>
             
             <!-- Добавляем блок Telegram после первой статьи -->
-            <% if (index === 0) { %>
+            <% if (index === 0 && (page.current === 1 || !page.current)) { %>
                 <li class="home-article-item telegram-promo-container">
                     <div class="telegram-promo-content-wrapper">
                         <div class="telegram-promo-content">
