@@ -82,7 +82,7 @@
             <% } %>
             
             <!-- Добавляем блок Telegram после первой статьи -->
-            <% if (index === 0) { %>
+            <% if (index === 0 && page.current === 1) { %>
                 <li class="home-article-item telegram-promo-container">
                     <div class="telegram-promo-content-wrapper">
                         <div class="telegram-promo-content">
@@ -445,7 +445,10 @@
 
 <!-- JavaScript для динамической рекламы -->
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    // Функция для заполнения рекламных блоков
+    function fillPromoContainers() {
+        console.log('[PromoSystem] Filling promo containers...');
+        
         // Массив интересных материалов
         const promoList = [
             {
@@ -482,12 +485,15 @@
         
         // Находим все контейнеры рекламы
         const promoContainers = document.querySelectorAll('[data-promo-container="true"]');
+        console.log('[PromoSystem] Found', promoContainers.length, 'promo containers');
         
         // Заполняем каждый контейнер случайным материалом
-        promoContainers.forEach((container) => {
+        promoContainers.forEach((container, index) => {
             // Выбор случайного материала для каждого контейнера
             const randomPromoIndex = Math.floor(Math.random() * promoList.length);
             const selectedPromo = promoList[randomPromoIndex];
+            
+            console.log('[PromoSystem] Filling promo container', index, 'with', selectedPromo.title);
             
             // Получаем идентификатор индекса из атрибутов элементов внутри контейнера
             const imgElement = container.querySelector('img[id^="promo-image-"]');
@@ -501,14 +507,20 @@
             if (imgElement) {
                 imgElement.src = selectedPromo.image;
                 imgElement.alt = selectedPromo.title;
+            } else {
+                console.warn('[PromoSystem] Image element not found for container', index);
             }
             
             if (titleElement) {
                 titleElement.textContent = selectedPromo.title;
+            } else {
+                console.warn('[PromoSystem] Title element not found for container', index);
             }
             
             if (descElement) {
                 descElement.textContent = selectedPromo.description;
+            } else {
+                console.warn('[PromoSystem] Description element not found for container', index);
             }
             
             // Устанавливаем ссылки
@@ -516,5 +528,31 @@
             if (descLink) descLink.href = selectedPromo.url;
             if (buttonLink) buttonLink.href = selectedPromo.url;
         });
+    }
+
+    // Выполняем при загрузке DOM
+    document.addEventListener('DOMContentLoaded', fillPromoContainers);
+
+    // Для Swup и любых других клиентских маршрутизаторов
+    if (typeof swup !== 'undefined') {
+        console.log('[PromoSystem] Swup detected, registering content replaced event');
+        swup.on('contentReplaced', fillPromoContainers);
+    } else {
+        document.addEventListener('swup:contentReplaced', fillPromoContainers);
+    }
+    
+    // Обработчик после навигации Swup
+    window.addEventListener('popstate', function() {
+        console.log('[PromoSystem] popstate event detected');
+        setTimeout(fillPromoContainers, 100);
+    });
+    
+    // Дополнительный обработчик для обновления рекламы при использовании AJAX пагинации
+    document.addEventListener('click', function(e) {
+        // Проверяем, является ли клик по ссылке пагинации
+        if (e.target.closest('.paginator-link') || e.target.closest('.paginator a')) {
+            console.log('[PromoSystem] Pagination link clicked, scheduling reload');
+            setTimeout(fillPromoContainers, 500); // Больше времени на завершение AJAX
+        }
     });
 </script>
