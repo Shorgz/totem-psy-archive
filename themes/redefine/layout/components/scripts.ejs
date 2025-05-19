@@ -207,3 +207,42 @@
         swup.hooks.on('page:view', replaceMobileBackground);
     } catch (e) {}
 </script>
+
+// Обработка событий для поддержки динамической рекламы
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Поддержка событий пагинации
+        const paginationLinks = document.querySelectorAll('.paginator a');
+        if (paginationLinks.length > 0) {
+            console.log('[Scripts] Pagination links found, attaching event handlers');
+            
+            paginationLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    console.log('[Scripts] Pagination link clicked');
+                    
+                    // Диспатчим событие для систем, которые могут его обрабатывать
+                    setTimeout(function() {
+                        const event = new CustomEvent('pageChanged');
+                        document.dispatchEvent(event);
+                        
+                        // Прямой вызов функции заполнения рекламы, если она существует
+                        if (typeof fillPromoContainers === 'function') {
+                            console.log('[Scripts] Calling fillPromoContainers from pagination handler');
+                            fillPromoContainers();
+                        }
+                    }, 300);
+                });
+            });
+        }
+    });
+
+    // Глобальная функция для принудительного обновления рекламных блоков
+    window.refreshPromo = function() {
+        if (typeof fillPromoContainers === 'function') {
+            console.log('[Scripts] Manual refresh of promo containers triggered');
+            fillPromoContainers();
+            return true;
+        }
+        return false;
+    };
+</script>
