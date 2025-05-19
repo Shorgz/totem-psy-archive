@@ -23,5 +23,17 @@
         ],
         containers: ["#swup"],
     });
+    
+    // Добавляем глобальный обработчик события после загрузки контента
+    swup.on('contentReplaced', function() {
+        // Вызываем событие для остальных компонентов сайта
+        document.dispatchEvent(new CustomEvent('swupContentReplaced'));
+        
+        // Заполняем рекламные блоки если функция существует
+        if (typeof fillPromoContainers === 'function') {
+            console.log('[Swup] Calling fillPromoContainers from Swup content replaced event');
+            setTimeout(fillPromoContainers, 100);
+        }
+    });
 </script>
 
