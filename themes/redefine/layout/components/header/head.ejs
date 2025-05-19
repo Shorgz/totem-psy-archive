@@ -41,7 +41,7 @@
         // Определяем миниатюру статьи для Open Graph
         let articleImage = "";
         if (page.thumbnail && page.thumbnail !== false && page.thumbnail !== null) {
-            articleImage = page.thumbnail;
+            articleImage = url_for(page.thumbnail);
         } else if (page.cover && page.cover.includes && page.cover.includes("/")) {
             articleImage = page.cover;
         } else if (page.banner && page.banner.includes && page.banner.includes("/")) {
@@ -54,12 +54,24 @@
         let ogImage = page.og_image || articleImage || theme.global.open_graph?.image;
         let ogDescription = page.og_description || theme.global.open_graph?.description || page.description || config.description;
         let author = page.author || config.author || 'Redefine Team';
+        
+        // Обеспечиваем абсолютные URL для миниатюр (необходимо для превью в Telegram)
+        if (ogImage && !ogImage.startsWith('http')) {
+            // Получаем домен сайта из конфигурации
+            const domain = config.url || 'https://totem-psy-archive.vercel.app';
+            // Убираем начальный слеш, если он есть
+            if (ogImage.startsWith('/')) {
+                ogImage = ogImage.substring(1);
+            }
+            // Формируем абсолютный URL
+            ogImage = `${domain}/${ogImage}`;
+        }
         %>
         <%- open_graph({
             image: ogImage,
             author: author,
             description: ogDescription,
-            twitter_card: 'summary',
+            twitter_card: 'summary_large_image',
             twitter_image: ogImage,
         }) %>
     <% } %>
