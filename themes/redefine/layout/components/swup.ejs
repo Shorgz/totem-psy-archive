@@ -23,17 +23,5 @@
         ],
         containers: ["#swup"],
     });
-    
-    // Глобальный обработчик события после загрузки контента
-    swup.on('contentReplaced', function() {
-        // Создаем и диспатчим кастомное событие для обработчиков
-        const event = new CustomEvent('swupContentReplaced');
-        document.dispatchEvent(event);
-        
-        // Прямой вызов функции заполнения рекламных блоков
-        if (typeof fillPromoContainers === 'function') {
-            fillPromoContainers();
-        }
-    });
 </script>
 

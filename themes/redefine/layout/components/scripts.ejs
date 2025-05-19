@@ -207,15 +207,3 @@
         swup.hooks.on('page:view', replaceMobileBackground);
     } catch (e) {}
 </script>
-
-// Функция для ручного обновления рекламных блоков
-<script>
-    // Глобальная функция для принудительного обновления рекламных блоков
-    window.refreshPromo = function() {
-        if (typeof fillPromoContainers === 'function') {
-            fillPromoContainers();
-            return true;
-        }
-        return false;
-    };
-</script>
