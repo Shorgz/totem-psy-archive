@@ -58,61 +58,21 @@
             
             <!-- Интересный блок после каждой 3-й статьи -->
             <% if ((index + 1) % 3 === 0 && (index + 1) !== page.posts.length) { %>
-                <% 
-                // Массив интересных материалов
-                const promoList = [
-                  {
-                    image: '/images/ads/mushroom-kit.jpg',
-                    title: 'Где Найти и Купить наши ингридиенты',
-                    description: 'Всё необходимое в одном месте, что и где взять что-либо, будь-то аптека за ромашкой, или OZON/WB за витаминкой, до прочих...',
-                    url: '/2025/04/01/Gde-Nayti-i-Kupit/'
-                  },
-                  {
-                    image: '/images/ads/magiccacao.jpg',
-                    title: 'Волшебный Шоколад',
-                    description: '🍫  Церемониальный Какао Шоколад с Маслами Мациса и Муската, приготовленный по особому рецепту для погружения в Сердце и Душу.',
-                    url: 'https://t.me/+HLA4fDbFyTMyODQy'
-                  },
-                  {
-                    image: '/images/ads/hypnocouch.jpg',
-                    title: 'Перезагрузка Жизни',
-                    description: 'Современный гипноподход к лечению своей души, можно даже вместе с психоделиками. Методики, интеграции, личные практики.',
-                    url: 'https://t.me/newsphere_newrealms'
-                  },
-                  {
-                    image: '/images/ads/gribcult.jpg',
-                    title: 'Грибная Культура',
-                    description: 'Полный комплект для домашнего выращивания волшебных грибов. Простые инструкции, высокая урожайность, экзотические виды',
-                    url: 'https://t.me/gribnai'
-                  },
-                  {
-                    image: '/images/ads/maslomatsis.jpg',
-                    title: 'Масло Мациса',
-                    description: 'Легальный Каннабис Хай прямиком с OZON/WB, эйфория, расслабление на единороге по волнам тепла и удовольствия',
-                    url: 'https://t.me/OilMacis'
-                  }
-                ];
-                
-                // Выбор случайного материала
-                const randomPromoIndex = Math.floor(Math.random() * promoList.length);
-                const selectedPromo = promoList[randomPromoIndex];
-                %>
-                
-                <li class="home-article-item promo-container">
+                <li class="home-article-item promo-container" data-promo-container="true">
                     <div class="promo-content-wrapper">
                         <div class="promo-content">
                             <div class="promo-image">
-                                <img src="<%= url_for(selectedPromo.image) %>" alt="<%= selectedPromo.title %>">
+                                <img src="" alt="" id="promo-image-<%= index %>">
                             </div>
                             <div class="promo-text">
                                 <div class="promo-label text-xs uppercase tracking-wide text-third-text-color mb-1">Интересное</div>
-                                <a href="<%= selectedPromo.url %>" class="title-link">
-                                    <h3 class="text-second-text-color font-semibold"><%= selectedPromo.title %></h3>
+                                <a href="" class="title-link" id="promo-title-link-<%= index %>">
+                                    <h3 class="text-second-text-color font-semibold" id="promo-title-<%= index %>"></h3>
                                 </a>
-                                <a href="<%= selectedPromo.url %>" class="description-link">
-                                    <p class="text-third-text-color"><%= selectedPromo.description %></p>
+                                <a href="" class="description-link" id="promo-desc-link-<%= index %>">
+                                    <p class="text-third-text-color" id="promo-desc-<%= index %>"></p>
                                 </a>
-                                <a href="<%= selectedPromo.url %>" class="promo-button">
+                                <a href="" class="promo-button" id="promo-button-<%= index %>">
                                     Подробнее
                                 </a>
                             </div>
@@ -482,3 +442,79 @@
         opacity: 1;
     }
 </style>
+
+<!-- JavaScript для динамической рекламы -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Массив интересных материалов
+        const promoList = [
+            {
+                image: '/images/ads/mushroom-kit.jpg',
+                title: 'Где Найти и Купить наши ингридиенты',
+                description: 'Всё необходимое в одном месте, что и где взять что-либо, будь-то аптека за ромашкой, или OZON/WB за витаминкой, до прочих...',
+                url: '/2025/04/01/Gde-Nayti-i-Kupit/'
+            },
+            {
+                image: '/images/ads/magiccacao.jpg',
+                title: 'Волшебный Шоколад',
+                description: '🍫  Церемониальный Какао Шоколад с Маслами Мациса и Муската, приготовленный по особому рецепту для погружения в Сердце и Душу.',
+                url: 'https://t.me/+HLA4fDbFyTMyODQy'
+            },
+            {
+                image: '/images/ads/hypnocouch.jpg',
+                title: 'Перезагрузка Жизни',
+                description: 'Современный гипноподход к лечению своей души, можно даже вместе с психоделиками. Методики, интеграции, личные практики.',
+                url: 'https://t.me/newsphere_newrealms'
+            },
+            {
+                image: '/images/ads/gribcult.jpg',
+                title: 'Грибная Культура',
+                description: 'Полный комплект для домашнего выращивания волшебных грибов. Простые инструкции, высокая урожайность, экзотические виды',
+                url: 'https://t.me/gribnai'
+            },
+            {
+                image: '/images/ads/maslomatsis.jpg',
+                title: 'Масло Мациса',
+                description: 'Легальный Каннабис Хай прямиком с OZON/WB, эйфория, расслабление на единороге по волнам тепла и удовольствия',
+                url: 'https://t.me/OilMacis'
+            }
+        ];
+        
+        // Находим все контейнеры рекламы
+        const promoContainers = document.querySelectorAll('[data-promo-container="true"]');
+        
+        // Заполняем каждый контейнер случайным материалом
+        promoContainers.forEach((container) => {
+            // Выбор случайного материала для каждого контейнера
+            const randomPromoIndex = Math.floor(Math.random() * promoList.length);
+            const selectedPromo = promoList[randomPromoIndex];
+            
+            // Получаем идентификатор индекса из атрибутов элементов внутри контейнера
+            const imgElement = container.querySelector('img[id^="promo-image-"]');
+            const titleElement = container.querySelector('h3[id^="promo-title-"]');
+            const descElement = container.querySelector('p[id^="promo-desc-"]');
+            const titleLink = container.querySelector('a[id^="promo-title-link-"]');
+            const descLink = container.querySelector('a[id^="promo-desc-link-"]');
+            const buttonLink = container.querySelector('a[id^="promo-button-"]');
+            
+            // Заполняем содержимое
+            if (imgElement) {
+                imgElement.src = selectedPromo.image;
+                imgElement.alt = selectedPromo.title;
+            }
+            
+            if (titleElement) {
+                titleElement.textContent = selectedPromo.title;
+            }
+            
+            if (descElement) {
+                descElement.textContent = selectedPromo.description;
+            }
+            
+            // Устанавливаем ссылки
+            if (titleLink) titleLink.href = selectedPromo.url;
+            if (descLink) descLink.href = selectedPromo.url;
+            if (buttonLink) buttonLink.href = selectedPromo.url;
+        });
+    });
+</script>
