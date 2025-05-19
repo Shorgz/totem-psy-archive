@@ -462,16 +462,14 @@ function initPromoBlocks() {
             url: 'https://t.me/OilMacis'
         }
     ];
+
+    // Находим все пустые рекламные контейнеры на странице
+    const promoContainers = document.querySelectorAll('[data-promo-container="true"]:empty');
+    console.log('Найдено пустых контейнеров:', promoContainers.length);
     
-    // Получаем все рекламные контейнеры
-    const promoContainers = document.querySelectorAll('[data-promo-container="true"]');
-    
-    // Заполняем каждый контейнер случайной рекламой
+    // Заполняем каждый пустой контейнер
     promoContainers.forEach(function(container) {
-        // Пропускаем контейнеры, которые уже заполнены
-        if (container.children.length > 0) return;
-        
-        // Выбираем случайную рекламу для каждого контейнера
+        // Выбираем случайную рекламу
         const randomIndex = Math.floor(Math.random() * promoList.length);
         const promo = promoList[randomIndex];
         
@@ -500,17 +498,64 @@ function initPromoBlocks() {
         
         // Вставляем HTML в контейнер
         container.innerHTML = promoHTML;
+        console.log('Заполнен контейнер рекламой:', promo.title);
     });
 }
 
-// Инициализируем при загрузке DOM
-document.addEventListener('DOMContentLoaded', initPromoBlocks);
+// Первичная инициализация при загрузке DOM
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOMContentLoaded сработал');
+    initPromoBlocks();
+    
+    // Настраиваем MutationObserver для отслеживания изменений в DOM
+    const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            // Проверяем были ли добавлены новые узлы
+            if (mutation.addedNodes.length) {
+                // Проверяем, есть ли среди добавленных узлов контейнеры для рекламы
+                mutation.addedNodes.forEach(function(node) {
+                    if (node.nodeType === 1 && node.matches && node.matches('[data-promo-container="true"]:empty')) {
+                        console.log('Обнаружен новый пустой контейнер для рекламы');
+                        initPromoBlocks();
+                    } else if (node.nodeType === 1 && node.querySelectorAll) {
+                        // Если узел может содержать другие элементы, проверяем их
+                        const emptyContainers = node.querySelectorAll('[data-promo-container="true"]:empty');
+                        if (emptyContainers.length > 0) {
+                            console.log('Обнаружены новые пустые контейнеры внутри добавленного элемента:', emptyContainers.length);
+                            initPromoBlocks();
+                        }
+                    }
+                });
+            }
+        });
+    });
+    
+    // Конфигурируем observer для отслеживания всего body с учетом подэлементов
+    observer.observe(document.body, {
+        childList: true,     // отслеживаем добавление/удаление дочерних элементов
+        subtree: true,       // и их потомков тоже
+        attributes: false,   // не отслеживаем изменение атрибутов
+        characterData: false // не отслеживаем изменение текстового содержимого
+    });
+    
+    console.log('MutationObserver настроен');
+    
+    // Также добавляем обработчик для навигационных событий Swup (для подстраховки)
+    document.addEventListener('swup:contentReplaced', function() {
+        console.log('swup:contentReplaced сработал');
+        initPromoBlocks();
+    });
+    
+    // Обработка прочих событий навигации (для совместимости с разными системами)
+    window.addEventListener('popstate', function() {
+        console.log('popstate сработал');
+        setTimeout(initPromoBlocks, 100); // Небольшая задержка для обновления DOM
+    });
+});
 
-// Инициализируем при переходе между страницами через Swup
-document.addEventListener('swup:contentReplaced', initPromoBlocks);
-
-// Для совместимости со старыми версиями Swup
-if (window.swup) {
-    window.swup.on('contentReplaced', initPromoBlocks);
-}
+// Дополнительная инициализация через setTimeout для подстраховки
+setTimeout(function() {
+    console.log('setTimeout сработал');
+    initPromoBlocks();
+}, 1000);
 </script>
