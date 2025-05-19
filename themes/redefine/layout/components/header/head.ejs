@@ -41,50 +41,27 @@
         // Определяем миниатюру статьи для Open Graph
         let articleImage = "";
         if (page.thumbnail && page.thumbnail !== false && page.thumbnail !== null) {
-            articleImage = url_for(page.thumbnail);
+            articleImage = page.thumbnail;
         } else if (page.cover && page.cover.includes && page.cover.includes("/")) {
-            articleImage = url_for(page.cover);
+            articleImage = page.cover;
         } else if (page.banner && page.banner.includes && page.banner.includes("/")) {
-            articleImage = url_for(page.banner);
+            articleImage = page.banner;
         } else if (config.marked && config.marked.postAsset && config.marked.postAsset == true && (page.cover || page.banner)) {
-            articleImage = url_for([page.path, page.cover || page.banner].join("/"));
+            articleImage = [page.path, page.cover || page.banner].join("/");
         }
 
         // Итоговый выбор изображения для Open Graph
         let ogImage = page.og_image || articleImage || theme.global.open_graph?.image;
         let ogDescription = page.og_description || theme.global.open_graph?.description || page.description || config.description;
-        let author = page.author || config.author || 'ToTeM';
-        
-        // Обеспечиваем абсолютные URL для миниатюр (необходимо для превью в Telegram)
-        if (ogImage && !ogImage.startsWith('http')) {
-            // Получаем домен сайта из конфигурации
-            let domain = config.url || 'https://totem-psy-archive.vercel.app';
-            
-            // Если тестируем локально, используем полный URL для localhost
-            if (domain.includes('localhost') || domain.includes('127.0.0.1')) {
-                // Заменяем localhost на vercel-домен для тестирования в Telegram
-                domain = 'https://totem-psy-archive.vercel.app';
-            }
-            
-            // Убираем начальный слеш, если он есть
-            if (ogImage.startsWith('/')) {
-                ogImage = ogImage.substring(1);
-            }
-            
-            // Формируем абсолютный URL
-            ogImage = `${domain}/${ogImage}`;
-        }
+        let author = page.author || config.author || 'Redefine Team';
         %>
         <%- open_graph({
             image: ogImage,
             author: author,
             description: ogDescription,
-            twitter_card: 'summary_large_image',
+            twitter_card: 'summary',
             twitter_image: ogImage,
         }) %>
-        
-        <!-- Подключаем расширенные метаданные для Telegram -->
-        <%- partial('../../_partial/telegram-meta') %>
     <% } %>
     <% if (theme.global.google_analytics.enable) { %>
         <!-- Google tag (gtag.js) -->
