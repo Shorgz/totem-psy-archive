@@ -427,7 +427,8 @@
 
 <!-- Глобальный скрипт для рекламных блоков -->
 <script>
-document.addEventListener('DOMContentLoaded', function() {
+// Определяем функцию инициализации рекламных блоков
+function initPromoBlocks() {
     // Массив интересных материалов
     const promoList = [
         {
@@ -467,6 +468,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Заполняем каждый контейнер случайной рекламой
     promoContainers.forEach(function(container) {
+        // Пропускаем контейнеры, которые уже заполнены
+        if (container.children.length > 0) return;
+        
         // Выбираем случайную рекламу для каждого контейнера
         const randomIndex = Math.floor(Math.random() * promoList.length);
         const promo = promoList[randomIndex];
@@ -497,5 +501,16 @@ document.addEventListener('DOMContentLoaded', function() {
         // Вставляем HTML в контейнер
         container.innerHTML = promoHTML;
     });
-});
+}
+
+// Инициализируем при загрузке DOM
+document.addEventListener('DOMContentLoaded', initPromoBlocks);
+
+// Инициализируем при переходе между страницами через Swup
+document.addEventListener('swup:contentReplaced', initPromoBlocks);
+
+// Для совместимости со старыми версиями Swup
+if (window.swup) {
+    window.swup.on('contentReplaced', initPromoBlocks);
+}
 </script>
