@@ -536,4 +536,45 @@
     
     // Немедленное выполнение при загрузке скрипта
     fillPromoContainers();
+
+    // Расширенная функция для обновления рекламы при пагинации
+    function setupPaginationHandlers() {
+        const paginationLinks = document.querySelectorAll('.paginator a');
+        paginationLinks.forEach(function(link) {
+            // Удаляем существующие обработчики, чтобы избежать дублирования
+            link.removeEventListener('click', handlePaginationClick);
+            // Добавляем новый обработчик
+            link.addEventListener('click', handlePaginationClick);
+        });
+    }
+    
+    // Обработчик клика по кнопке пагинации
+    function handlePaginationClick() {
+        // Сохраняем флаг, что пагинация была активирована
+        sessionStorage.setItem('paginationClicked', 'true');
+    }
+    
+    // Функция для проверки необходимости обновления рекламы после навигации
+    function checkPaginationNavigation() {
+        if (sessionStorage.getItem('paginationClicked') === 'true') {
+            // Сбрасываем флаг
+            sessionStorage.removeItem('paginationClicked');
+            // Обновляем рекламу
+            if (typeof fillPromoContainers === 'function') {
+                setTimeout(fillPromoContainers, 100);
+            }
+        }
+    }
+    
+    // Запускаем настройку при загрузке страницы
+    document.addEventListener('DOMContentLoaded', function() {
+        setupPaginationHandlers();
+        checkPaginationNavigation();
+    });
+    
+    // Также запускаем при событии Swup
+    document.addEventListener('swupContentReplaced', function() {
+        setupPaginationHandlers();
+        checkPaginationNavigation();
+    });
 </script>
