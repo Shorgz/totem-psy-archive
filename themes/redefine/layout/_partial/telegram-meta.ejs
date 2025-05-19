@@ -1,0 +1,75 @@
+<!-- Метаданные для корректного отображения в Telegram Instant View -->
+<% if (is_post()) { %>
+    <% 
+        // Определяем изображение для статьи
+        let articleImage = null;
+        if (page.thumbnail && page.thumbnail !== false && page.thumbnail !== null) {
+            articleImage = url_for(page.thumbnail);
+        } else if (page.cover) {
+            articleImage = url_for(page.cover);
+        } else if (page.banner) {
+            articleImage = url_for(page.banner);
+        }
+        
+        // Формируем абсолютный URL для изображения
+        if (articleImage && !articleImage.startsWith('http')) {
+            let domain = config.url || 'https://totem-psy-archive.vercel.app';
+            if (domain.includes('localhost') || domain.includes('127.0.0.1')) {
+                domain = 'https://totem-psy-archive.vercel.app';
+            }
+            
+            if (articleImage.startsWith('/')) {
+                articleImage = articleImage.substring(1);
+            }
+            
+            articleImage = `${domain}/${articleImage}`;
+        }
+        
+        // Получаем категории и теги
+        let categories = [];
+        if (page.categories && page.categories.length) {
+            page.categories.forEach(function(category) {
+                categories.push(category.name);
+            });
+        }
+        
+        let tags = [];
+        if (page.tags && page.tags.length) {
+            page.tags.forEach(function(tag) {
+                tags.push(tag.name);
+            });
+        }
+    %>
+    
+    <!-- Основные метаданные статьи для Telegram -->
+    <meta property="article:published_time" content="<%= page.date ? new Date(page.date).toISOString() : new Date().toISOString() %>">
+    <% if (page.updated) { %>
+    <meta property="article:modified_time" content="<%= new Date(page.updated).toISOString() %>">
+    <% } %>
+    
+    <!-- Метаданные автора -->
+    <meta property="article:author" content="<%= page.author || config.author || 'ToTeM' %>">
+    <meta property="telegram:channel" content="@Nikto_Archivarius">
+    
+    <!-- Категории и теги -->
+    <% if (categories.length > 0) { %>
+        <% categories.forEach(function(category) { %>
+    <meta property="article:section" content="<%= category %>">
+        <% }); %>
+    <% } %>
+    
+    <% if (tags.length > 0) { %>
+        <% tags.forEach(function(tag) { %>
+    <meta property="article:tag" content="<%= tag %>">
+        <% }); %>
+    <% } %>
+    
+    <!-- Изображение для Telegram -->
+    <% if (articleImage) { %>
+    <meta name="telegram:image" content="<%= articleImage %>">
+    <link rel="image_src" href="<%= articleImage %>">
+    <% } %>
+    
+    <!-- Специальный мета-тег для приоритета Instant View -->
+    <meta name="telegram:use_telegram_instant_view" content="true">
+<% } %> 
