@@ -16,9 +16,9 @@
 </div>
 
 <!-- Фиксированный видео-контейнер (только для ПК) -->
-<div class="fixed-video-container hide-on-mobile hide-on-scroll" style="opacity: 1; visibility: visible; position: fixed; top: 300px; right: 40px; z-index: 999; display:none;">
+<div class="fixed-video-container hide-on-mobile hide-on-scroll" style="opacity: 1; visibility: visible; position: fixed; top: 300px; right: 40px; z-index: 999;">
     <div class="video-container-small bg-gray-300/50 dark:bg-gray-500/40 backdrop-blur-lg border border-white/20 dark:border-gray-500/30 shadow-redefine-flat rounded-xl overflow-hidden cursor-pointer">
-        <video id="loopVideo" class="w-full h-full object-cover" playsinline muted loop preload="auto" autoplay>
+        <video id="loopVideo" class="w-full h-full object-cover" playsinline muted loop preload="auto">
             <source src="/videos/testvideo.mp4" type="video/mp4">
             Ваш браузер не поддерживает видео.
         </video>
@@ -59,10 +59,24 @@ if (window.innerWidth <= 768) {
     // Установка фиксированной начальной прозрачности
     function setInitialOpacity() {
         const container = document.querySelector('.fixed-important-posts-container');
+        const videoContainer = document.querySelector('.fixed-video-container');
+        
         if (container) {
             container.style.opacity = '1';
             container.style.visibility = 'visible';
         }
+        
+        // Применяем те же настройки к видеоконтейнеру
+        if (videoContainer && isHomePage() && window.innerWidth > 768) {
+            videoContainer.style.opacity = '1';
+            videoContainer.style.visibility = 'visible';
+        }
+    }
+    
+    // Проверка главной страницы
+    function isHomePage() {
+        const path = window.location.pathname;
+        return path === '/' || path === '/index.html' || path === '/index.php';
     }
     
     // Выполняем сразу
@@ -90,22 +104,47 @@ function toggleFixedPostsVisibility() {
     
     const container = document.querySelector('.fixed-important-posts-container');
     const videoContainer = document.querySelector('.fixed-video-container');
+    const videoElement = document.getElementById('loopVideo');
     
     if (!container) return;
     
     if (isHomePage()) {
-        // Устанавливаем стили для плавного появления
+        // Устанавливаем стили для плавного появления контейнера с закрепами
         container.style.display = 'block';
         container.style.visibility = 'visible';
-        // Не меняем opacity здесь, чтобы избежать резкого перехода
+        
         // Показываем видео-контейнер только на главной странице
         if (videoContainer) {
             if (window.innerWidth > 768) {
-                videoContainer.removeAttribute('hidden');
+                // Используем тот же подход, что и для закрепов
                 videoContainer.style.display = 'block';
                 videoContainer.style.visibility = 'visible';
+                videoContainer.style.opacity = '1';
+                
+                // Сбрасываем все трансформации
+                videoContainer.style.transform = 'none';
+                
+                // Запускаем видео после небольшой задержки
+                if (videoElement) {
+                    // Принудительно удаляем паузу
+                    videoElement.autoplay = true;
+                    
+                    // Загрузка и запуск видео с таймаутом для надежности
+                    setTimeout(function() {
+                        const playPromise = videoElement.play();
+                        if (playPromise !== undefined) {
+                            playPromise.catch(function(error) {
+                                console.log('Автозапуск видео отклонен браузером:', error);
+                                // Добавляем обработчик события взаимодействия для запуска
+                                document.addEventListener('click', function triggerPlay() {
+                                    videoElement.play();
+                                    document.removeEventListener('click', triggerPlay);
+                                }, { once: true });
+                            });
+                        }
+                    }, 100);
+                }
             } else {
-                videoContainer.setAttribute('hidden', '');
                 videoContainer.style.display = 'none';
                 videoContainer.style.visibility = 'hidden';
             }
@@ -113,10 +152,9 @@ function toggleFixedPostsVisibility() {
     } else {
         container.style.display = 'none';
         container.style.visibility = 'hidden';
-        // Не меняем opacity здесь, чтобы избежать резкого перехода при возврате
+        
         // Скрываем видео-контейнер на всех страницах, кроме главной
         if (videoContainer) {
-            videoContainer.setAttribute('hidden', '');
             videoContainer.style.display = 'none';
             videoContainer.style.visibility = 'hidden';
         }
@@ -179,13 +217,72 @@ window.addEventListener('scroll', handleScroll);
 // Запускаем при загрузке страницы и после завершения переходов
 try {
     if (typeof swup !== 'undefined') {
+        // Основной обработчик SWUP
         swup.hooks.on('page:view', function() {
+            console.log("SWUP: просмотр страницы");
+            
+            // Сначала включаем видимость контейнеров
             toggleFixedPostsVisibility();
+            
+            // Потом обновляем состояние на основе прокрутки
             handleScroll();
-            initVideoContainer(); // Переинициализируем видео при навигации через swup
+            
+            // Запускаем видео, если мы на главной
+            if (isHomePage()) {
+                console.log("SWUP: Главная страница");
+                setTimeout(function() {
+                    // Получаем видеоэлемент
+                    const videoElement = document.getElementById('loopVideo');
+                    const videoContainer = document.querySelector('.fixed-video-container');
+                    
+                    if (videoElement && videoContainer) {
+                        // Принудительно показываем контейнер
+                        videoContainer.style.display = 'block';
+                        videoContainer.style.visibility = 'visible';
+                        videoContainer.style.opacity = '1';
+                        
+                        // Запускаем видео
+                        const playPromise = videoElement.play();
+                        if (playPromise !== undefined) {
+                            playPromise.catch(function(error) {
+                                console.warn("SWUP: Не удалось запустить видео сразу, повторная попытка:", error);
+                                // Повторная попытка через 200мс
+                                setTimeout(function() {
+                                    videoElement.play().catch(e => console.warn("SWUP: Окончательная ошибка:", e));
+                                }, 200);
+                            });
+                        }
+                    }
+                }, 200);
+            }
+        });
+        
+        // Дополнительный обработчик для завершения анимации
+        swup.hooks.on('animation:in:end', function() {
+            if (isHomePage()) {
+                console.log("SWUP: Анимация завершена на главной");
+                
+                // Еще одна финальная проверка
+                setTimeout(function() {
+                    const videoElement = document.getElementById('loopVideo');
+                    const videoContainer = document.querySelector('.fixed-video-container');
+                    
+                    if (videoElement && videoContainer) {
+                        if (videoElement.paused) {
+                            console.log("SWUP: Видео всё еще на паузе, повторный запуск");
+                            videoContainer.style.display = 'block';
+                            videoContainer.style.visibility = 'visible';
+                            videoContainer.style.opacity = '1';
+                            videoElement.play().catch(e => console.warn("SWUP: Ошибка финального запуска:", e));
+                        }
+                    }
+                }, 500);
+            }
         });
     }
-} catch (e) {}
+} catch (e) {
+    console.error("Ошибка при работе с SWUP:", e);
+}
 
 // Функция инициализации видео-контейнера
 function initVideoContainer() {
@@ -194,39 +291,6 @@ function initVideoContainer() {
     const fullscreenContainer = document.getElementById('fullscreen-video-container');
     const fullscreenVideo = document.getElementById('fullscreenVideo');
     const closeButton = document.getElementById('close-fullscreen');
-    
-    // Проверяем видимость видео на основе текущей страницы
-    if (videoElement && isHomePage()) {
-        console.log("Инициализация видео на главной странице");
-        
-        // Устанавливаем начальное состояние видимости
-        if (videoContainer) {
-            // Показываем только если в верхней части страницы
-            const scrollPosition = window.scrollY || document.documentElement.scrollTop;
-            if (scrollPosition <= 100) {
-                videoContainer.classList.remove('hide-on-scroll-active');
-            } else {
-                videoContainer.classList.add('hide-on-scroll-active');
-            }
-        }
-        
-        // Автозапуск видео
-        try {
-            videoElement.play()
-                .catch(err => console.error("Ошибка при запуске видео:", err));
-        } catch(e) {
-            console.error("Ошибка воспроизведения:", e);
-        }
-        
-        // Предзагрузка полноэкранного видео
-        if (fullscreenVideo) {
-            fullscreenVideo.preload = "auto";
-            fullscreenVideo.load();
-        }
-    } else if (videoContainer) {
-        // На других страницах скрываем видео
-        videoContainer.classList.add('hide-on-scroll-active');
-    }
     
     // Обработчик клика на видео-контейнер (ПК)
     if (videoContainer) {
@@ -240,6 +304,7 @@ function initVideoContainer() {
             }
         });
     }
+    
     // Кнопка закрытия (ПК)
     if (closeButton) {
         closeButton.addEventListener('click', function() {
@@ -254,6 +319,7 @@ function initVideoContainer() {
             }
         });
     }
+    
     // Закрытие по клику вне видео (ПК)
     if (fullscreenContainer) {
         fullscreenContainer.addEventListener('click', function(e) {
@@ -282,6 +348,12 @@ function initVideoContainer() {
         
         // Отмечаем, что обработчик ESC установлен
         window._hasEscHandler = true;
+    }
+    
+    // Предзагрузка полноэкранного видео на главной странице
+    if (isHomePage() && fullscreenVideo) {
+        fullscreenVideo.preload = "auto";
+        fullscreenVideo.load();
     }
 }
 </script>
