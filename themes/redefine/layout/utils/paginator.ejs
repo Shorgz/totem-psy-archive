@@ -1,8 +1,84 @@
-<div class="paginator">
-	<%- paginator({
-    prev_text: '<i class="fa-regular fa-angle-left"></i>',
-    next_text: '<i class="fa-regular fa-angle-right"></i>',
-    escape: false
-	}) %>
-</div>
+<% 
+  const current = pageObject.current || 1;
+  const total = Math.ceil(pageObject.total / pageObject.per_page);
+  const paginationRange = 2;
+  const customPaginator = theme.hasOwnProperty('paginator') ? theme.paginator : {};
+  const paginatorMidSize = customPaginator.hasOwnProperty('mid_size') ? customPaginator.mid_size : 3;
+  const paginatorEdgeSize = customPaginator.hasOwnProperty('edge_size') ? customPaginator.edge_size : 3;
+%>
+
+<% if (total > 1) { %>
+  <nav class="paginator">
+    <% if (current > 1) { %>
+      <a class="paginator-prev paginator-link" href="<%- url_for(pageObject.prev_link) %>" onclick="if(typeof fillPromoContainers === 'function') setTimeout(fillPromoContainers, 100);">
+        <i class="fa-regular fa-angle-left"></i>
+      </a>
+    <% } %>
+
+    <% 
+      // Логика формирования кнопок пагинатора
+      const leftEnd = Math.min(paginatorEdgeSize, total);
+      const rightBegin = Math.max(total - paginatorEdgeSize + 1, 1);
+      const midBegin = Math.max(Math.min(current - paginatorMidSize, total - paginatorMidSize * 2), leftEnd + 1);
+      const midEnd = Math.min(midBegin + paginatorMidSize * 2 - 1, rightBegin - 1);
+
+      // Рендерим левый край
+      for (let i = 1; i <= leftEnd; i++) { 
+    %>
+      <% if (i !== current) { %>
+        <a class="paginator-number paginator-link" href="<%- url_for(i === 1 ? '/' : '/page/' + i + '/') %>" onclick="if(typeof fillPromoContainers === 'function') setTimeout(fillPromoContainers, 100);">
+          <%= i %>
+        </a>
+      <% } else { %>
+        <a class="paginator-current paginator-link"><%= i %></a>
+      <% } %>
+    <% } %>
+
+    <% 
+      // Многоточие после левого края (если необходимо)
+      if (leftEnd + 1 < midBegin) { 
+    %>
+      <span class="paginator-ellipsis">...</span>
+    <% } %>
+
+    <% 
+      // Рендерим середину
+      for (let i = midBegin; i <= midEnd; i++) { 
+    %>
+      <% if (i !== current) { %>
+        <a class="paginator-number paginator-link" href="<%- url_for(i === 1 ? '/' : '/page/' + i + '/') %>" onclick="if(typeof fillPromoContainers === 'function') setTimeout(fillPromoContainers, 100);">
+          <%= i %>
+        </a>
+      <% } else { %>
+        <a class="paginator-current paginator-link"><%= i %></a>
+      <% } %>
+    <% } %>
+
+    <% 
+      // Многоточие перед правым краем (если необходимо)
+      if (midEnd + 1 < rightBegin) { 
+    %>
+      <span class="paginator-ellipsis">...</span>
+    <% } %>
+
+    <% 
+      // Рендерим правый край
+      for (let i = rightBegin; i <= total; i++) { 
+    %>
+      <% if (i !== current) { %>
+        <a class="paginator-number paginator-link" href="<%- url_for(i === 1 ? '/' : '/page/' + i + '/') %>" onclick="if(typeof fillPromoContainers === 'function') setTimeout(fillPromoContainers, 100);">
+          <%= i %>
+        </a>
+      <% } else { %>
+        <a class="paginator-current paginator-link"><%= i %></a>
+      <% } %>
+    <% } %>
+
+    <% if (current < total) { %>
+      <a class="paginator-next paginator-link" href="<%- url_for(pageObject.next_link) %>" onclick="if(typeof fillPromoContainers === 'function') setTimeout(fillPromoContainers, 100);">
+        <i class="fa-regular fa-angle-right"></i>
+      </a>
+    <% } %>
+  </nav>
+<% } %>
   
