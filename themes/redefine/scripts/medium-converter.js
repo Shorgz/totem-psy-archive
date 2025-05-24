@@ -109,7 +109,6 @@ hexo.extend.filter.register('after_render:html', function(str, data) {
     const imageDebugInfo = JSON.stringify(
       $articleContent.find('img').map((i, el) => ({
         src: $(el).attr('src'),
-        dataSrc: $(el).attr('data-src'),
         dataOriginalSrc: $(el).attr('data-original-src'),
         inFigure: $(el).parent().is('figure'),
         isCover: $(el).parents('section.is-imageBackgrounded').length > 0
@@ -173,9 +172,8 @@ hexo.extend.filter.register('after_render:html', function(str, data) {
       }
 
       let src = $img.attr('src');
-      let dataSrc = $img.attr('data-src');
-      
-      console.log(`Processing image ${i + 1}: src=${src}, data-src=${dataSrc}`);
+
+
 
       // Логируем исходные атрибуты
       console.log(`Image ${i + 1}: Original attributes`, {
@@ -185,16 +183,6 @@ hexo.extend.filter.register('after_render:html', function(str, data) {
         isCover: isCoverImage
       });
 
-      // Если src="null" или отсутствует, пробуем data-src
-      if (!src || src === 'null') {
-        if (dataSrc && dataSrc !== 'null') {
-          src = dataSrc;
-          console.log(`Image ${i + 1}: Using data-src as src=${src}`);
-        } else {
-          src = '';
-          console.log(`Image ${i + 1}: No valid src or data-src, keeping for debugging`);
-        }
-      }
 
       // Преобразуем относительный путь в абсолютный
       if (src && !src.match(/^https?:\/\//)) {
