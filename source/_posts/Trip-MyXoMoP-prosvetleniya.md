@@ -9,10 +9,10 @@ categories:
 ---
 <!-- HTML-код для вставки фонового изображения -->
 <section class="is-imageBackgrounded">
-            <figure>
-                <img src="https://totem-psy-archive.vercel.app/images/Trip-MyXoMoP-prosvetleniya.jpg"/>
-            </figure>
-        </section>
+  <figure>
+    <img src="https://totem-psy-archive.vercel.app/images/Trip-MyXoMoP-prosvetleniya.jpg"/>
+  </figure>
+</section>
 
 ### Выдержка опус одного просветленца с ВК, насчёт его инсайтов с работой приёма мухоморов, наслаждайтесь.
 # АХТУНГ - Очень много текста и эзотерики!!!
