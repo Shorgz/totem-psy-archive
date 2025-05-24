@@ -99,7 +99,6 @@ hexo.extend.filter.register('after_render:html', function(str, data) {
 
     if (ogImage) {
       $head.append(`<meta property="og:image" content="${ogImage}">`);
-  
       console.log('og:image meta tag added');
     } else {
       console.log('No valid og:image found, skipping meta tag');
@@ -113,7 +112,7 @@ hexo.extend.filter.register('after_render:html', function(str, data) {
         dataSrc: $(el).attr('data-src'),
         dataOriginalSrc: $(el).attr('data-original-src'),
         inFigure: $(el).parent().is('figure'),
-        isCover: i === 0 && $(el).parents('section.is-imageBackgrounded').length > 0
+        isCover: $(el).parents('section.is-imageBackgrounded').length > 0
       })).get()
     );
     $head.append(`
@@ -163,6 +162,16 @@ hexo.extend.filter.register('after_render:html', function(str, data) {
 
     images.each(function(i) {
       const $img = $(this);
+      const isCoverImage = $img.parents('section.is-imageBackgrounded').length > 0;
+
+      console.log(`Processing image ${i + 1}: isCoverImage=${isCoverImage}`);
+
+      // Пропускаем изображения в <section class="is-imageBackgrounded">
+      if (isCoverImage) {
+        console.log(`Image ${i + 1}: Skipping because it is inside is-imageBackgrounded section`);
+        return;
+      }
+
       let src = $img.attr('src');
       let dataSrc = $img.attr('data-src');
       
@@ -173,7 +182,7 @@ hexo.extend.filter.register('after_render:html', function(str, data) {
         src,
         dataSrc,
         inFigure: $img.parent().is('figure'),
-        isCover: $img.parents('section.is-imageBackgrounded').length > 0
+        isCover: isCoverImage
       });
 
       // Если src="null" или отсутствует, пробуем data-src
@@ -212,13 +221,7 @@ hexo.extend.filter.register('after_render:html', function(str, data) {
       if (!$parent.is('figure')) {
         console.log(`Image ${i + 1}: Wrapping in figure`);
         const $figure = $('<figure></figure>').append($img.clone()).append('<figcaption></figcaption>');
-        if (i === 0 && data.cover_image && src === data.cover_image) {
-          console.log(`Image ${i + 1}: Wrapping as cover image`);
-          const $section = $('<section class="is-imageBackgrounded"></section>').append($figure);
-          $img.replaceWith($section);
-        } else {
-          $img.replaceWith($figure);
-        }
+        $img.replaceWith($figure);
       } else {
         console.log(`Image ${i + 1}: Already in figure, preserving`);
         if (!$parent.find('figcaption').length) {
@@ -226,11 +229,6 @@ hexo.extend.filter.register('after_render:html', function(str, data) {
           $parent.append('<figcaption></figcaption>');
         }
         $parent.removeAttr('class style');
-        if (i === 0 && data.cover_image && src === data.cover_image && !$parent.parent().is('section.is-imageBackgrounded')) {
-          console.log(`Image ${i + 1}: Wrapping figure as cover image`);
-          const $section = $('<section class="is-imageBackgrounded"></section>').append($parent.clone());
-          $parent.replaceWith($section);
-        }
       }
     });
   };
