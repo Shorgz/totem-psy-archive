@@ -64,7 +64,6 @@ hexo.extend.filter.register('after_render:html', function(str, data) {
 
     $head.append(`<meta property="og:site_name" content="${siteName}">`);
     $head.append(`<meta property="og:description" content="${description}">`);
-    $head.append(`<meta property="og:image" content="https://totem-psy-archive.vercel.app/images/Arhive_bg.jpg">`);
     $head.append(`<meta name="author" content="${author}">`);
     $head.append(`<meta name="telegram:channel" content="${telegramChannel}">`);
     $head.append('<meta name="twitter:card" content="summary_large_image">');
@@ -106,26 +105,40 @@ hexo.extend.filter.register('after_render:html', function(str, data) {
 
     // Добавляем скрипт для вывода в консоль браузера
     console.log('Adding browser console script');
-    const imageDebugInfo = JSON.stringify(
-      $articleContent.find('img').map((i, el) => ({
-        src: $(el).attr('src'),
-        dataOriginalSrc: $(el).attr('data-original-src'),
-        inFigure: $(el).parent().is('figure'),
-        isCover: $(el).parents('section.is-imageBackgrounded').length > 0
-      })).get()
-    );
-    $head.append(`
-      <script>
-        console.log('Instant View script is working');
-        console.log('Image debug info:', ${imageDebugInfo});
-      </script>
-    `);
-    console.log('Browser console script added with image debug info');
+    try {
+      const imageDebugInfo = JSON.stringify(
+        $articleContent.find('img').map((i, el) => ({
+          src: $(el).attr('src') || null,
+          dataSrc: $(el).attr('data-src') || null,
+          dataOriginalSrc: $(el).attr('data-original-src') || null,
+          inFigure: $(el).parent().is('figure'),
+          isCover: $(el).parents('section.is-imageBackgrounded').length > 0
+        })).get(),
+        null,
+        2
+      );
+      $head.append(`
+        <script>
+          console.log('Instant View script is working');
+          console.log('Image debug info:', ${imageDebugInfo});
+        </script>
+      `);
+      console.log('Browser console script added with image debug info');
+    } catch (e) {
+      console.error('Failed to generate image debug info:', e.message);
+      $head.append(`
+        <script>
+          console.log('Instant View script is working');
+          console.log('Error generating image debug info:', '${e.message}');
+        </script>
+      `);
+    }
   };
 
   // Поиск контента
   const $articleContent = $('.article-content');
   console.log('Article content found:', $articleContent.length > 0);
+  console.log('Article content HTML length:', $articleContent.html()?.length || 0);
 
   if ($articleContent.length === 0) {
     console.log('No article content, returning original HTML');
@@ -143,7 +156,7 @@ hexo.extend.filter.register('after_render:html', function(str, data) {
     console.log('Removed style attributes from elements:', styledElements);
     $articleContent.find('[class]').each(function() {
       const $el = $(this);
-      const classes = $el.attr('class').split(' ').filter(c => !c.startsWith('redefine-') && c !== 'article-content' && c !== 'markdown-body');
+      const classes = $el.attr('class')?.split(' ').filter(c => !c.startsWith('redefine-') && c !== 'article-content' && c !== 'markdown-body') || [];
       $el.attr('class', classes.join(' '));
     });
     console.log('Cleaned redefine-specific classes');
@@ -172,8 +185,9 @@ hexo.extend.filter.register('after_render:html', function(str, data) {
       }
 
       let src = $img.attr('src');
-
-
+      let dataSrc = $img.attr('data-src');
+      
+      console.log(`Processing image ${i + 1}: src=${src}, data-src=${dataSrc}`);
 
       // Логируем исходные атрибуты
       console.log(`Image ${i + 1}: Original attributes`, {
@@ -183,6 +197,16 @@ hexo.extend.filter.register('after_render:html', function(str, data) {
         isCover: isCoverImage
       });
 
+      // Если src="null" или отсутствует, пробуем data-src
+      if (!src || src === 'null') {
+        if (dataSrc && dataSrc !== 'null') {
+          src = dataSrc;
+          console.log(`Image ${i + 1}: Using data-src as src=${src}`);
+        } else {
+          src = '';
+          console.log(`Image ${i + 1}: No valid src or data-src, keeping for debugging`);
+        }
+      }
 
       // Преобразуем относительный путь в абсолютный
       if (src && !src.match(/^https?:\/\//)) {
@@ -274,28 +298,35 @@ hexo.extend.filter.register('after_render:html', function(str, data) {
 
     console.log('Creating new article structure');
     const $contentElement = $articleContent.find('.markdown-body');
-    let content;
+    let content = '';
     if ($contentElement.length) {
       console.log('Markdown-body found, using its content');
-      content = $contentElement.html();
-      $contentElement.empty();
+      content = $contentElement.html() || '';
+      console.log('Markdown-body content length:', content.length);
     } else {
       console.log('No markdown-body, using article-content directly');
-      content = $articleContent.html();
-      $articleContent.empty();
+      content = $articleContent.html() || '';
+      console.log('Article-content content length:', content.length);
     }
 
     // Проверяем наличие h1, если нет — добавляем из title
-    const $temp = cheerio.load(content);
+    const $temp = cheerio.load(content, { decodeEntities: false });
     if (!$temp('h1').length && data.title) {
       console.log('No h1 found, adding from post title');
       content = `<h1>${data.title}</h1>${content}`;
+    }
+
+    // Проверяем, есть ли контент
+    if (!content.trim()) {
+      console.log('Warning: No content found for article, using fallback');
+      content = `<h1>${data.title || 'Untitled'}</h1><p>No content available.</p>`;
     }
 
     console.log('Wrapping content in article.tl_article_content');
     $articleContent.html(
       $('<article class="tl_article_content" id="_tl_editor"></article>').html(content)
     );
+    console.log('Article structure created, new content length:', $articleContent.html().length);
   };
 
   // Форматирование элементов
@@ -329,22 +360,36 @@ hexo.extend.filter.register('after_render:html', function(str, data) {
 
   // Удаляем ненужные элементы вне article
   console.log('Cleaning non-article content');
+  const removedElementsCount = $('header, footer, nav, aside, .redefine-box, .redefine-sidebar, .redefine-footer').length;
   $('header, footer, nav, aside, .redefine-box, .redefine-sidebar, .redefine-footer').remove();
-  console.log('Removed header/footer/nav/aside/redefine-specific elements');
+  console.log('Removed non-article elements:', removedElementsCount);
+
+  // Проверяем итоговый HTML
+  const finalHtml = $.html();
+  console.log('Final HTML length:', finalHtml.length);
+  if (!finalHtml.includes('<body') || !finalHtml.includes('.article-content')) {
+    console.error('Warning: Final HTML may be incomplete');
+  }
 
   console.log('Returning processed HTML');
-  return $.html();
+  return finalHtml;
 });
 
 // Хелпер для форматирования даты
 console.log('Registering medium_date_format helper');
 hexo.extend.helper.register('medium_date_format', function(date) {
+  console.log('medium_date_format: Received date:', date);
   if (!date) {
     console.log('medium_date_format: No date provided');
     return '';
   }
-  const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   const d = new Date(date);
-  console.log('medium_date_format: Formatting date', date, 'to', `${monthNames[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`);
-  return `${monthNames[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
+  if (isNaN(d.getTime())) {
+    console.log('medium_date_format: Invalid date:', date);
+    return '';
+  }
+  const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const formattedDate = `${monthNames[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
+  console.log('medium_date_format: Formatted date:', date, 'to', formattedDate);
+  return formattedDate;
 });
