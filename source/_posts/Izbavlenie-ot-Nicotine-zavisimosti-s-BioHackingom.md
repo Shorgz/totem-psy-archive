@@ -2,6 +2,7 @@
 title: Избавляемся от Никотиновой зависимости с помощью Биохакинга
 thumbnail: images/Izbavlenie-ot-Nicotine-zavisimosti-s-BioHackingom.jpg
 date: 2025-04-07 20:05:49
+layout: post
 tags:
   - Никотин/Рапэ
 categories:

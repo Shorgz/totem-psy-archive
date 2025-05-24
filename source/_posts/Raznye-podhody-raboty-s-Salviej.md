@@ -2,6 +2,7 @@
 title: Разные подходы работы с Caльвией
 thumbnail: images/Raznye-podhody-raboty-s-Salviej.jpg
 date: 2025-04-07 20:12:46
+layout: post
 tags:
   - Сальвия
 categories:

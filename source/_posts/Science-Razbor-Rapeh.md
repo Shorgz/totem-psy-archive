@@ -2,6 +2,7 @@
 title: Научный разбор Рaпэ – как влияет на здоровье, мозг и дух
 thumbnail: images/Science-Razbor-Rapeh.jpg
 date: 2025-04-07 19:47:24
+layout: post
 tags:
   - Никотин/Рапэ
 categories:

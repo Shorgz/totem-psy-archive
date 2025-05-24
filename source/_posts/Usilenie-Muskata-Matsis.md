@@ -2,6 +2,7 @@
 title: Усиление Мускатного Ореха / Мациса
 thumbnail: images/Usilenie-Muskata-Matsis.jpg
 date: 2025-04-07 19:56:59
+layout: post
 tags:
   - Мускатный Орех / Мацис
 categories:

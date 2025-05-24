@@ -2,6 +2,7 @@
 title: Как пoпуcтиться с мускaта-мaциса-мурaвы?
 thumbnail: images/Kak-popuctitsya-s-muskata-macisa-muravy.jpg
 date: 2025-04-07 20:09:22
+layout: post
 tags:
   - Мускатный Орех / Мацис
 categories:

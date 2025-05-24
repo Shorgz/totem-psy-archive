@@ -2,6 +2,7 @@
 title: Методы Общения с Сальвией
 thumbnail: images/Metody-Obshcheniya-s-Salviej.jpg
 date: 2025-04-07 20:11:23
+layout: post
 tags:
   - Сальвия
 categories:

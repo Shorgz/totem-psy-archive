@@ -2,6 +2,7 @@
 title: Инструктаж Психонавта
 thumbnail: images/Instruktazh-Psychonavta.jpg
 date: 2025-04-07 20:07:49
+layout: post
 tags:
 categories:
 - [Удалённое с Teletype]

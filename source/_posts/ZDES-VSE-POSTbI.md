@@ -2,6 +2,7 @@
 title: Часть уцелевших статей из PsyГрибоАрхив Экзотики
 thumbnail: images/ZDES-VSE-POSTbI.jpg
 cover_image: images/ZDES-VSE-POSTbI.jpg
+layout: post
 sticky: 999
 date: 2025-04-07 20:47:54
 tags:

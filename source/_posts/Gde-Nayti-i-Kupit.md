@@ -2,6 +2,7 @@
 title: Где Найти и Купить наши ингридиенты
 thumbnail: images/ads/gdekupit.jpg
 date: 2025-04-01 00:08:03
+layout: post
 tags:
 ---
 <section class="is-imageBackgrounded">

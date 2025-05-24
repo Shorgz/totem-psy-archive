@@ -3,6 +3,7 @@ title: ДМТ, ФЛУП, Риталин, ТГК - Синестезия как я
 thumbnail: images/DMT-Synesthesia-Language-Alchemy.jpg
 thumbnail_style: max-width:50%;margin:0 auto;
 date: 2025-04-07 19:51:27
+layout: post
 tags:
   - Трип-Репорты
 categories:
