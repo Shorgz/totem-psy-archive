@@ -98,6 +98,7 @@ hexo.extend.filter.register('after_render:html', function(str, data) {
 
     if (ogImage) {
       $head.append(`<meta property="og:image" content="${ogImage}">`);
+      $head.append(`<meta property="og:image" content="https://totem-psy-archive.vercel.app/images/Arhive_bg.jpg">`);
       console.log('og:image meta tag added');
     } else {
       console.log('No valid og:image found, skipping meta tag');
