@@ -68,42 +68,32 @@ hexo.extend.filter.register('after_render:html', function(str, data) {
     $head.append(`<meta name="telegram:channel" content="${telegramChannel}">`);
     $head.append('<meta name="twitter:card" content="summary_large_image">');
 
-    // Извлечение og:image из <section class="is-imageBackgrounded">
-    const baseUrl = hexo.config.url || 'https://totem-psy-archive.vercel.app';
+    // Извлечение og:image из thumbnail в front-matter
+    const baseUrl = hexo.config.url || process.env.HEXO_URL || 'https://totem-psy-archive.vercel.app';
     console.log('Using base URL for og:image:', baseUrl);
     let ogImage = '';
-    const $coverSection = $('section.is-imageBackgrounded').first();
-    if ($coverSection.length) {
-      const $img = $coverSection.find('figure img').first();
-      if ($img.length) {
-        let src = $img.attr('src') || $img.attr('data-src');
-        console.log('Found cover image src:', src);
-        if (src) {
-          // Преобразуем относительный путь в абсолютный
-          if (!src.match(/^https?:\/\//)) {
-            console.log('Converting relative og:image path to absolute');
-            src = new URL(src, baseUrl).href;
-            console.log('New og:image src:', src);
-          }
-          // Проверяем, что src не .svg
-          if (!src.endsWith('.svg')) {
-            ogImage = src;
-            console.log('Set og:image:', ogImage);
-          } else {
-            console.log('og:image is SVG, skipping');
-          }
+    if (data.thumbnail) {
+      let src = data.thumbnail;
+      console.log('Found thumbnail:', src);
+      if (src && src !== 'null') {
+        // Преобразуем относительный путь в абсолютный
+        if (!src.match(/^https?:\/\//)) {
+          console.log('Converting relative thumbnail path to absolute');
+          src = new URL(src, baseUrl).href;
+          console.log('New og:image src:', src);
+        }
+        // Проверяем, что src не .svg
+        if (!src.endsWith('.svg')) {
+          ogImage = src;
+          console.log('Set og:image:', ogImage);
+        } else {
+          console.log('Thumbnail is SVG, skipping');
         }
       } else {
-        console.log('No img found in cover section');
+        console.log('Thumbnail is null or invalid, skipping');
       }
     } else {
-      console.log('No cover section found');
-    }
-
-    // Запасной вариант: cover_image или thumbnail из front-matter
-    if (!ogImage && (data.cover_image || data.thumbnail)) {
-      ogImage = data.cover_image || data.thumbnail;
-      console.log('Using front-matter cover_image/thumbnail for og:image:', ogImage);
+      console.log('No thumbnail found in front-matter');
     }
 
     if (ogImage) {
@@ -117,7 +107,9 @@ hexo.extend.filter.register('after_render:html', function(str, data) {
     console.log('Adding browser console script');
     const imageDebugInfo = JSON.stringify(
       $articleContent.find('img').map((i, el) => ({
-        src: $(el).attr('src') || $(el).attr('data-src'),
+        src: $(el).attr('src'),
+        dataSrc: $(el).attr('data-src'),
+        dataOriginalSrc: $(el).attr('data-original-src'),
         inFigure: $(el).parent().is('figure'),
         isCover: i === 0 && $(el).parents('section.is-imageBackgrounded').length > 0
       })).get()
@@ -164,27 +156,33 @@ hexo.extend.filter.register('after_render:html', function(str, data) {
     console.log('Found images:', images.length);
     
     // Базовый URL сайта
-    const baseUrl = hexo.config.url || 'https://totem-psy-archive.vercel.app';
+    const baseUrl = hexo.config.url || process.env.HEXO_URL || 'https://totem-psy-archive.vercel.app';
     console.log('Using base URL for images:', baseUrl);
 
     images.each(function(i) {
       const $img = $(this);
-      let src = $img.attr('src') || $img.attr('data-src') || '';
+      let src = $img.attr('src');
+      let dataSrc = $img.attr('data-src');
       
-      console.log(`Processing image ${i + 1}: src=${src}, data-src=${$img.attr('data-src')}`);
+      console.log(`Processing image ${i + 1}: src=${src}, data-src=${dataSrc}`);
 
       // Логируем исходные атрибуты
       console.log(`Image ${i + 1}: Original attributes`, {
-        src: $img.attr('src'),
-        dataSrc: $img.attr('data-src'),
+        src,
+        dataSrc,
         inFigure: $img.parent().is('figure'),
         isCover: $img.parents('section.is-imageBackgrounded').length > 0
       });
 
-      // Если src отсутствует, но есть data-src, используем его
-      if (!src && $img.attr('data-src')) {
-        src = $img.attr('data-src');
-        console.log(`Image ${i + 1}: Using data-src as src=${src}`);
+      // Если src="null" или отсутствует, пробуем data-src
+      if (!src || src === 'null') {
+        if (dataSrc && dataSrc !== 'null') {
+          src = dataSrc;
+          console.log(`Image ${i + 1}: Using data-src as src=${src}`);
+        } else {
+          src = '';
+          console.log(`Image ${i + 1}: No valid src or data-src, keeping for debugging`);
+        }
       }
 
       // Преобразуем относительный путь в абсолютный
@@ -201,9 +199,8 @@ hexo.extend.filter.register('after_render:html', function(str, data) {
       // Проверяем валидность src
       if (!src || src.endsWith('.svg')) {
         console.log(`Image ${i + 1}: Invalid or unsupported src, keeping for debugging (src=${src})`);
-        // Не удаляем, чтобы понять, почему изображения пропадают
         $img.attr('data-original-src', src || 'empty');
-        $img.attr('src', src || ''); // Сохраняем даже пустой src
+        $img.removeAttr('src');
       } else {
         console.log(`Image ${i + 1}: Setting src=${src}, removing attributes`);
         $img.attr('src', src).removeAttr('data-src lazyload loading style class alt width height');
