@@ -1,12 +1,20 @@
 ---
 title: Как снизить побочки Мускатного Ореха - Мациса
-thumbnail: images/Kak-snizit-pobochki-Muskata-Matsisa.jpg
+thumbnail: https://totem-psy-archive.vercel.app/images/Kak-snizit-pobochki-Muskata-Matsisa.jpg
+layout: post
 date: 2025-04-07 20:03:14
 tags:
   - Мускатный Орех / Мацис
 categories:
 - [Удалённое с Teletype]
 ---
+
+<section class="is-imageBackgrounded">
+            <figure>
+                <img src="/images/Kak-snizit-pobochki-Muskata-Matsisa.jpg"/>
+            </figure>
+        </section>
+
 Элун-Оилье тем кто любит всегда лишь позитив в приёме на входе и на выходе, остальным соболезнуем кто любит пряный(бээ) вкус, странный жим-жим в желудке, и неприятное непонятное состояние. (ТоТеМ под маслом 🗿)
 
  Главы:

@@ -1,12 +1,19 @@
 ---
 title: Трип репорт и мысли Мухоморного Просветления
 thumbnail: https://totem-psy-archive.vercel.app/images/Trip-MyXoMoP-prosvetleniya.jpg
+layout: post
 date: 2025-04-07 19:25:46
 tags:
   - Мухомор
 categories:
 - [Удалённое с Teletype]
 ---
+
+<section class="is-imageBackgrounded">
+            <figure>
+                <img src="/images/Trip-MyXoMoP-prosvetleniya.jpg"/>
+            </figure>
+        </section>
 
 ### Выдержка опус одного просветленца с ВК, насчёт его инсайтов с работой приёма мухоморов, наслаждайтесь.
 # АХТУНГ - Очень много текста и эзотерики!!!
