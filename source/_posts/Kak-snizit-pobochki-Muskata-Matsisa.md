@@ -1,6 +1,7 @@
 ---
 title: Как снизить побочки Мускатного Ореха - Мациса
 thumbnail: https://totem-psy-archive.vercel.app/images/Kak-snizit-pobochki-Muskata-Matsisa.jpg
+cover_image: images/Kak-snizit-pobochki-Muskata-Matsisa.jpg
 layout: post
 date: 2025-04-07 20:03:14
 tags:

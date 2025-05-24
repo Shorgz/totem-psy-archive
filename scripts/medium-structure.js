@@ -31,7 +31,7 @@ hexo.extend.filter.register('after_render:html', function(str, data) {
   console.log('Loading HTML with cheerio');
   const $ = cheerio.load(str, { decodeEntities: false });
 
-  // Добавление мета-тегов
+  // Добавление мета-тегов и скрипта для консоли браузера
   const addMetaTags = ($) => {
     console.log('Adding meta tags');
     const $head = $('head');
@@ -112,6 +112,15 @@ hexo.extend.filter.register('after_render:html', function(str, data) {
     } else {
       console.log('No valid og:image found, skipping meta tag');
     }
+
+    // Добавляем скрипт для вывода в консоль браузера
+    console.log('Adding browser console script');
+    $head.append(`
+      <script>
+        console.log('Instant View script is working');
+      </script>
+    `);
+    console.log('Browser console script added');
   };
 
   // Поиск контента
