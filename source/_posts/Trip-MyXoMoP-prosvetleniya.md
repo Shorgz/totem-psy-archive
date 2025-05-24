@@ -11,7 +11,7 @@ categories:
 <!-- HTML-код для вставки фонового изображения -->
 <section class="is-imageBackgrounded">
             <figure>
-                <img src="../images/Trip-MyXoMoP-prosvetleniya.jpg"/>
+                <img src="images/Trip-MyXoMoP-prosvetleniya.jpg"/>
             </figure>
         </section>
 
@@ -33,7 +33,7 @@ categories:
 <!-- HTML-код для вставки изображения -->
 <div style="text-align: center; margin: 20px 0;">
   <figure>
-    <img src="../images/Trip-MyXoMoP-prosvetleniya.jpg"/>
+    <img src="images/Trip-MyXoMoP-prosvetleniya.jpg"/>
   </figure>
 </div>
 
