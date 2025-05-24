@@ -64,6 +64,7 @@ hexo.extend.filter.register('after_render:html', function(str, data) {
 
     $head.append(`<meta property="og:site_name" content="${siteName}">`);
     $head.append(`<meta property="og:description" content="${description}">`);
+    $head.append(`<meta property="og:image" content="https://totem-psy-archive.vercel.app/images/Arhive_bg.jpg">`);
     $head.append(`<meta name="author" content="${author}">`);
     $head.append(`<meta name="telegram:channel" content="${telegramChannel}">`);
     $head.append('<meta name="twitter:card" content="summary_large_image">');
@@ -98,7 +99,7 @@ hexo.extend.filter.register('after_render:html', function(str, data) {
 
     if (ogImage) {
       $head.append(`<meta property="og:image" content="${ogImage}">`);
-      $head.append(`<meta property="og:image" content="https://totem-psy-archive.vercel.app/images/Arhive_bg.jpg">`);
+  
       console.log('og:image meta tag added');
     } else {
       console.log('No valid og:image found, skipping meta tag');
