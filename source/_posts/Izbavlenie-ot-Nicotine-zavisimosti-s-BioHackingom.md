@@ -7,6 +7,11 @@ tags:
 categories:
 - [Удалённое с Teletype]
 ---
+<section class="is-imageBackgrounded">
+            <figure>
+                <img src="/images/Izbavlenie-ot-Nicotine-zavisimosti-s-BioHackingom.jpg"/>
+            </figure>
+        </section>
 Элун-Адорэ всем курящим и вейповикам со стажем.
 
 Все мы знаем, изо всех щелей про вред курения на здоровье, но почему-то всё равно его продолжаем игнорировать, и дальше пыхать эту "игрушку дьявола".

@@ -8,7 +8,11 @@ tags:
 categories:
 - [Удалённое с Teletype]
 ---
-
+<section class="is-imageBackgrounded">
+            <figure>
+                <img src="/images/DMT-Synesthesia-Language-Alchemy.jpg"/>
+            </figure>
+        </section>
 #### ДMT 50 мг + ФЛУП 1000 мг + Ритaлин 10 мг + 7 секунд caтивы 80 % TНС = Синестезия как язык Бога Алхимии
 
 Путешествие от Уважаемого **『A』**:

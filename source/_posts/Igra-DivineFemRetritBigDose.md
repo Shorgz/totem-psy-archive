@@ -7,7 +7,11 @@ tags:
 categories:
 - [Удалённое с Teletype]
 ---
-
+<section class="is-imageBackgrounded">
+            <figure>
+                <img src="/images/Igra-DivineFemRetritBigDose.jpg"/>
+            </figure>
+        </section>
 Игра с Божественной Женственностью на ретрите (высокая дoзa грибoв)
 @nikto_archivarius • 3 сентября 2024 в 22:56
 (перевёл с ENG на RU из-за рубежа 🗿)

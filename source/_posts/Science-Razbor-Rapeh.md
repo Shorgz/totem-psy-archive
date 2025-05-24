@@ -7,7 +7,11 @@ tags:
 categories:
 - [Удалённое с Teletype]
 ---
-
+<section class="is-imageBackgrounded">
+            <figure>
+                <img src="/images/Science-Razbor-Rapeh.jpg"/>
+            </figure>
+        </section>
 Элун-Адоре НеоШаманов нового времени.
 
 Как вы уже заметили, очень часто начала всплывать везде тема священного и ритуального средства с таким именем как <u>Рапэ/Rapé</u> ( Hapeh - Rapeh - Hape), он же нюхательный Табак с примесями.

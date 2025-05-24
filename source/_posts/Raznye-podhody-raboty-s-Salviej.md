@@ -7,7 +7,11 @@ tags:
 categories:
 - [Удалённое с Teletype]
 ---
-
+<section class="is-imageBackgrounded">
+            <figure>
+                <img src="/images/Raznye-podhody-raboty-s-Salviej.jpg"/>
+            </figure>
+        </section>
 1. Против мифов и бреда на слуху у всех насчёт Сальвии
 2. Солипсистский способ
 3. Шаманский способ
