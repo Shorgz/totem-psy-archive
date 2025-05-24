@@ -6,11 +6,7 @@ date: 2025-04-07 20:47:54
 tags:
   - Telegraph статьи
 ---
-<section class="is-imageBackgrounded">
-            <figure>
-                <img src="/images/ZDES-VSE-POSTbI.jpg"/>
-            </figure>
-        </section>
+
 Часть уцелевших статей из PsyГрибоАрхив Экзотики 🗿 
 <a href="/iv-articles/links.html">Список статей Telegraph, если их удалят с самого Telegraph</a>
 
