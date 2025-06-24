@@ -1,0 +1,100 @@
+/* themes/redefine/source/css/custom.css */
+
+/* article header */
+
+
+.article-title{
+  height: 200px; /* Фиксированная высота контейнера */
+  width: 100%; /* Ширина контейнера */
+  overflow: hidden; /* Обрезает изображение */
+}
+
+.post_tumbnail_img{
+  width: 100%; /* Изображение растягивается по ширине */
+  height: 100%; /* Заполняет высоту контейнера */
+  object-fit: cover; /* Обрезает, сохраняя пропорции */
+  border-radius: 10px 20px 0px 0px;
+
+}
+
+
+.post_tumbnail_textblock{
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  text-align: center; /* Центрирование текста */
+  height: 100%;
+  color: var(--second-text-color); /* Цвет текста, предполагается, что переменная определена */
+  background-color: transparent; /* Прозрачный фон */
+
+  font-size: 1.875rem; /* text-3xl: 30px */
+  font-weight: 600; /* font-semibold: полужирный шрифт */
+  backdrop-filter: blur(10px); /* backdrop-blur-lg: размытие фона */
+  border-radius: 0.75rem; /* rounded-xl: скругление углов 12px */
+  border: 1px solid var(--border-color); /* border и цвет границы, предполагается, что переменная определена */
+}
+
+
+
+
+/* article body */
+
+
+
+
+
+/* Общие стили для всех медиа */
+.iv_pic,
+.iv_vid,
+.iv_iframe {
+  width: 100%;
+  max-width: 560px; /* Фиксированная максимальная ширина */
+  display: block;
+  margin: 0 auto;
+  border-radius: 8px;
+  border: none; /* Убираем рамки для iframe */
+}
+
+/* Стили для изображений */
+.iv_pic {
+  height: auto; /* Сохраняем пропорции изображения */
+  object-fit: contain; /* Изображение не растягивается, сохраняет пропорции */
+}
+
+/* Стили для локальных видео и iframe */
+.iv_vid,
+.iv_iframe {
+  object-fit: cover; /* Видео заполняет контейнер */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 600px) {
+  .iv_pic,
+  .iv_vid,
+  .iv_iframe {
+    max-width: 100%;
+  }
+  .iv_vid,
+  .iv_iframe {
+    height: 200px; /* Уменьшенная высота для мобильных */
+  }
+  .iv_pic {
+    height: auto; /* Сохраняем пропорции для изображений */
+  }
+}
