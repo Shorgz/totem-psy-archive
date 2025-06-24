@@ -2,12 +2,17 @@
 title: Научный разбор Рaпэ – как влияет на здоровье, мозг и дух
 thumbnail: images/Science-Razbor-Rapeh.jpg
 date: 2025-04-07 19:47:24
+layout: post
 tags:
   - Никотин/Рапэ
 categories:
 - [Удалённое с Teletype]
 ---
-
+<section class="is-imageBackgrounded">
+            <figure>
+                <img src="/images/Science-Razbor-Rapeh.jpg"/>
+            </figure>
+        </section>
 Элун-Адоре НеоШаманов нового времени.
 
 Как вы уже заметили, очень часто начала всплывать везде тема священного и ритуального средства с таким именем как <u>Рапэ/Rapé</u> ( Hapeh - Rapeh - Hape), он же нюхательный Табак с примесями.

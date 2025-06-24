@@ -2,11 +2,17 @@
 title: Как пoпуcтиться с мускaта-мaциса-мурaвы?
 thumbnail: images/Kak-popuctitsya-s-muskata-macisa-muravy.jpg
 date: 2025-04-07 20:09:22
+layout: post
 tags:
   - Мускатный Орех / Мацис
 categories:
 - [Удалённое с Teletype]
 ---
+<section class="is-imageBackgrounded">
+            <figure>
+                <img src="/images/Kak-popuctitsya-s-muskata-macisa-muravy.jpg"/>
+            </figure>
+        </section>
 Элун-Адоре желающим немного пoпуcтиться от чрезмерного количества орешка, иль мациса с мурaвoй. Бывают моменты что случайно превышаешь их количества, и получаешь в ответку сногшибательную паранойю с тревогой и плохим самочувствием.
 
 Я регулярно замечал, как люди в чатах спрашивали, о том как избавиться или ослабить от них эффект. Я опубликую лишь самое доступное и важное. 

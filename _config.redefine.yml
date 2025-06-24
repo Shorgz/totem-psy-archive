@@ -92,7 +92,7 @@ global:
     custom_message: # Custom message. If empty, the site title will be displayed
   # Whether to enable open graph
   open_graph:
-    enable: true
+    enable: false
     image: /images/redefine-og.webp  # default og:image
     description: НейроШаманизм Психоделических Миксов
   # Google Analytics
@@ -101,6 +101,7 @@ global:
     id:  # Google Analytics Measurement ID
 # SITE CUSTOMIZATION <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< end
     
+
 
 # FONTAWESOME >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> start
 # Docs: https://redefine-docs.ohevan.com/basic/fontawesome
@@ -431,7 +432,7 @@ footer:
 # Docs: https://redefine-docs.ohevan.com/inject
 inject:
   # Whether to enable inject
-  enable: true
+  enable: false
   # Inject custom head html code
   head: 
     - '<meta property="al:android:app_name" content="Medium">'

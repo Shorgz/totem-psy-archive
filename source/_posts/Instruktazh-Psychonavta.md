@@ -2,11 +2,16 @@
 title: Инструктаж Психонавта
 thumbnail: images/Instruktazh-Psychonavta.jpg
 date: 2025-04-07 20:07:49
+layout: post
 tags:
 categories:
 - [Удалённое с Teletype]
 ---
-
+<section class="is-imageBackgrounded">
+            <figure>
+                <img src="/images/Instruktazh-Psychonavta.jpg"/>
+            </figure>
+        </section>
 ### В В Е Д Е Н И Е
 Приветствую! Меня зовут [Владислав](https://www.entheogen.expert/), и я рад приветствовать вас на страницах этого путеводителя. 
 

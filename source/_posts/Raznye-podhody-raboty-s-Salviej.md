@@ -2,12 +2,17 @@
 title: Разные подходы работы с Caльвией
 thumbnail: images/Raznye-podhody-raboty-s-Salviej.jpg
 date: 2025-04-07 20:12:46
+layout: post
 tags:
   - Сальвия
 categories:
 - [Удалённое с Teletype]
 ---
-
+<section class="is-imageBackgrounded">
+            <figure>
+                <img src="/images/Raznye-podhody-raboty-s-Salviej.jpg"/>
+            </figure>
+        </section>
 1. Против мифов и бреда на слуху у всех насчёт Сальвии
 2. Солипсистский способ
 3. Шаманский способ

@@ -2,12 +2,17 @@
 title: [ Тёмная ночь души из экстаза любви до БЭДа стыда ]
 thumbnail: images/Shaman-koktejl-dlya-Temnoj-Nochi-Dushi-Alhimiy.jpg
 date: 2025-04-07 20:14:35
+layout: post
 tags:
   - Трип-Репорты
 categories:
 - [Удалённое с Teletype]
 ---
-
+<section class="is-imageBackgrounded">
+            <figure>
+                <img src="/images/Shaman-koktejl-dlya-Temnoj-Nochi-Dushi-Alhimiy.jpg"/>
+            </figure>
+        </section>
 ##### Шаманский коктейль для Тёмной Ночи Души: Алхимия перерождения
 
 ➖ [ 5гр сухих Наталов + 3гр Фенибута + 900мг Alpha-GPC + Мацис 2-3 гр + от тошноты ]

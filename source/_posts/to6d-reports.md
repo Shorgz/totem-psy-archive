@@ -2,9 +2,15 @@
 title: to6d Архив
 thumbnail: images/to6d.webp
 date: 2025-04-07 20:15:00
+layout: post
 tags:
   - Трип-Репорты
 ---
+<section class="is-imageBackgrounded">
+            <figure>
+                <img src="/images/to6d.webp"/>
+            </figure>
+        </section>
 _Чтобы не потерять важное наследие таких редких невиданных отчётов, обязательно нужно такое сохранять для страждующих редкой информации._
 
 

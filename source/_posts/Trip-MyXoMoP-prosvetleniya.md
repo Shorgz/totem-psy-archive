@@ -1,6 +1,7 @@
 ---
 title: Трип репорт и мысли Мухоморного Просветления
 thumbnail: https://totem-psy-archive.vercel.app/images/Trip-MyXoMoP-prosvetleniya.jpg
+layout: post
 date: 2025-04-07 19:25:46
 tags:
   - Мухомор
@@ -8,10 +9,9 @@ categories:
 - [Удалённое с Teletype]
 ---
 
-<!-- HTML-код для вставки фонового изображения -->
 <section class="is-imageBackgrounded">
             <figure>
-                <img src="https://totem-psy-archive.vercel.app/images/Trip-MyXoMoP-prosvetleniya.jpg"/>
+                <img src="/images/Trip-MyXoMoP-prosvetleniya.jpg"/>
             </figure>
         </section>
 

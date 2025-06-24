@@ -2,11 +2,18 @@
 title: Методы Общения с Сальвией
 thumbnail: images/Metody-Obshcheniya-s-Salviej.jpg
 date: 2025-04-07 20:11:23
+layout: post
 tags:
   - Сальвия
 categories:
 - [Удалённое с Teletype]
 ---
+<section class="is-imageBackgrounded">
+            <figure>
+                <img src="/images/Metody-Obshcheniya-s-Salviej.jpg"/>
+            </figure>
+        </section>
+
 1. На что это похоже?
 2. Как Сальвия воздействует на сознание
 3. Подготовка к опыту

@@ -1,13 +1,21 @@
 ---
 title: ДМТ, ФЛУП, Риталин, ТГК - Синестезия как язык Бога Алхимии
 thumbnail: images/DMT-Synesthesia-Language-Alchemy.jpg
-thumbnail_style: max-width:50%;margin:0 auto;
 date: 2025-04-07 19:51:27
-tags:
-  - Трип-Репорты
-categories:
-- [Удалённое с Teletype]
+tags: [Трип-Репорты, Удалённое с Teletype]
+layout: post
+meta:
+  charset: UTF-8
+  android_app_name: Medium
+  viewport: width=device-width, initial-scale=1.0
+  custom_title: ДМТ, ФЛУП, Риталин, ТГК - Синестезия как язык Бога Алхимии
+  og_title: TG title - ДМТ, ФЛУП, Риталин, ТГК - Синестезия как язык Бога Алхимии 
+  og_description: ДMT 50 мг + ФЛУП 1000 мг + Ритaлин 10 мг + 7 секунд caтивы 80 % TНС = Синестезия как язык Бога Алхимии
+  article_published_time: 2022-09-01T14:46:56+0000
+  og_image: /images/DMT-Synesthesia-Language-Alchemy.jpg
 ---
+
+
 
 #### ДMT 50 мг + ФЛУП 1000 мг + Ритaлин 10 мг + 7 секунд caтивы 80 % TНС = Синестезия как язык Бога Алхимии
 
@@ -28,10 +36,7 @@ categories:
 
 Его я сильнее ощущаю чем от рестормайнд, но он и стоит соответствующе.
 
-<!-- HTML-код для вставки изображения -->
-<div style="text-align: center; margin: 20px 0;">
-  <img src="/images/DMT-Synesthesia-Language-Alchemy/1.jpg" alt="alchemygod" style="max-width: 36%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-</div>
+[[pic(/images/DMT-Synesthesia-Language-Alchemy/1.jpg)]]
 
 Это просто режим бога.
 
@@ -52,19 +57,14 @@ categories:
 
 Недавно проснулся и до сих пор мурашки по коже, включил тот трек, под которым всё это происходило — произошёл нереальный катарсис, глаза краснее раcтамана)
 
-<!-- HTML-код для вставки изображения -->
-<div style="text-align: center; margin: 20px 0;">
-  <img src="/images/DMT-Synesthesia-Language-Alchemy/2.jpg" alt="alchemygod" style="max-width: 46%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-</div>
+[[pic(/images/DMT-Synesthesia-Language-Alchemy/2.jpg)]]
 
 Это было всё так странно: и визуально, и аудиально, и чувственно.
 
 Играл трек **Clams Casino - I'm God** (Я не специально его включил, но трек знаю очень хорошо)
 
-<!-- HTML-код для вставки YouTube видео с превью -->
-<div style="text-align: center; margin: 20px 0;">
-  <iframe width="560" height="315" src="https://www.youtube.com/embed/RiZVjfjgNyY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="max-width: 100%; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);"></iframe>
-</div>
+[[iframe(RiZVjfjgNyY)]]
+
 
 Не смотря на затёртость этого трека, в трипе я его не узнал!!! Слов я вообще не понимал, они исказились очень сильно, но я пытался вслушаться и понял, что играет вообще не трек :) нееет, трек играет, но по другому и я начинаю видеть разных существ.
 
@@ -81,10 +81,7 @@ categories:
 
 Пришёл инсайт, что ДMT и прочие триптaмины — реальная смeрть, а не её симуляция) С каждым хорошим и мощным тpипом — меняется просто носитель тела) А с прекращением жизни физической оболочки — ты просто попадаешь в пул и становишься той же самой ДMT-сущностью, пока не придёт твоя очередь) И одновременно всё равно продолжаешь материально жить, только в другом виде)
 
-<!-- HTML-код для вставки изображения -->
-<div style="text-align: center; margin: 20px 0;">
-  <img src="/images/DMT-Synesthesia-Language-Alchemy/3.jpg" alt="alchemygod" style="max-width: 46%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-</div>
+[[pic(/images/DMT-Synesthesia-Language-Alchemy/3.jpg)]]
 
 Этот трип реально задрал просто нереальную планку, но так не хватает продолжительности трипа.
 
@@ -139,7 +136,4 @@ categories:
 
 Everything Всё...
 
-<!-- HTML-код для вставки изображения -->
-<div style="text-align: center; margin: 20px 0;">
-  <img src="/images/DMT-Synesthesia-Language-Alchemy/4.jpg" alt="alchemygod" style="max-width: 66%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-</div>
+[[pic(/images/DMT-Synesthesia-Language-Alchemy/4.jpg)]]
