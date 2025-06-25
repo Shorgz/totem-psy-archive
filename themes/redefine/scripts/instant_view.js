@@ -6,9 +6,9 @@ const mediaConfig = {
     selector: 'img',
     command: 'pic',
     removeAttrs: ['data-src', 'lazyload', 'loading', 'style', 'alt'],
-    addAttrs: { class: 'iv_pic', width: '560'},
+    addAttrs: { class: 'iv_pic'}, // Без height для пропорций
     srcPriority: ['data-src', 'src'],
-    template: (src) => `<figure><img class="iv_pic" src="${src}"><figcaption></figcaption></figure>`
+    template: (src, srcset) => `<figure><img class="iv_pic" src="${src}" ${srcset ? `srcset="${srcset}" sizes="(max-width: 800px) 1024px, 1920px"` : ""}><figcaption></figcaption></figure>`
   },
   vid: {
     selector: 'video, video source',
@@ -26,6 +26,10 @@ const mediaConfig = {
     srcPriority: ['src'],
     srcTransform: (src) => `https://www.youtube.com/embed/${src}`,
     template: (src) => `<figure><iframe class="iv_iframe" src="${src}"></iframe><figcaption></figcaption></figure>`
+  },
+  anc: {
+    command: 'anc',
+    template: (id) => `<a name="${id}"></a>`
   }
 };
 
@@ -72,14 +76,27 @@ function processElement($element, config, $) {
   }
 }
 
-// Функция для обработки команд [[pic()]], [[vid()]], [[iframe()]]
+// Функция для обработки команд [[pic()]], [[vid()]], [[iframe()]], [[anc()]]
 function processCommands(html, config) {
-  const commandRegex = /\[\[(pic|vid|iframe)\(([^)]+)\)\]\]/g;
-  return html.replace(commandRegex, (match, type, src) => {
-    src = src.trim();
+  const commandRegex = /\[\[(pic|vid|iframe|anc)\(([^)]+)\)\]\]/g;
+  return html.replace(commandRegex, (match, type, value) => {
+    value = value.trim();
     const media = Object.values(config).find(c => c.command === type);
     if (media) {
-      const transformedSrc = media.srcTransform ? media.srcTransform(src) : src;
+      if (type === 'anc') {
+        return media.template(value);
+      } else if (type === 'pic') {
+        const src = value;
+        // Удаляем суффиксы -320w, -1280w, -1920w и расширение файла
+        const fileNameBase = src.split('/').pop().replace(/(-[0-9]+w)?\.([a-zA-Z]+)$/, '');
+        const srcset = [
+          `/images/optimized/${fileNameBase}-1024w.webp 1024w`,
+          `/images/optimized/${fileNameBase}-1920w.webp 1920w`
+        ].join(', ');
+        const mainSrc = `/images/optimized/${fileNameBase}-1280w.webp`;
+        return media.template(mainSrc, srcset);
+      }
+      const transformedSrc = media.srcTransform ? media.srcTransform(value) : value;
       return media.template(transformedSrc);
     }
     return match;
@@ -107,17 +124,31 @@ hexo.extend.filter.register('after_render:html', function(str, data) {
     // Обработка существующих элементов
     Object.values(mediaConfig).forEach(config => {
       if (config.command === 'pic') {
-        // Пропускаем изображения внутри <section class="is-imageBackgrounded">
         let imgIndex = 0;
         $(`.article-content ${config.selector}`).each(function() {
           const $img = $(this);
-          // Пропускаем, если изображение внутри .is-imageBackgrounded или это первое изображение
-          if ($img.closest('section.is-imageBackgrounded').length === 0 && imgIndex > 0) {
-            processElement($img, config, $);
+          if (
+            !$img.hasClass('author-avatar') &&
+            !$img.hasClass('no-iv') > 0
+          ) {
+            const src = getSrc($img, config);
+            if (src && src.startsWith('/images/')) {
+              // Удаляем суффиксы -320w, -1280w, -1920w и расширение файла
+              const fileNameBase = src.split('/').pop().replace(/(-[0-9]+w)?\.([a-zA-Z]+)$/, '');
+              const mainSrc = `/images/optimized/${fileNameBase}-1024w.webp`;
+              const srcset = [
+                `/images/optimized/${fileNameBase}-1024w.webp 1024w`,
+                `/images/optimized/${fileNameBase}-1920w.webp 1920w`
+              ].join(', ');
+              $img.attr('src', mainSrc);
+              $img.attr('srcset', srcset);
+              $img.attr('sizes', '(max-width: 800px) 1024px, 1920px');
+              processElement($img, config, $);
+            }
           }
           imgIndex++;
         });
-      } else {
+      } else if (config.command !== 'anc') {
         $(`.article-content ${config.selector}`).each(function() {
           processElement($(this), config, $);
         });
