@@ -90,6 +90,10 @@ async function optimizeImage(inputPath, outputPath, width) {
 
 // Регистрируем фильтр для запуска после генерации
 hexo.extend.filter.register('after_generate', async function() {
+  console.log('Starting image-optimizer.js');
+  console.log('Input dir:', imageConfig.inputDir);
+  const files = glob.sync(`${imageConfig.inputDir}/**/*.{jpg,jpeg,png,gif}`);
+  console.log('Found files:', files);
   try {
     const files = glob.sync(`${imageConfig.inputDir}/**/*.{jpg,jpeg,png,gif}`);
     console.log(`Found ${files.length} images to process`);
