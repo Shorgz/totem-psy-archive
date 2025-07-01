@@ -1,16 +1,21 @@
 ---
 title: to6d Архив
 thumbnail: images/to6d.webp
-date: 2025-04-07 20:15:00
 layout: post
-tags:
-  - Трип-Репорты
+date: 2025-04-07 20:15:00
+tags: [Трип-Репорты]
+meta:
+  charset: UTF-8
+  android_app_name: Medium
+  viewport: width=device-width, initial-scale=1.0
+  custom_title: to6d Архив
+  og_title: to6d Архив
+  og_description: Чтобы не потерять важное наследие таких редких невиданных отчётов, обязательно нужно такое сохранять для страждующих редкой информации.
+  article_published_time: 2022-09-01T14:46:56+0000
+  og_image: images/Shaman-koktejl-dlya-Temnoj-Nochi-Dushi-Alhimiy.jpg
 ---
-<section class="is-imageBackgrounded">
-            <figure>
-                <img src="/images/to6d.webp"/>
-            </figure>
-        </section>
+
+
 _Чтобы не потерять важное наследие таких редких невиданных отчётов, обязательно нужно такое сохранять для страждующих редкой информации._
 
 

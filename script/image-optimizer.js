@@ -13,7 +13,7 @@ const imageConfig = {
   ],
   format: 'webp', // Формат: WebP
   inputDir: 'source/images', // Входная папка
-  outputDir: 'public/images/optimized', // Выходная папка
+  outputDir: '/images/optimized', // Выходная папка
   maxFileSize: 1 * 1024 * 1024 // Максимальный размер файла: 1 МБ
 };
 

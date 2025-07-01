@@ -1,13 +1,21 @@
 ---
-title: Часть уцелевших статей из PsyГрибоАрхив Экзотики
+title: 
 thumbnail: images/ZDES-VSE-POSTbI.jpg
-cover_image: images/ZDES-VSE-POSTbI.jpg
 layout: post
-sticky: 999
-date: 2025-04-07 20:47:54
-tags:
-  - Telegraph статьи
+date: 2025-04-07 20:12:46
+tags: [Мускатный Орех / Мацис]
+categories: [Удалённое с Teletype]
+meta:
+  charset: UTF-8
+  android_app_name: Medium
+  viewport: width=device-width, initial-scale=1.0
+  custom_title: Часть уцелевших статей из PsyГрибоАрхив Экзотики
+  og_title: Часть уцелевших статей из PsyГрибоАрхив Экзотики
+  og_description: Часть уцелевших статей из PsyГрибоАрхив Экзотики 🗿 
+  article_published_time: 2022-09-01T14:46:56+0000
+  og_image: images/ZDES-VSE-POSTbI.jpg
 ---
+
 
 Часть уцелевших статей из PsyГрибоАрхив Экзотики 🗿 
 <a href="/iv-articles/links.html">Список статей Telegraph, если их удалят с самого Telegraph</a>

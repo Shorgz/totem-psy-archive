@@ -1,18 +1,22 @@
 ---
-title: [ Тёмная ночь души из экстаза любви до БЭДа стыда ]
+title: Тёмная ночь души из экстаза любви до БЭДа стыда
 thumbnail: images/Shaman-koktejl-dlya-Temnoj-Nochi-Dushi-Alhimiy.jpg
-date: 2025-04-07 20:14:35
 layout: post
-tags:
-  - Трип-Репорты
-categories:
-- [Удалённое с Teletype]
+date: 2025-04-07 20:12:46
+tags: [Трип-Репорты]
+categories: [Удалённое с Teletype]
+meta:
+  charset: UTF-8
+  android_app_name: Medium
+  viewport: width=device-width, initial-scale=1.0
+  custom_title: Тёмная ночь души из экстаза любви до БЭДа стыда
+  og_title: Тёмная ночь души из экстаза любви до БЭДа стыда
+  og_description: 5гр сухих Наталов + 3гр Фенибута + 900мг Alpha-GPC + Мацис 2-3 гр + от тошноты
+  article_published_time: 2022-09-01T14:46:56+0000
+  og_image: images/Shaman-koktejl-dlya-Temnoj-Nochi-Dushi-Alhimiy.jpg
 ---
-<section class="is-imageBackgrounded">
-            <figure>
-                <img src="/images/Shaman-koktejl-dlya-Temnoj-Nochi-Dushi-Alhimiy.jpg"/>
-            </figure>
-        </section>
+
+
 ##### Шаманский коктейль для Тёмной Ночи Души: Алхимия перерождения
 
 ➖ [ 5гр сухих Наталов + 3гр Фенибута + 900мг Alpha-GPC + Мацис 2-3 гр + от тошноты ]
@@ -43,10 +47,9 @@ categories:
 > А больше связанный с Эрос(эротическим) Потоком Псих Энергии, одновременно возбуждающий и властливый, но при встрече с Бэдом вас ударит вид стыда и самоистязания противоположного типа. 
 > (<u>**Такого На Чистых Грибах Никогда НЕ Достичь**</u>, просто потому что работа мозга под добавками совсем иная. В нашем случае этого peпорта, трип похож чем-то на МДMA Экcтaзи, но с Бэд трипом из-за такой дoзировки.
 > На малом количестве шрумов, Бэда вовсе не будет, вечная Любоффь)
-<!-- HTML-код для вставки изображения -->
-<div style="text-align: center; margin: 20px 0;">
-  <img src="/images/Shaman-koktejl-dlya-Temnoj-Nochi-Dushi-Alhimiy/1.jpg" alt="ShamanKoktail" style="max-width: 76%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-</div>
+<!-- Код для вставки изображения -->
+[[pic(/images/Shaman-koktejl-dlya-Temnoj-Nochi-Dushi-Alhimiy-1.jpg)]]
+
 
 - - -
 
@@ -62,10 +65,8 @@ categories:
 **И финалочка:** 
 Разобраться с прошлыми отношениями. 
 Они закончились два года назад, я понимал что закончить их было правильным решением, но вот отпустить никак не мог. Хотелось уже перевернуть эту страницу и начать новую.
-<!-- HTML-код для вставки изображения -->
-<div style="text-align: center; margin: 20px 0;">
-  <img src="/images/Shaman-koktejl-dlya-Temnoj-Nochi-Dushi-Alhimiy/2.jpg" alt="ShamanKoktail" style="max-width: 76%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-</div>
+<!-- Код для вставки изображения -->
+[[pic(/images/Shaman-koktejl-dlya-Temnoj-Nochi-Dushi-Alhimiy-2.jpg)]]
 
 - - -
 ### Вход был очень мягкий и быстрый. 
@@ -77,10 +78,8 @@ categories:
 
 
 Оно нарaстало и нарaстало, пока достигло своего пика, и на пике нужно было совершить некий метафорический прорыв, но стоя на краю пропасти я не решился и меня с чудовищной силой начало затягивать в **БЭД**.
-<!-- HTML-код для вставки изображения -->
-<div style="text-align: center; margin: 20px 0;">
-  <img src="/images/Shaman-koktejl-dlya-Temnoj-Nochi-Dushi-Alhimiy/3.jpg" alt="ShamanKoktail" style="max-width: 46%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-</div>
+<!-- Код для вставки изображения -->
+[[pic(/images/Shaman-koktejl-dlya-Temnoj-Nochi-Dushi-Alhimiy-3.jpg)]]
 
 - - -
 Переживания были для меня новы, накрыло невероятным чувством стыда. Я ощущал себя Серсеей Ланнистер по дороге из септы к красному замку, когда ее остригли и голой по улицам провели, параллельно закидывая всяким дерьмом.
@@ -98,10 +97,8 @@ categories:
 После этой мысли началось вторая часть марлезонского балета.
 
 > ( ToTeM🗿: классическая история и миф, а самое главное действие что хочется сильно раздеться, что можешь разорвать на себе одежду )
-<!-- HTML-код для вставки изображения -->
-<div style="text-align: center; margin: 20px 0;">
-  <img src="/images/Shaman-koktejl-dlya-Temnoj-Nochi-Dushi-Alhimiy/4.jpg" alt="ShamanKoktail" style="max-width: 46%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-</div>
+<!-- Код для вставки изображения -->
+[[pic(/images/Shaman-koktejl-dlya-Temnoj-Nochi-Dushi-Alhimiy-4.jpg)]]
 
 - - -
 Мысль что лучше умереть потянула за собой мысль, что я таком состоянии останусь навсегда. 
@@ -118,9 +115,8 @@ categories:
 Сердце колотилось как бешеное, я обливался холодным потом, после трипа простыня была насквозь мокрая. 
 Я лежал и был готов отдать все что есть, лишь бы повернуть время вспять и не есть эти проклятые грибы.
 <!-- HTML-код для вставки изображения -->
-<div style="text-align: center; margin: 20px 0;">
-  <img src="/images/Shaman-koktejl-dlya-Temnoj-Nochi-Dushi-Alhimiy/5.jpg" alt="ShamanKoktail" style="max-width: 46%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-</div>
+<!-- Код для вставки изображения -->
+[[pic(/images/Shaman-koktejl-dlya-Temnoj-Nochi-Dushi-Alhimiy-5.jpg)]]
 
 От этих мыслей легче естественно не становилось. Через какое-то время я начал привыкать к этому чувству страха и принимать мысль, что уже все, назад дороги нет, теперь я таком состоянии навсегда, но это не приговор. 
 
@@ -142,10 +138,8 @@ categories:
 
 **Я выпил еще 5 гр креатина, кинул еще 300 альфы, скушал пару кусочков кураги и орехов.** 
 И меня буквально понесло в танец.
-<!-- HTML-код для вставки изображения -->
-<div style="text-align: center; margin: 20px 0;">
-  <img src="/images/Shaman-koktejl-dlya-Temnoj-Nochi-Dushi-Alhimiy/6.jpg" alt="ShamanKoktail" style="max-width: 46%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-</div>
+<!-- Код для вставки изображения -->
+[[pic(/images/Shaman-koktejl-dlya-Temnoj-Nochi-Dushi-Alhimiy-6.jpg)]]
 
 - - -
 Сознание полностью отключилось, полная потеря контроля над телом. Оно начало функционировать на одних инстинктах без самосознания своих действий. Я голым пустился в какое-то первобытное безумие. 
@@ -155,10 +149,8 @@ categories:
 Тут уже описывать особо нечего, кто знает, тот знает.
 Когда через пару часов начало отпускать, я поем сухофруктов и орехи и лег спать. Спал как медведь, на следующий день чувствовал себя умиротворенно и гармонично.
 - - -
-<!-- HTML-код для вставки изображения -->
-<div style="text-align: center; margin: 20px 0;">
-  <img src="/images/Shaman-koktejl-dlya-Temnoj-Nochi-Dushi-Alhimiy/7.jpg" alt="ShamanKoktail" style="max-width: 46%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-</div>
+<!-- Код для вставки изображения -->
+[[pic(/images/Shaman-koktejl-dlya-Temnoj-Nochi-Dushi-Alhimiy-7.jpg)]]
 
 ### Выводы.
  
@@ -175,10 +167,8 @@ categories:
 Появилось осознание, что жить нужно в этой реальности, а не все время быть в трипах, думать о трипах, самореализовываться только благодаря трипам. 
 
 Стал более амбициозным. Но в тоже время к свои амбициям отношусь легко и игриво. Удары жизни стал воспринимать гораздо легче, не устраиваю вселенскую драму, когда жизнь меня обламывает, а извлекаю урок и радуюсь дальше.
-<!-- HTML-код для вставки изображения -->
-<div style="text-align: center; margin: 20px 0;">
-  <img src="/images/Shaman-koktejl-dlya-Temnoj-Nochi-Dushi-Alhimiy/8.jpg" alt="ShamanKoktail" style="max-width: 46%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-</div>
+<!-- Код для вставки изображения -->
+[[pic(/images/Shaman-koktejl-dlya-Temnoj-Nochi-Dushi-Alhimiy-8.jpg)]]
 
 - - -
 #### Триповать стал реже. 
@@ -196,7 +186,5 @@ categories:
 
 
 [ ToTeM🗿: очень интересно как работает снова путь воздействия трипа — ЭКСТАЗ > СОМНЕНИЯ/НЕРЕШИТЕЛЬНОСТЬ > БЭД > СТРАХ > ПРИНЯТИЕ > ЭКСТАЗ > СПОКОЙСТВИЕ > ТРЕЗВОСТЬ > Цели трипы заранее все перевыполнены 🗿 ]
-<!-- HTML-код для вставки изображения -->
-<div style="text-align: center; margin: 20px 0;">
-  <img src="/images/Shaman-koktejl-dlya-Temnoj-Nochi-Dushi-Alhimiy/9.jpg" alt="ShamanKoktail" style="max-width: 96%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-</div>
+<!-- Код для вставки изображения -->
+[[pic(/images/Shaman-koktejl-dlya-Temnoj-Nochi-Dushi-Alhimiy-9.jpg)]]

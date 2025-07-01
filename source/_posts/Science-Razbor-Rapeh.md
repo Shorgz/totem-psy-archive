@@ -1,18 +1,22 @@
 ---
 title: Научный разбор Рaпэ – как влияет на здоровье, мозг и дух
 thumbnail: images/Science-Razbor-Rapeh.jpg
-date: 2025-04-07 19:47:24
 layout: post
-tags:
-  - Никотин/Рапэ
-categories:
-- [Удалённое с Teletype]
+date: 2025-04-07 20:12:46
+tags: [Никотин/Рапэ]
+categories: [Удалённое с Teletype]
+meta:
+  charset: UTF-8
+  android_app_name: Medium
+  viewport: width=device-width, initial-scale=1.0
+  custom_title: Научный разбор Рaпэ – как влияет на здоровье, мозг и дух
+  og_title: Научный разбор Рaпэ – как влияет на здоровье, мозг и дух
+  og_description: Рапэ - это мелкий порошок, который вдувается с помощью специальных аппликаторов называемого Тепи/Курипе в обе ноздри. Существуют разные виды рапэ, другие разновидности Тепи и иные способы вдувания внутрь, поэтому лечебный эффект каждый раз иной и своеобразный.
+  article_published_time: 2022-09-01T14:46:56+0000
+  og_image: images/Raznye-podhody-raboty-s-Salviej.jpg
 ---
-<section class="is-imageBackgrounded">
-            <figure>
-                <img src="/images/Science-Razbor-Rapeh.jpg"/>
-            </figure>
-        </section>
+
+
 Элун-Адоре НеоШаманов нового времени.
 
 Как вы уже заметили, очень часто начала всплывать везде тема священного и ритуального средства с таким именем как <u>Рапэ/Rapé</u> ( Hapeh - Rapeh - Hape), он же нюхательный Табак с примесями.
@@ -21,20 +25,17 @@ categories:
 
 > К слову Закон РФ не запрещает оборот Рапэ на территории России, как и его приём.
 
-<!-- HTML-код для вставки изображения -->
-<div style="text-align: center; margin: 20px 0;">
-  <img src="/images/Science-Razbor-Rapeh/1.jpg" alt="sciencerapeh" style="max-width: 66%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-</div>
+<!-- Код для вставки изображения -->
+[[pic(/images/Science-Razbor-Rapeh-1.jpg)]]
+
 
 👉[Приобрести Рaпэ : Jungle House - Камбо🐸Рапэ🌱церемонии](https://t.me/jungleHouse)
 
 👉[Отзывы о Рапэ Jungle House](https://t.me/JungleHouse69)
 - - -
 
-<!-- HTML-код для вставки изображения -->
-<div style="text-align: center; margin: 20px 0;">
-  <img src="/images/Science-Razbor-Rapeh/2.jpg" alt="sciencerapeh" style="max-width: 66%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-</div>
+<!-- Код для вставки изображения -->
+[[pic(/images/Science-Razbor-Rapeh-2.jpg)]]
 
 *Курипе на изображении выше*
 
@@ -85,10 +86,8 @@ categories:
 Это нормально и является частью процесса очищения, поскольку одна из целей применения Рапэ — очистить разум и тело.
 - - -
 
-<!-- HTML-код для вставки изображения -->
-<div style="text-align: center; margin: 20px 0;">
-  <img src="/images/Science-Razbor-Rapeh/3.jpg" alt="sciencerapeh" style="max-width: 66%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-</div>
+<!-- Код для вставки изображения -->
+[[pic(/images/Science-Razbor-Rapeh-3.jpg)]]
 
 ### Психические и духовные воздействия
 
@@ -138,10 +137,8 @@ categories:
 Долгосрочный эффект может варьироваться от человека к человеку и зависит от того как часто вы проводите процедуру.
 - - -
 
-<!-- HTML-код для вставки изображения -->
-<div style="text-align: center; margin: 20px 0;">
-  <img src="/images/Science-Razbor-Rapeh/4.jpg" alt="sciencerapeh" style="max-width: 66%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-</div>
+<!-- Код для вставки изображения -->
+[[pic(/images/Science-Razbor-Rapeh-4.jpg)]]
 
 *Тепи выше*
 
@@ -184,10 +181,8 @@ categories:
 
 - - -
 
-<!-- HTML-код для вставки изображения -->
-<div style="text-align: center; margin: 20px 0;">
-  <img src="/images/Science-Razbor-Rapeh/5.jpg" alt="sciencerapeh" style="max-width: 66%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-</div>
+<!-- Код для вставки изображения -->
+[[pic(/images/Science-Razbor-Rapeh-5.jpg)]]
 
 *Трубка Тепи для которой нужна помощь второго человека*
 
@@ -198,10 +193,8 @@ categories:
 
 Они вводят определенное количество шаманского табака в трубку, вставляют трубку в ноздрю другого человека и вдыхают табак в нос.
 
-<!-- HTML-код для вставки изображения -->
-<div style="text-align: center; margin: 20px 0;">
-  <img src="/images/Science-Razbor-Rapeh/6.jpg" alt="sciencerapeh" style="max-width: 66%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-</div>
+<!-- Код для вставки изображения -->
+[[pic(/images/Science-Razbor-Rapeh-6.jpg)]]
 
 *Курипе для приёма одному*
 
@@ -236,10 +229,8 @@ categories:
 - Научитесь правильно сморкаться носом. Самый традиционный способ похож на укус змеи: начинать медленно и заканчивать более сильным ударом (как укус). Однако есть и другие виды данного действия. Каждый из них преследует свою цель.
 - Попросите совета у опытных людей. Не пытайтесь узнать всё в Интернете. Вы не сможете этого сделать, поскольку большинство людей не публикуют эту информацию в общем доступе.
 
-<!-- HTML-код для вставки изображения -->
-<div style="text-align: center; margin: 20px 0;">
-  <img src="/images/Science-Razbor-Rapeh/7.jpg" alt="sciencerapeh" style="max-width: 33%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-</div>
+<!-- Код для вставки изображения -->
+[[pic(/images/Science-Razbor-Rapeh-7.jpg)]]
 
 
 - - -
@@ -256,7 +247,5 @@ categories:
 
 Делайте всё в меру, и здоровья всем вам!
 
-<!-- HTML-код для вставки изображения -->
-<div style="text-align: center; margin: 20px 0;">
-  <img src="/images/Science-Razbor-Rapeh/8.jpg" alt="sciencerapeh" style="max-width: 66%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-</div>
+<!-- Код для вставки изображения -->
+[[pic(/images/Science-Razbor-Rapeh-8.jpg)]]

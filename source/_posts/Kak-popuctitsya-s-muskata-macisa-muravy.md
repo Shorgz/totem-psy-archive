@@ -2,17 +2,19 @@
 title: Как пoпуcтиться с мускaта-мaциса-мурaвы?
 thumbnail: images/Kak-popuctitsya-s-muskata-macisa-muravy.jpg
 date: 2025-04-07 20:09:22
+tags: [Мускатный Орех / Мацис, Удалённое с Teletype]
 layout: post
-tags:
-  - Мускатный Орех / Мацис
-categories:
-- [Удалённое с Teletype]
+meta:
+  charset: UTF-8
+  android_app_name: Medium
+  viewport: width=device-width, initial-scale=1.0
+  custom_title: Как пoпуcтиться с мускaта-мaциса-мурaвы?
+  og_title: Как пoпуcтиться с мускaта-мaциса-мурaвы?
+  og_description: Я регулярно замечал, как люди в чатах спрашивали, о том как избавиться или ослабить от них эффект. Я опубликую лишь самое доступное и важное. Однако они не отключат ваше состояние полностью, они лишь уменьшат и смягчат его силу до приемлемых приятных ощущений.
+  article_published_time: 2022-09-01T14:46:56+0000
+  og_image: images/Kak-popuctitsya-s-muskata-macisa-muravy.jpg
 ---
-<section class="is-imageBackgrounded">
-            <figure>
-                <img src="/images/Kak-popuctitsya-s-muskata-macisa-muravy.jpg"/>
-            </figure>
-        </section>
+
 Элун-Адоре желающим немного пoпуcтиться от чрезмерного количества орешка, иль мациса с мурaвoй. Бывают моменты что случайно превышаешь их количества, и получаешь в ответку сногшибательную паранойю с тревогой и плохим самочувствием.
 
 Я регулярно замечал, как люди в чатах спрашивали, о том как избавиться или ослабить от них эффект. Я опубликую лишь самое доступное и важное. 
@@ -28,10 +30,9 @@ categories:
 **•** **Liquid I.V.** (марка электролита) (5к ру для богачей) / **Регидрон** и его аналоги для большинства
 **•** **Магний** любой формы (аспаркам/панангин самые недорогие)
 **•** **Витамин С/Аскорбиновая кислота 500 - 1000 мг/ Любые цитрусовые фрукты** ( [Капсулы Озон](https://ozon.ru/t/qAmMZW0) )
-<!-- HTML-код для вставки изображения -->
-<div style="text-align: center; margin: 20px 0;">
-  <img src="/images/Kak-popuctitsya-s-muskata-macisa-muravy/1.jpg" alt="smokeoff" style="max-width: 46%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-</div>
+<!-- Код для вставки изображения -->
+[[pic(/images/Kak-popuctitsya-s-muskata-macisa-muravy-1.jpg)]]
+
 
 ### Прямые блокаторы
 **КБД** ограничивает поток к рецептору CB1, действуя как [NAM](https://en.wikipedia.org/wiki/Allosteric_modulator) [ 1 ](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4621983/). Известно что кaннaбидиол действует как антагонист(выключатель) каннабиноида CB1 рецепторов, что сильно играем нам на руку как успокоитель. Именно за счёт него мурава по части не такая шизовая и тревожная.
@@ -60,10 +61,8 @@ categories:
 **Антихолинергические средства**
 
 Закрёпленный пост у [u/LucyEatsPlants](https://www.reddit.com/u/LucyEatsPlants/) на этом сабреддите утверждает, что в в мускатном орехе/мацисе присутствуют некоторые мощные ингибиторы ацетилхолинэстеразы ( **тримиристин** ) которые вызывают холинергическую токсичность. Очень низкие дозы антихолинергических средств, таких как Димедрол или трансдермальная мазь на кожу скополамина (из-за его селективности), должны помочь уменьшить эти побочные эффекты. Для муравы эти добавки не нужны.
-<!-- HTML-код для вставки изображения -->
-<div style="text-align: center; margin: 20px 0;">
-  <img src="/images/Kak-popuctitsya-s-muskata-macisa-muravy/2.jpg" alt="smokeoff" style="max-width: 76%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-</div>
+<!-- Код для вставки изображения -->
+[[pic(/images/Kak-popuctitsya-s-muskata-macisa-muravy-2.jpg)]]
 
 **ГАМКергические травы**
 
@@ -93,10 +92,8 @@ CB1 образует гетеромеры с 5-HT2a в таких областя
 
 И **Кошачий Коготь ( Ункария опушённая )** из-за селективности антагонизма блокировки 5-TH2a. ( [озон пример](https://ozon.ru/t/20pKXE0) )
 - - -
-<!-- HTML-код для вставки изображения -->
-<div style="text-align: center; margin: 20px 0;">
-  <img src="/images/Kak-popuctitsya-s-muskata-macisa-muravy/3.jpg" alt="smokeoff" style="max-width: 56%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-</div>
+<!-- Код для вставки изображения -->
+[[pic(/images/Kak-popuctitsya-s-muskata-macisa-muravy-3.jpg)]]
 
 ### Уменьшение нежелательных побочных эффектов
 **Вода**: Достаточно пить почаще воду, но немного. **НЕ ПЕЙТЕ БОЛЬШЕ** 3-4 литров в сутки.
@@ -134,7 +131,5 @@ CB1 образует гетеромеры с 5-HT2a в таких областя
 Чтобы после принятия вышесказанного, продолжить уже опыт в позитивном и мягком ключе, без всякого лишнего негатива и мандража.
 
 Запомните уже наконец, что раз имеете при себе растения/масла силы что подымают наверх до самых высот небес, всегда необходимо иметь при себе парашюты для тех, кого уже трясёт не по-детски.
-<!-- HTML-код для вставки изображения -->
-<div style="text-align: center; margin: 20px 0;">
-  <img src="/images/Kak-popuctitsya-s-muskata-macisa-muravy/4.jpg" alt="smokeoff" style="max-width: 86%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-</div>
+<!-- Код для вставки изображения -->
+[[pic(/images/Kak-popuctitsya-s-muskata-macisa-muravy-4.jpg)]]

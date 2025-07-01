@@ -36,7 +36,7 @@ meta:
 
 Его я сильнее ощущаю чем от рестормайнд, но он и стоит соответствующе.
 
-[[pic(/images/DMT-Synesthesia-Language-Alchemy/1.jpg)]]
+[[pic(/images/DMT-Synesthesia-Language-Alchemy-1.jpg)]]
 
 Это просто режим бога.
 
@@ -57,7 +57,7 @@ meta:
 
 Недавно проснулся и до сих пор мурашки по коже, включил тот трек, под которым всё это происходило — произошёл нереальный катарсис, глаза краснее раcтамана)
 
-[[pic(/images/DMT-Synesthesia-Language-Alchemy/2.jpg)]]
+[[pic(/images/DMT-Synesthesia-Language-Alchemy-2.jpg)]]
 
 Это было всё так странно: и визуально, и аудиально, и чувственно.
 
@@ -81,7 +81,7 @@ meta:
 
 Пришёл инсайт, что ДMT и прочие триптaмины — реальная смeрть, а не её симуляция) С каждым хорошим и мощным тpипом — меняется просто носитель тела) А с прекращением жизни физической оболочки — ты просто попадаешь в пул и становишься той же самой ДMT-сущностью, пока не придёт твоя очередь) И одновременно всё равно продолжаешь материально жить, только в другом виде)
 
-[[pic(/images/DMT-Synesthesia-Language-Alchemy/3.jpg)]]
+[[pic(/images/DMT-Synesthesia-Language-Alchemy-3.jpg)]]
 
 Этот трип реально задрал просто нереальную планку, но так не хватает продолжительности трипа.
 
@@ -136,4 +136,4 @@ meta:
 
 Everything Всё...
 
-[[pic(/images/DMT-Synesthesia-Language-Alchemy/4.jpg)]]
+[[pic(/images/DMT-Synesthesia-Language-Alchemy-4.jpg)]]

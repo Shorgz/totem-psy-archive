@@ -2,14 +2,18 @@
 title: Где Найти и Купить наши ингридиенты
 thumbnail: images/ads/gdekupit.jpg
 date: 2025-04-01 00:08:03
+tags: []
 layout: post
-tags:
+meta:
+  charset: UTF-8
+  android_app_name: Medium
+  viewport: width=device-width, initial-scale=1.0
+  custom_title: Где Найти и Купить наши ингридиенты
+  og_title: Где Найти и Купить наши ингридиенты
+  og_description: Быстренько распишу самые частые и важные добавки в моей коллекции, с ссылками для приобретения, и создания своих собственных сочетаний.
+  article_published_time: 2022-09-01T14:46:56+0000
+  og_image: images/ads/gdekupit.jpg
 ---
-<section class="is-imageBackgrounded">
-            <figure>
-                <img src="/images/ads/gdekupit.jpg"/>
-            </figure>
-        </section>
 
 Доброго внимания всем искателям здоровья, или улучшения потока в путешествии в нужном направлении.
 Быстренько распишу самые частые и важные добавки в моей коллекции, с ссылками для приобретения, и создания своих собственных сочетаний.🧙‍♂️
