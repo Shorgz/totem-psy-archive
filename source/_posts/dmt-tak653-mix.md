@@ -1,6 +1,6 @@
 ---
 title: Эксперимент микс с ДMT + TAK-653
-thumbnail: images/dmt-tak653-mix/dmt-tak653-mix.jpg
+thumbnail: images/dmt-tak653-mix.jpg
 date: 2025-06-28 02:54:50
 tags: [Трип-Репорты, Удалённое с Teletype]
 layout: post
