@@ -1,5 +1,5 @@
 ---
-title: 
+title: Часть уцелевших статей из PsyГрибоАрхив Экзотики
 thumbnail: images/ZDES-VSE-POSTbI.jpg
 layout: post
 date: 2025-04-07 20:12:46
