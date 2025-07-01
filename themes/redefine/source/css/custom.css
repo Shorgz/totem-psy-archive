@@ -1,5 +1,11 @@
 /* themes/redefine/source/css/custom.css */
 
+figure{
+  align-items: center;
+}
+
+
+
 /* article header */
 
 
@@ -16,7 +22,6 @@
   border-radius: 10px 20px 0px 0px;
 
 }
-
 
 .post_tumbnail_textblock{
   display: flex;
@@ -35,53 +40,261 @@
   border: 1px solid var(--border-color); /* border и цвет границы, предполагается, что переменная определена */
 }
 
+/* Родительский контейнер000 */
+.article-title {
+  position: relative;
+  width: 100%;
+  /* Задаём высоту, если она не определена (например, через изображение или фиксированное значение) */
+  height: 200px; /* Установите нужную высоту или используйте min-height */
+  overflow: hidden; /* Для обрезки изображения, если оно выходит за границы */
+}
 
+/* Изображение как фон */
+.post_tumbnail_img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Изображение заполняет контейнер, сохраняя пропорции */
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1; /* Изображение на заднем плане */
+}
+
+/* Текстовый блок занимает всё пространство */
+.post_tumbnail_textblock {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Центрируем содержимое по вертикали и горизонтали */
+  z-index: 2; /* Выше изображения */
+}
+
+/* Стили для заголовка */
+.article-title-cover {
+  text-align: center;
+  margin: 1.5rem; /* mx-6 my-6 */
+  padding: 0.75rem 1rem; /* px-4 py-3 */
+  font-size: 1.875rem; /* text-3xl */
+  font-weight: 600; /* font-semibold */
+  color: var(--second-text-color); /* text-second-text-color */
+  background-color: var(--background-color-transparent); /* bg-background-color-transparent */
+  backdrop-filter: blur(10px); /* backdrop-blur-lg */
+  border: 1px solid var(--border-color); /* border border-border-color */
+  border-radius: 0.75rem; /* rounded-xl */
+}
+
+/* Адаптивные стили */
+@media (min-width: 640px) {
+  .article-title-cover {
+    font-size: 2.25rem; /* sm:text-4xl */
+  }
+}
+
+@media (min-width: 768px) {
+  .article-title-cover {
+    font-size: 3rem; /* md:text-5xl */
+  }
+}
 
 
 /* article body */
 
+.article-content{
 
-
-
-
-/* Общие стили для всех медиа */
-.iv_pic,
-.iv_vid,
-.iv_iframe {
-  width: 100%;
-  max-width: 560px; /* Фиксированная максимальная ширина */
-  display: block;
-  margin: 0 auto;
-  border-radius: 8px;
-  border: none; /* Убираем рамки для iframe */
 }
 
-/* Стили для изображений */
+
+
+
+/* Стиль для изображений */
 .iv_pic {
-  height: auto; /* Сохраняем пропорции изображения */
-  object-fit: contain; /* Изображение не растягивается, сохраняет пропорции */
+    /* Стиль для изображений 
+    width: 100%;
+    height: auto; /* высота рассчитывается автоматически */
+    display: block;
+    max-width: 800px;
 }
 
-/* Стили для локальных видео и iframe */
-.iv_vid,
+/* Стиль для видео */
+.iv_vid {
+    width: 100%;
+    height: auto;
+    display: block;
+    max-width: 800px;
+    aspect-ratio: 16/9; /* стандартное соотношение для видео (можно изменить) */
+    border: none;
+    margin: 0 auto;
+}
+
+/* Стиль для iframe (например, встроенные видео) */
 .iv_iframe {
-  object-fit: cover; /* Видео заполняет контейнер */
+    width: 100%;
+    height: auto;
+    display: block;
+    max-width: 800px;
+    aspect-ratio: 16/9; /* стандартное соотношение для видео (можно изменить) */
+    border: none;
+    margin: 0 auto;
 }
 
 
 
+/* СТИЛИ ГЛАВНОЙ СТРАНИЦЫ HOME BANNER */
+
+.home-banner-container {
+  font-family: 'Russo One', sans-serif;
+}
 
 
 
+/* СТИЛИ ГЛАВНОЙ СТРАНИЦЫ HOME BANNER */
+
+.top-left-container {
+  width: 240px;
+  max-width: 240px;
+  position: absolute;
+  left: 140px;
+  top: 15%;
+  z-index: 10;
+}
+
+.home-banner-container {
+  justify-content: center !important;
+  padding-left: 0;
+}
+
+.latest-post-container {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  max-width: 240px;
+}
+
+.latest-post-card {
+  background: var(--background-color-transparent-80) !important;
+  border-radius: 12px;
+  padding: 1.2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  border: 1px solid var(--border-color);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  overflow: hidden;
+}
+
+.latest-post-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--redefine-box-shadow-hover);
+}
+
+.latest-post-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.latest-post-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: var(--primary-color);
+}
+
+.latest-post-thumbnail {
+  height: 120px;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 8px;
+  margin-bottom: 0.8rem;
+}
+
+.latest-post-content h3 {
+  margin: 0 0 0.7rem 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--second-text-color);
+  font-family: sans-serif;
+  line-height: 1.3;
+}
+
+.latest-post-content h3 a {
+  color: var(--second-text-color);
+  text-decoration: none;
+}
+
+.latest-post-content h3 a:hover {
+  color: var(--primary-color);
+}
+
+.latest-post-excerpt {
+  color: var(--text-color);
+  opacity: 0.8;
+  margin-bottom: 1rem;
+  max-height: 80px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.latest-post-footer {
+  border-top: 1px solid var(--border-color);
+  padding-top: 1rem;
+}
+
+.latest-post-tags {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.latest-post-tags .tag {
+  background: var(--primary-color);
+  color: white;
+  padding: 0.2rem 0.8rem;
+  border-radius: 15px;
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.latest-post-tags .tag:hover {
+  opacity: 0.9;
+}
+
+/* Важные посты справа сверху */
+
+.fixed-important-posts-container {
+  position: fixed;
+  top: 80px;
+  right: 40px;
+  z-index: 1000;
+  max-width: 300px;
+  display: block;
+  opacity: 1; 
+  will-change: transform; /* Подсказка браузеру оптимизировать только трансформацию */
+  transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1); /* Убираем анимацию opacity */
+
+}
+
+/* Фиксированный контейнер с видое */
+.fixed-video-container{
+  margin-top: 50px;
+}
+
+#loopVideo {
+  width: 300px;
+  aspect-ratio: 16/9; /* Соотношение сторон для видео */
+}
 
 
 
-
-
-
-
-
-
+/* ---------------------------Адаптация под различные устройства-----------------------------------*/
 
 /* Адаптивность для мобильных устройств */
 @media (max-width: 600px) {
