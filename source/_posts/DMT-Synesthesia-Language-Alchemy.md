@@ -9,7 +9,7 @@ meta:
   android_app_name: Medium
   viewport: width=device-width, initial-scale=1.0
   custom_title: ДМТ, ФЛУП, Риталин, ТГК - Синестезия как язык Бога Алхимии
-  og_title: TG title - ДМТ, ФЛУП, Риталин, ТГК - Синестезия как язык Бога Алхимии 
+  og_title: ДМТ, ФЛУП, Риталин, ТГК - Синестезия как язык Бога Алхимии 
   og_description: ДMT 50 мг + ФЛУП 1000 мг + Ритaлин 10 мг + 7 секунд caтивы 80 % TНС = Синестезия как язык Бога Алхимии
   article_published_time: 2022-09-01T14:46:56+0000
   og_image: /images/DMT-Synesthesia-Language-Alchemy.jpg
