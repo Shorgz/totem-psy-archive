@@ -11,13 +11,13 @@
 # Docs: https://redefine-docs.ohevan.com/basic/info
 info:
   # Site title
-  title: Theme Redefine
+  title: PsyГрибоЭкзотика
   # Site subtitle
-  subtitle: Redefine Your Hexo Journey.
+  subtitle: Архив 
   # Author name
-  author: The Redefine Team
+  author: ToTeM
   # Site URL
-  url: https://redefine.ohevan.com
+  url: https://psyarchive-test.vercel.app/
 # BASIC INFORMATION <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< end
 
 
@@ -25,11 +25,11 @@ info:
 # Docs: https://redefine-docs.ohevan.com/basic/defaults
 defaults:
   # Favicon
-  favicon: /images/redefine-favicon.svg
+  favicon: /images/redefine-favicon.jpg
   # Site logo
   logo: 
   # Site avatar
-  avatar: /images/redefine-avatar.svg
+  avatar: /images/redefine-avatar.jpg
 # IMAGE CONFIGURATION <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< end
 
 
@@ -41,7 +41,7 @@ colors:
   # Secondary color (TBD)
   secondary:
   # Default theme mode initial value (will be overwritten by prefer-color-scheme)
-  default_mode: light # light, dark
+  default_mode: dark # light, dark
 # COLORS <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< end
 
 
@@ -59,12 +59,12 @@ global:
     english: 
       enable: false # Whether to enable custom english fonts
       family:  # Font family
-      url:  # Font URL to CSS file
+      url: 
     # Custom title fonts (navbar, sidebar)
     title:
       enable: false # Whether to enable custom title fonts
       family:  # Font family
-      url:  # Font URL to CSS file
+      url: 
   # Content max width
   content_max_width: 1000px
   # Sidebar width
@@ -90,17 +90,11 @@ global:
   preloader:
     enable: false
     custom_message: # Custom message. If empty, the site title will be displayed
-  # Side tools settings
-  side_tools:
-    # Whether to enable gear rotation animation for settings button
-    gear_rotation: true
-    # Whether to auto expand tools list on page load
-    auto_expand: false
   # Whether to enable open graph
   open_graph:
-    enable: true
-    image: /images/redefine-og.webp  # default og:image
-    description: Hexo Theme Redefine, Redefine Your Hexo Journey.
+    enable: false
+    image: /images/stat-head.jpg  # default og:image
+    description: zdoroy
   # Google Analytics
   google_analytics:
     enable: false # Whether to enable Google Analytics
@@ -131,13 +125,13 @@ home_banner:
   style: fixed # static or fixed
   # Home banner image
   image: 
-    light: /images/wallhaven-wqery6-light.webp # light mode
-    dark: /images/wallhaven-wqery6-dark.webp # dark mode
+    light: /images/start-head.jpg # light mode
+    dark: /images/start-head.jpg # dark mode
   # Home banner title
-  title: Theme Redefine
+  title: Архив PsyГрибоЭкзотики🗿
   # Home banner subtitle
   subtitle:
-    text: [] # subtitle text, array
+    text: [внизу сайта самое вкусное, пора готовиться к следующему путешествию..., не опять а снова БэД Трип] # subtitle text, array
     hitokoto:  # 一言配置
       enable: false # Whether to enable hitokoto
       show_author: false # Whether to show author
@@ -176,7 +170,7 @@ home_banner:
     style: default # default, reverse, center
     # Social links
     links:
-      github:  # your GitHub URL
+      telegram: https://t.me/Nikto_Archivarius
       instagram: # your Instagram URL
       zhihu:  # your ZhiHu URL
       twitter:  # your twitter URL
@@ -205,9 +199,18 @@ navbar:
     pages: 1000px #other pages
   # Navbar links
   links:
-    Home: 
+    "Главная страница": 
       path: / 
       icon: fa-regular fa-house # can be empty
+    "Архив":
+      path: /archives
+      icon: fa-regular fa-comments
+    "Творчество":
+      path: /masonry
+      icon: fa-regular fa-image-polaroid
+    "О проекте":
+      icon: fa-regular fa-user
+      path: /about/
     # Archives: 
     #   path: /archives 
     #   icon: fa-regular fa-archive # can be empty
@@ -236,7 +239,6 @@ navbar:
     preload: true
 # NAVIGATION BAR <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< end
 
-
 # HOME PAGE ARTICLE SETTINGS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> start
 # Docs: https://redefine-docs.ohevan.com/home/home
 home:
@@ -248,6 +250,18 @@ home:
     announcement: # Announcement text
     show_on_mobile: true # Whether to show sidebar navigation on mobile sheet menu
     links:
+      "Обо мне":
+        icon: fa-regular fa-user
+        path: /about/    
+      "Архив": 
+        path: /archives 
+        icon: fa-regular fa-archive # can be empty
+      "Тэги":
+        path: /tags
+        icon: fa-regular fa-tags
+      "Psy-Арты":
+        path: /masonry
+        icon: fa-regular fa-layer-group
       # Archives: 
       #   path: /archives 
       #   icon: fa-regular fa-archive # can be empty
@@ -340,7 +354,7 @@ articles:
     # Max number of articles to display mobile
     mobile_limit: 2
     # Placeholder image
-    placeholder: /images/wallhaven-wqery6-light.webp
+    placeholder: /images/start-head-1920w.webp
     # Skip directory
     skip_dirs: []
 # ARTICLE <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< end
@@ -350,7 +364,7 @@ articles:
 # Docs: https://redefine-docs.ohevan.com/posts/comment
 comment:
   # Whether to enable comment
-  enable: true
+  enable: false
   # Comment system
   system: waline # waline, gitalk, twikoo, giscus
   # System configuration
@@ -399,7 +413,7 @@ footer:
   # Icon in footer, write fontawesome icon code here
   icon: '<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>'
   # The start time of the website, format: YYYY/MM/DD HH:mm:ss
-  start: 2022/8/17 11:45:14
+  start: 2025/6/24 11:45:14
   # Site statistics
   statistics: true # show site statistics or not (total articles, total words)
   # Footer message
@@ -419,12 +433,11 @@ inject:
   enable: false
   # Inject custom head html code
   head: 
-    -
-    -
+    - '<meta name="viewport" content="width=device-width, initial-scale=1.0">'
+    - '<meta property="al:android:app_name" content="Medium">'
   # Inject custom footer html code
   footer:
-    -
-    -
+
 # INJECT <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< end
 
 
@@ -484,5 +497,19 @@ cdn:
 # Docs: https://redefine-docs.ohevan.com/developer
 developer:
   # Whether to enable developer mode (only for developers who want to modify the theme source code, not for ordinary users)
-  enable: false
+  enable: true
 # DEVELOPER MODE <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< end
+
+
+# Кастомные настройки >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> start
+ads: # Рекламные блоки
+  enable: true
+  frequency: 2  # Показывать рекламу после каждых 3 постов
+  pinned: true  # Включить закрепленный блок после последнего поста
+
+
+
+
+
+
+# Кастомные настройки <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< end

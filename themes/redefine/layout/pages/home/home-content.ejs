@@ -1,15 +1,41 @@
 <div class="home-content-container">
-    <ul class="home-article-list">
-        <% page.posts.forEach(post => { %>
-            <li class="home-article-item">
 
+    <div class="mobile-collection">
+
+         <!-- Мобильная версия коллекции постов -->
+         <!-- Фиксированный контейнер с важными постами (только для Mobile) -->
+                <div class="important-posts-container-mobile">
+                    <div class="important-posts-list flex flex-col ">
+                        <a href="/collections/" class="post-link py-0.5 hover:text-primary-color transition-colors font-bold text-center"><h1 class="links-title">[ Коллекция всех статей ]</h1></a>
+                        <a href="/collections/top/" class="post-link py-0.5 hover:text-primary-color transition-colors font-bold">• ☕️ [ ПsyЧай/ПcиOрехоБут/Разница ПsyВидов/ОСы ]</a>
+                        <a href="/collections/antiversus/" class="post-link py-0.5 hover:text-primary-color transition-colors font-bold">• 🥶 [ Избавляемся от Побочек на Входе и Последствий ]</a>
+                        <a href="/collections/muskat-matsis/" class="post-link py-0.5 hover:text-primary-color transition-colors font-bold">• ☘️ [ Муcкaтный орeх / Масло Мaциcа ]</a>
+                        <a href="/collections/nzt-nootrop/" class="post-link py-0.5 hover:text-primary-color transition-colors font-bold">• 🧬 [ NZT Ноотроп из фильма Области Тьмы ]</a>
+                        <a href="/collections/psymixes-and-etc/" class="post-link py-0.5 hover:text-primary-color transition-colors font-bold">• 🔮 [ ПcиМиксы, Пcилохуaскa, ПcиСома ]</a>
+                        <a href="/collections/for-new/" class="post-link py-0.5 hover:text-primary-color transition-colors font-bold">• 🍄 [ НОВИЧКАМ!!! Что такое Тpип? ]</a>
+                        <a href="/collections/trip-reports/" class="post-link py-0.5 hover:text-primary-color transition-colors font-bold">• 🟥 [ Тpип-Рeпopты ]</a>
+                        <a href="/collections/grow-reports-etc/" class="post-link py-0.5 hover:text-primary-color transition-colors font-bold">• ☔️ [ Гpoв-Peпoрты / Поиск на Полях ]</a>
+                        <a href="/collections/razborbi/" class="post-link py-0.5 hover:text-primary-color transition-colors font-bold">• ✏️ [ Разбор LеmonTеk-Рапэ-Зверобой ]</a>
+                    </div>
+                    
+                </div>
+
+    </div>
+
+
+    <ul class="home-article-list">
+        <% const ads = site.data.ads || []; %>
+        <% const pinnedAd = ads.find(ad => ad.pinned === true) || null; %>
+        <% const nonPinnedAds = ads.filter(ad => ad.pinned !== true); %>
+        <% page.posts.forEach((post, index) => { %>
+            <li class="home-article-item">
                 <% if (post.sticky) { %>
                     <div class="absolute top-[12px] right-[12px] text-[0.7rem] text-third-text-color rounded-medium bg-background-color-transparent-15 py-[2px] px-[10px] border border-border-color z-1 hover:text-first-text-color cursor-default">
                         <i class="fa-regular fa-thumbtack mr-[3px] text-[0.65rem]"></i><%- __('sticky') %>
                     </div>
                 <% } %>
 
-                <%  let articleThumbnail = "";
+                <% let articleThumbnail = "";
                 if (post.cover || post.banner || (post.thumbnail && post.thumbnail !== false)) { %>
                     <%
                     if (post.thumbnail && post.thumbnail !== null) {
@@ -31,7 +57,7 @@
                         </a>
                     </div>
                 <% } %>
-                <div class="flex flex-col gap-5 px-7 pb-7 <%= post.thumbnail !== false && (post.thumbnail || post.cover || post.banner) ? "pt-5" : "pt-7" %>">
+                <div class="flex flex-col gap-5 px-7 pb-7 <%= post.thumbnail !== false && (post.thumbnail || post.cover || post.banner) ? 'pt-5' : 'pt-7' %>">
                     <h3 class="home-article-title">
                         <a href="<%- url_for(post.path) %>">
                             <%= post.title %>
@@ -53,8 +79,53 @@
                     <%- partial('pages/home/home-article', {post: post}) %>
                 </div>
             </li>
-        <% }) %>
+
+            <!-- Закрепленный рекламный блок после первого поста (pinned)-->
+            <% if (theme.ads && theme.ads.pinned && pinnedAd && index === 0) { %>
+                <li class="betwixt-item pinned-betwixt">
+                    <div class="betwixt-block">
+                    <% const adIndex = Math.floor((index + 1) / theme.ads.frequency) % nonPinnedAds.length; %>
+                    <img src="<%- url_for(pinnedAd.icon) %>" alt="<%- pinnedAd.title %>" class="betwixt-image">
+                        <div class="betwixt-content">
+                            <h4 class="betwixt-subtitle"><%- pinnedAd.subtitle %></h4>
+                            <h2 class="betwixt-title"><%- pinnedAd.title %></h2>
+                            <p class="betwixt-description"><%- pinnedAd.description %></p>
+                            
+                            <div class="btn-wrap">
+                            <a href="https://t.me/Nikto_Archive" target="_blank" rel="noopener noreferrer" class="betwixt-button-pinned">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#0066CC" viewBox="0 0 16 16" style="margin-right: 10px;">
+                                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.287 5.906c-.778.324-2.334.994-4.666 2.01-.378.15-.577.298-.595.442-.03.243.275.339.69.47l.175.055c.408.133.958.288 1.243.294.26.006.549-.1.868-.32 2.179-1.471 3.304-2.214 3.374-2.23.05-.012.12-.026.166.016.047.041.042.12.037.141-.03.129-1.227 1.241-1.846 1.817-.193.18-.33.307-.358.336a8.154 8.154 0 0 1-.188.186c-.38.366-.664.64.015 1.088.327.216.589.393.85.571.284.194.568.387.936.629.093.06.183.125.27.187.331.236.63.448.997.414.214-.02.435-.22.547-.82.265-1.417.786-4.486.906-5.751a1.426 1.426 0 0 0-.013-.315.337.337 0 0 0-.114-.217.526.526 0 0 0-.31-.093c-.3.005-.763.166-2.984 1.09z"></path>
+                                    </svg>
+                                    <span>Подписаться</span>
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </li>
+            <% } %>
+
+
+
+            <!-- Периодический рекламный блок после каждого N-го поста (только non-pinned) -->
+            <% if (theme.ads && theme.ads.enable && nonPinnedAds.length > 0 && (index + 1) % theme.ads.frequency === 0) { %>
+                <li class="betwixt-item">
+                    <div class="betwixt-block">
+                    <% const adIndex = Math.floor((index + 1) / theme.ads.frequency) % nonPinnedAds.length; %>
+                    <img src="<%- url_for(nonPinnedAds[adIndex].icon) %>" alt="<%- nonPinnedAds[adIndex].title %>" class="betwixt-image">
+                        <div class="betwixt-content">
+                            <h4 class="betwixt-subtitle"><%- nonPinnedAds[adIndex].subtitle %></h4>
+                            <h2 class="betwixt-title"><%- nonPinnedAds[adIndex].title %></h2>
+                            <p class="betwixt-description"><%- nonPinnedAds[adIndex].description %></p>
+                            <a href="<%- nonPinnedAds[adIndex].url %>" class="betwixt-button">Перейти</a>
+                        </div>
+                    </div>
+                </li>
+            <% } %>
+
+        <% }); %>
     </ul>
+
 
     <div class="home-paginator px-7 py-5">
         <%- partial('utils/paginator', {pageObject: page}) %>

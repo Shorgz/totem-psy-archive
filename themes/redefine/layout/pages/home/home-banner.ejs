@@ -39,6 +39,130 @@
         <img src="<%- url_for(theme.home_banner.image.dark) %>" alt="home-banner-background" class="w-full h-full object-cover hidden dark:block">
     </div>
     <% } %>
+
+        <!-- Все то что не родное -->
+    <div class="adaptive-wrap">
+    <!-- Контейнер Последняя статья в верхнем левом углу -->
+    <div class="top-left-container">
+        <%
+        const latestPost = site.posts.sort('date', -1).limit(1).toArray()[0];
+        if (latestPost) {
+          // Получаем изображение для статьи
+          let articleThumbnail = "";
+          if (latestPost.cover || latestPost.banner || (latestPost.thumbnail && latestPost.thumbnail !== false)) {
+            if (latestPost.thumbnail && latestPost.thumbnail !== null) {
+              articleThumbnail = latestPost.thumbnail;
+            } else if (latestPost.cover && latestPost.cover.includes("/")) {
+              articleThumbnail = latestPost.cover;
+            } else if (latestPost.banner && latestPost.banner.includes("/")) {
+              articleThumbnail = latestPost.banner;
+            } else if (config.marked.postAsset && config.marked.postAsset == true) {
+              articleThumbnail = [latestPost.path, latestPost.cover || latestPost.banner].join("/");
+            }
+          }
+        %>
+        <div class="latest-post-container">
+          <div class="latest-post-card">
+            <div class="latest-post-header">
+              <h2>Последняя статья</h2>
+              <time datetime="<%= latestPost.date.toISOString() %>">
+                <%= latestPost.date.format('YYYY-MM-DD') %>
+              </time>
+            </div>
+            
+            <% if (latestPost.thumbnail !== false && (latestPost.thumbnail || latestPost.cover || latestPost.banner)) { %>
+              <div class="latest-post-thumbnail">
+                <a href="<%- url_for(latestPost.path) %>" class="block h-full">
+                  <img src="<%- url_for(articleThumbnail) %>" alt="<%= latestPost.title %>" class="w-full h-full object-cover dark:brightness-75 transition-all" />
+                </a>
+              </div>
+            <% } %>
+            
+            <div class="latest-post-content">
+              <h3><a href="<%- url_for(latestPost.path) %>"><%= latestPost.title %></a></h3>
+              <div class="latest-post-excerpt">
+                <% if (latestPost.excerpt && latestPost.excerpt == "false") { %>
+                <% } else if (latestPost.excerpt && latestPost.excerpt !== "false") { %>
+                  <%- render(latestPost.excerpt, "markdown") %>
+                <% } else { %>
+                  <%
+                    // Уменьшаем длину описания для компьютерной версии
+                    const excerptLength = 80; // Уменьшено с 200 до 80
+                  %>
+                  <%- truncate(strip_html(latestPost.content), {length: excerptLength}) %>...
+                <% } %>
+              </div>
+            </div>
+            <div class="latest-post-footer">
+              <div class="latest-post-tags">
+                <% if (latestPost.tags && latestPost.tags.length) { %>
+                  <% latestPost.tags.each(function(tag){ %>
+                    <a href="<%- url_for(tag.path) %>" class="tag"><%= tag.name %></a>
+                  <% }); %>
+                <% } %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% } %>
+    </div>
+
+
+                <!-- Фиксированный контейнер с важными постами (только для ПК) -->
+        <div class="fixed-important-posts-container">
+                <div class="important-posts-container">
+                    <div class="important-posts-list flex flex-col ">
+                        <a href="/collections/top/" class="post-link py-0.5 hover:text-primary-color transition-colors font-bold">• ☕️ [ ПsyЧай от БЭДов/ПcиOрехоБут/Разница ПsyВидов/ОСы ]</a>
+                        <a href="/collections/antiversus/" class="post-link py-0.5 hover:text-primary-color transition-colors font-bold">• 🥶 [ Избавляемся от Побочек на Входе и Последствий ]</a>
+                        <a href="/collections/muskat-matsis/" class="post-link py-0.5 hover:text-primary-color transition-colors font-bold">• ☘️ [ Муcкaтный орeх / Масло Мaциcа ]</a>
+                        <a href="/collections/nzt-nootrop/" class="post-link py-0.5 hover:text-primary-color transition-colors font-bold">• 🧬 [ NZT Ноотроп из фильма Области Тьмы ]</a>
+                        <a href="/collections/psymixes-and-etc/" class="post-link py-0.5 hover:text-primary-color transition-colors font-bold">• 🔮 [ ПcиМиксы, Пcилохуaскa, ПcиСома ]</a>
+                        <a href="/collections/for-new/" class="post-link py-0.5 hover:text-primary-color transition-colors font-bold">• 🍄 [ НОВИЧКАМ!!! Что такое Тpип? ]</a>
+                        <a href="/collections/trip-reports/" class="post-link py-0.5 hover:text-primary-color transition-colors font-bold">• 🟥 [ Тpип-Рeпopты ]</a>
+                        <a href="/collections/grow-reports-etc/" class="post-link py-0.5 hover:text-primary-color transition-colors font-bold">• ☔️ [ Гpoв-Peпoрты / Поиск на Полях ]</a>
+                        <a href="/collections/razborbi/" class="post-link py-0.5 hover:text-primary-color transition-colors font-bold">• ✏️ [ Разбор LеmonTеk-Рапэ-Зверобой ]</a>
+                    </div>
+                    <div class="important-posts-footer">
+                        <a href="#" class="view-all-link" onclick="togglePosts()">Развернуть</a>
+                    </div>
+                </div>
+            </div>
+            
+    </div>
+
+    <!-- Всегда показываем наши контейнеры независимо от настроек -->
+        <div class="absolute bottom-0.5 flex flex-row justify-between max-w-[1340px] items-center w-full px-8 sm:px-12">
+            <!-- Контейнер для текста "внизу сайта самое вкусное" в центре -->
+            <div class="center-text-container px-6 py-3 mx-auto bg-gray-300/50 dark:bg-gray-500/40 backdrop-blur-sm border border-white/20 dark:border-gray-500/30 shadow-redefine-flat rounded-full">
+                <span class="glow-text">...Внизу Сайта Самое Вкусное...</span>
+            </div>
+            
+            <!-- Правый текстовый контейнер с Telegram -->
+            <div class="telegram-container px-6 py-3 ml-4 bg-gray-300/50 dark:bg-gray-500/40 backdrop-blur-sm border border-white/20 dark:border-gray-500/30 shadow-redefine-flat rounded-full">
+                <div class="custom-text flex flex-col items-center">
+                    <div>Моя Группа в <a href="https://t.me/Nikto_Archive" target="_blank" class="telegram-link">Telegram</a></div>
+                    <div><a href="https://t.me/+3b6ahucAN8EzYTNi" target="_blank" class="group-chat-link">Чат Группы</a></div>
+                    <div><a href="https://t.me/Nikto_Archivarius" target="_blank" class="personal-link">Обратиться ко мне в ЛС</a></div>
+                </div>
+            </div>
+        </div>
+        
+        
+
+
+
+    
+        <!-- Фиксированный видео-контейнер (только для ПК) -->
+        <div class="fixed-video-container hide-on-mobile hide-on-scroll">
+            <div class="video-container-small bg-gray-300/50 dark:bg-gray-500/40 backdrop-blur-lg border border-white/20 dark:border-gray-500/30 shadow-redefine-flat rounded-xl overflow-hidden cursor-pointer">
+                <figure><video id="loopVideo" autoplay muted loop src="/videos/testvideo.mp4">
+                    <source src="/videos/testvideo.mp4" type="video/mp4">
+                    Ваш браузер не поддерживает видео.
+                </video><figcaption></figcaption></figure>
+            </div>
+        </div>
+
+
     <div class="content mt-8 flex flex-col justify-center items-center transition-fade-down">
         <div class="description flex flex-col justify-center items-center w-screen font-medium text-center"
         <% if (theme.home_banner.custom_font.enable) { %>
@@ -76,12 +200,6 @@
                                         <i class="<%= key %> fa-fw fa-lg"></i>
                                     </a>
                                 </span>
-                            <% } else if(key.startsWith('/') || key.startsWith('http')) { %>
-                                <span class="social-contact-item">
-                                    <a target="_blank" href="<%- theme.home_banner.social_links.links[key] %>">
-                                        <img src="<%- url_for(key) %>" alt="social-icon" class="w-5 h-5 object-contain">
-                                    </a>
-                                </span>
                             <% } else { %>
                                 <span class="social-contact-item <%= key %>">
                                     <a target="_blank" href="<%- theme.home_banner.social_links.links[key] %>">
@@ -109,16 +227,6 @@
                                     <span class="social-contact-item-qr cursor-pointer group">
                                         <a target="_blank">
                                             <i class="<%= key %> fa-fw fa-lg"></i>
-                                            <div class="social-qr-container absolute h-auto bg-background-color-transparent-40 border border-white/20 dark:border-gray-500/30 overflow-hidden rounded-2xl bottom-0 mb-14 right-0 invisible group-hover:visible opacity-0 group-hover:opacity-100 translate-y-0.5 group-hover:translate-y-0 transition-all">
-                                                <img class="social-contacts-qr w-64"
-                                                     src="<%- url_for(theme.home_banner.social_links.qrs[key]) %>"/>
-                                            </div>
-                                        </a>
-                                    </span>
-                                <% } else if(key.startsWith('/') || key.startsWith('http')) { %>
-                                    <span class="social-contact-item-qr cursor-pointer group">
-                                        <a target="_blank">
-                                            <img src="<%- url_for(key) %>" alt="social-icon" class="w-5 h-5 object-contain">
                                             <div class="social-qr-container absolute h-auto bg-background-color-transparent-40 border border-white/20 dark:border-gray-500/30 overflow-hidden rounded-2xl bottom-0 mb-14 right-0 invisible group-hover:visible opacity-0 group-hover:opacity-100 translate-y-0.5 group-hover:translate-y-0 transition-all">
                                                 <img class="social-contacts-qr w-64"
                                                      src="<%- url_for(theme.home_banner.social_links.qrs[key]) %>"/>

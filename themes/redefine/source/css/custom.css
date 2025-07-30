@@ -1,0 +1,876 @@
+/* themes/redefine/source/css/custom.css */
+
+figure{
+  align-items: center;
+}
+
+
+
+/* article header */
+
+
+.article-title{
+  height: 200px; /* Фиксированная высота контейнера */
+  width: 100%; /* Ширина контейнера */
+  overflow: hidden; /* Обрезает изображение */
+}
+
+.post_tumbnail_img{
+  width: 100%; /* Изображение растягивается по ширине */
+  height: 100%; /* Заполняет высоту контейнера */
+  object-fit: cover; /* Обрезает, сохраняя пропорции */
+  border-radius: 10px 20px 0px 0px;
+
+}
+
+.post_tumbnail_textblock{
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  text-align: center; /* Центрирование текста */
+  height: 100%;
+  color: var(--second-text-color); /* Цвет текста, предполагается, что переменная определена */
+  background-color: transparent; /* Прозрачный фон */
+
+  font-size: 1.875rem; /* text-3xl: 30px */
+  font-weight: 600; /* font-semibold: полужирный шрифт */
+  backdrop-filter: blur(10px); /* backdrop-blur-lg: размытие фона */
+  /* border-radius: 0.75rem;  rounded-xl: скругление углов 12px */
+  border: 1px solid var(--border-color); /* border и цвет границы, предполагается, что переменная определена */
+}
+
+/* Родительский контейнер000 */
+.article-title {
+  position: relative;
+  width: 100%;
+  /* Задаём высоту, если она не определена (например, через изображение или фиксированное значение) */
+  height: 200px; /* Установите нужную высоту или используйте min-height */
+  overflow: hidden; /* Для обрезки изображения, если оно выходит за границы */
+}
+
+/* Изображение как фон */
+.post_tumbnail_img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Изображение заполняет контейнер, сохраняя пропорции */
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1; /* Изображение на заднем плане */
+}
+
+/* Текстовый блок занимает всё пространство */
+.post_tumbnail_textblock {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Центрируем содержимое по вертикали и горизонтали */
+  z-index: 2; /* Выше изображения */
+}
+
+/* Стили для заголовка */
+.article-title-cover {
+  text-align: center;
+  margin: 1.5rem; /* mx-6 my-6 */
+  padding: 0.75rem 1rem; /* px-4 py-3 */
+  font-size: 1.875rem; /* text-3xl */
+  font-weight: 600; /* font-semibold */
+  color: var(--second-text-color); /* text-second-text-color */
+  background-color: var(--background-color-transparent); /* bg-background-color-transparent */
+  backdrop-filter: blur(10px); /* backdrop-blur-lg */
+  border: 1px solid var(--border-color); /* border border-border-color */
+  border-radius: 0.75rem; /* rounded-xl */
+}
+
+/* Адаптивные стили */
+@media (min-width: 640px) {
+  .article-title-cover {
+    font-size: 2.25rem; /* sm:text-4xl */
+  }
+}
+
+@media (min-width: 768px) {
+  .article-title-cover {
+    font-size: 3rem; /* md:text-5xl */
+  }
+}
+
+
+
+
+
+
+
+/* Стиль для изображений */
+.iv_pic {
+    /* Стиль для изображений 
+    width: 100%;
+    height: auto; /* высота рассчитывается автоматически */
+    display: block;
+    max-width: 800px;
+}
+
+/* Стиль для видео */
+.iv_vid {
+    width: 100%;
+    height: auto;
+    display: block;
+    max-width: 800px;
+    aspect-ratio: 16/9; /* стандартное соотношение для видео (можно изменить) */
+    border: none;
+    margin: 0 auto;
+}
+
+/* Стиль для iframe (например, встроенные видео) */
+.iv_iframe {
+    width: 100%;
+    height: auto;
+    display: block;
+    max-width: 800px;
+    aspect-ratio: 16/9; /* стандартное соотношение для видео (можно изменить) */
+    border: none;
+    margin: 0 auto;
+}
+
+
+
+/* СТИЛИ ГЛАВНОЙ СТРАНИЦЫ HOME BANNER */
+
+.home-banner-container {
+  font-family: 'Russo One', sans-serif;
+}
+
+.home-banner-container .content .description {
+  font-family: 'Russo One', sans-serif;
+  font-size: 2.8rem;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.4), 0 0 15px var(--primary-color);
+  color: #fff;
+  display: inline-block;
+  transform: perspective(500px) rotateX(10deg);
+  margin-bottom: 3rem;
+}
+
+/* СТИЛИ ГЛАВНОЙ СТРАНИЦЫ HOME BANNER */
+
+
+/* betwixt */
+
+.betwixt-item {
+    margin-bottom: 35px;
+}
+
+.betwixt-block {
+    width: 100%;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    background: rgba(30, 30, 30, 0.7);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    overflow: hidden;
+    padding: 0 24px;
+    box-sizing: border-box;
+    position: relative;
+}
+
+
+.betwixt-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+
+.betwixt-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 24px;
+    flex: 1;
+}
+
+.betwixt-title {
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold;
+    color: #cbcbd1;
+}
+
+.betwixt-subtitle {
+    margin: 2px 0 6px 0;
+    font-size: 11px;
+    color: #9595a2;
+    letter-spacing: 0.5px;
+}
+
+.betwixt-description {
+    margin: 0 0 8px 0;
+    font-size: 13px;
+    color: #9595a2;
+}
+
+.betwixt-button {
+    align-self: flex-start;
+    padding: 6px 18px;
+    background: #1976d2;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.betwixt-button:hover {
+    background: #1256a0;
+}
+
+.main-container {
+    width: 800px;
+    margin: 40px auto;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18), 0 1.5px 4px rgba(0,0,0,0.08);
+    padding: 32px 0;
+    box-sizing: border-box;
+    min-height: 120px;
+} 
+
+.betwixt-button-pinned{
+    display: inline-flex;
+    align-items: center;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    padding: 5px 12px;
+    border-radius: 20px;
+
+    color: #fff;
+    background-color: var(--primary-color);
+    padding: 6px 15px;
+    font-size: 12px;
+
+    color: #0066CC;
+    background-color: rgba(0, 102, 204, 0.1);
+}
+
+
+.betwixt-button {
+    display: inline-flex;
+    align-items: center;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    padding: 5px 12px;
+    border-radius: 20px;
+
+    color: #fff;
+    background-color: var(--primary-color);
+    padding: 6px 15px;
+    font-size: 12px;
+    max-width: 100px;
+}
+
+.betwixt-button:hover {
+  background-color: var(--primary-color-dark);
+}
+
+.betwixt-content-container:hover .betwixt-title {
+  color: var(--primary-color);
+}
+/* Мобильная оптимизация */
+
+
+
+
+@media screen and (max-width: 450px) {
+    .betwixt-block {
+        flex-direction: column;
+        height: auto;
+        padding: 16px;
+        align-items: flex-start;
+    }
+
+    .betwixt-image {
+        width: 100%;
+        height: 150px;
+        margin-bottom: 16px;
+    }
+
+    .betwixt-content {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .betwixt-title {
+        font-size: 14px;
+    }
+
+    .betwixt-description {
+        font-size: 12px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .betwixt-button {
+    }
+}
+
+.telegram-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 220px;
+  max-width: 300px;
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  z-index: 5;
+}
+
+
+/* betwixt ----*/
+
+.top-left-container {
+
+  left: 140px;
+  top: 15%;
+  z-index: 10;
+}
+
+.home-banner-container {
+  justify-content: center !important;
+  padding-left: 0;
+}
+
+.latest-post-container {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  max-width: 240px;
+}
+
+.latest-post-card {
+  background: var(--background-color-transparent-80) !important;
+  border-radius: 12px;
+  padding: 1.2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  border: 1px solid var(--border-color);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  overflow: hidden;
+}
+
+.latest-post-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--redefine-box-shadow-hover);
+}
+
+.latest-post-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.latest-post-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: var(--primary-color);
+}
+
+.latest-post-thumbnail {
+  height: 120px;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 8px;
+  margin-bottom: 0.8rem;
+}
+
+.latest-post-content h3 {
+  margin: 0 0 0.7rem 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--second-text-color);
+  font-family: sans-serif;
+  line-height: 1.3;
+}
+
+.latest-post-content h3 a {
+  color: var(--second-text-color);
+  text-decoration: none;
+}
+
+.latest-post-content h3 a:hover {
+  color: var(--primary-color);
+}
+
+.latest-post-excerpt {
+  color: var(--text-color);
+  opacity: 0.8;
+  margin-bottom: 1rem;
+  max-height: 80px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.latest-post-footer {
+  border-top: 1px solid var(--border-color);
+  padding-top: 1rem;
+}
+
+.latest-post-tags {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.latest-post-tags .tag {
+  background: var(--primary-color);
+  color: white;
+  padding: 0.2rem 0.8rem;
+  border-radius: 15px;
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.latest-post-tags .tag:hover {
+  opacity: 0.9;
+}
+
+
+/* Обертка */
+.adaptive-wrap {
+  position: absolute;
+  top: 10vh;
+  left: 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px; /* Отступ между блоками */
+  padding: 16px 80px; /* Внутренние отступы контейнера */
+  width: 100vw; /* Ширина на весь экран устройства */
+  max-width: 100%; /* Убирает ограничение максимальной ширины */
+  margin: 0; /* Убираем внешние отступы для полной ширины */
+  box-sizing: border-box; /* Учитываем padding в ширине */
+}
+
+
+/* Важные посты справа сверху */
+
+.fixed-important-posts-container {
+  z-index: 1000;
+  max-width: 360px;
+  display: block;
+
+  flex: 1; /* Блоки занимают равное пространство */
+  min-width: 215px; /* Минимальная ширина блока */
+  padding: 16px; /* Внутренние отступы блока */
+  padding-top: 0px;
+  padding-right: 0px;
+  box-sizing: border-box; /* Учитываем padding и border в ширине */
+
+
+  opacity: 1; /* Заставляем быть непрозрачным сразу */
+  will-change: transform; /* Подсказка браузеру оптимизировать только трансформацию */
+  transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1); /* Убираем анимацию opacity */
+}
+
+.important-posts-container {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), 0 0 15px rgba(var(--primary-color-rgb), 0.3);
+  max-height: 75vh;
+  overflow-y: auto;
+  animation: subtle-glow-pc 4s ease-in-out infinite alternate;
+  background-color: rgba(209, 213, 219, 0.5); /* bg-gray-300/50 */
+  backdrop-filter: blur(24px); /* backdrop-blur-lg */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* border border-white/20 */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); /* shadow-redefine-flat (assuming a subtle shadow) */
+  border-radius: 0.75rem; /* rounded-xl */
+  padding: 0.375rem 0.75rem; /* px-3 py-1.5 */
+  width: auto; /* w-auto */
+
+/* Dark mode styles */
+@media (prefers-color-scheme: dark) {
+  background-color: rgba(107, 114, 128, 0.4); /* dark:bg-gray-500/40 */
+  border-color: rgba(107, 114, 128, 0.3); /* dark:border-gray-500/30 */
+}
+}
+
+
+.important-posts-container-mobile {
+  display: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), 0 0 15px rgba(var(--primary-color-rgb), 0.3);
+  max-height: 75vh;
+  overflow-y: auto;
+  animation: subtle-glow-pc 4s ease-in-out infinite alternate;
+  background-color: rgba(209, 213, 219, 0.5); /* bg-gray-300/50 */
+  backdrop-filter: blur(24px); /* backdrop-blur-lg */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* border border-white/20 */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); /* shadow-redefine-flat (assuming a subtle shadow) */
+  border-radius: 0.75rem; /* rounded-xl */
+  padding: 0.375rem 0.75rem; /* px-3 py-1.5 */
+  width: auto; /* w-auto */
+}
+
+
+
+.post-link{
+  padding: 5px 0;
+}
+
+.links-title{
+  font-size: 1.2rem;
+  font-weight: 600;
+  border-bottom: rgba(209, 213, 219, 0.5) solid 1px;
+}
+
+
+.important-posts-list a {
+        text-decoration: none;
+        display: block;
+        transition: all 0.2s ease;
+        font-size: 0.7rem;
+        line-height: 1.15;
+        font-weight: 900;
+    }
+    
+    .important-posts-list a:hover {
+        transform: translateX(5px);
+    }
+    
+    .important-posts-container::-webkit-scrollbar {
+        width: 4px;
+    }
+    
+    .important-posts-container::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    
+    .important-posts-container::-webkit-scrollbar-thumb {
+        background-color: var(--primary-color);
+        border-radius: 20px;
+    }
+
+
+
+.important-posts-footer{
+  display: none;
+}
+
+
+
+
+/* Планшеты (768px–1285px) */
+@media (min-width: 1081px) and (max-width: 1285.98px) {
+
+  .adaptive-wrap{
+    padding: 16px 24px; /* Уменьшаем отступы для планшетов */
+  }
+
+  .top-left-container{
+    display: block;
+    width: 200px;
+    max-width: 200px;
+    left: 12px;
+    top: 80px;
+
+  }
+
+  .latest-post-content {
+    text-align: center;
+    
+  }
+
+  .latest-post-content h3 {
+    font-size: 1.0rem;
+    margin-bottom: 0.0em;
+  }
+
+  .latest-post-header {
+    display: block;
+    text-align: center;
+    
+  }
+
+  .latest-post-header h2 {
+    font-size: 1.1rem;
+    
+  }
+
+
+  .fixed-video-container{
+    display: none;
+  }
+
+
+  .telegram-container{
+    right: 90px;
+    bottom: 200px;
+  }
+
+}
+
+/* Смартфоны и маленькие планшеты */
+@media (max-width: 1080px) {
+
+  .adaptive-wrap{
+    padding: 16px 24px; /* Уменьшаем отступы для планшетов */
+  }
+
+  .top-left-container{
+    display: block;
+    width: 200px;
+    max-width: 200px;
+    left: 12px;
+    top: 80px;
+
+  }
+
+  .latest-post-footer {
+    display: none;
+  }
+
+  .latest-post-excerpt{
+    display: none;
+  }
+
+  .latest-post-content {
+    text-align: center;
+    
+  }
+
+  .latest-post-content h3 {
+    font-size: 1.0rem;
+    margin-bottom: 0.0em;
+  }
+
+  .latest-post-header {
+    display: block;
+    text-align: center;
+    
+  }
+
+  .latest-post-header h2 {
+    font-size: 1.1rem;
+    
+  }
+
+
+  .fixed-video-container{
+    display: none;
+  }
+
+
+  .telegram-container{
+    right: 50%; /* Используем right */
+    transform: translateX(-50%); /* Сдвигаем на 50% ширины блока влево */
+    bottom: 200px;
+    left: 50%;
+    width: 310px;
+  }
+
+  .fixed-video-container {
+    display: none;
+    position: absolute;
+    bottom: 100px;
+    top: auto; 
+    right: auto; 
+  }
+
+  #loopVideo {
+    width: 360px;
+    aspect-ratio: 16/9; /* Соотношение сторон для видео */
+  }
+
+  
+
+  .latest-post-header > time {
+    display: none;
+  }
+
+
+  .center-text-container {
+  width: 360px;
+  }
+
+}
+
+
+/* Смартфоны и маленькие планшеты */
+@media (max-width: 768px) {
+
+  .adaptive-wrap{
+    display: none; /* Уменьшаем отступы для планшетов */
+  }
+
+  .important-posts-container-mobile {
+    display: block;
+    margin-bottom: 20px;
+  }
+
+}
+
+
+/* Смартфоны и маленькие планшеты */
+@media (max-width: 580px) {
+
+
+}
+
+
+
+
+
+/* Смартфоны и маленькие планшеты */
+@media (max-width: 430px) {
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Фиксированный контейнер с видео */
+.fixed-video-container{
+  margin-top: 50px;
+  opacity: 1; 
+  visibility: visible; 
+  position: fixed; 
+  top: 50%; 
+  right: 100px; 
+  z-index: 999;
+}
+
+#loopVideo {
+  width: 310px;
+  aspect-ratio: 16/9; /* Соотношение сторон для видео */
+}
+
+
+.home-article-thumbnail{
+  height: 250px;
+}
+
+
+
+/* Все что снизу главной станицы */
+
+.glow-text{
+  text-align: center;
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.4;
+  padding: 0.2rem 0;
+  color: #fff;
+  text-shadow: 0 0 5px #fff, 0 0 10px #fff, 
+               0 0 15px #f7b731, 0 0 20px #f7b731,
+               0 0 25px var(--primary-color);
+  animation: rainbow-glow 10s ease-in-out infinite alternate;
+  will-change: text-shadow;
+  transform: translateZ(0);
+}
+
+
+.center-text-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 200px;
+  max-width: 400px;
+  position: absolute;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%);
+  z-index: 5;
+}
+
+
+
+.custom-text {
+  text-align: center;
+  font-weight: 700;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  padding: 0.2rem 0;
+  color: #fff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3), 0 0 10px var(--primary-color);
+  animation: glow 3s ease-in-out infinite alternate;
+  will-change: text-shadow;
+  transform: translateZ(0);
+}
+
+.telegram-link {
+    color: #6cc9ff;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.2s ease;
+    font-size: 0.95rem;
+}
+
+.group-chat-link {
+    color: #7bff9e;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.2s ease;
+    font-size: 0.95rem;
+}
+
+.personal-link {
+    color: #ff9966;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.2s ease;
+    font-size: 0.95rem;
+}
+
+
+
+
+
+
+/* ---------------------------Адаптация под различные устройства-----------------------------------*/
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 600px) {
+  .iv_pic,
+  .iv_vid,
+  .iv_iframe {
+    max-width: 100%;
+  }
+  .iv_vid,
+  .iv_iframe {
+    height: 200px; /* Уменьшенная высота для мобильных */
+  }
+  .iv_pic {
+    height: auto; /* Сохраняем пропорции для изображений */
+  }
+}
+

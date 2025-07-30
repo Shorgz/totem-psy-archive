@@ -6,120 +6,19 @@
         <meta name="description" content="<%= page.description || config.description || 'Hexo Theme Redefine' %>">
     <% }%>
     <meta name="author" content="<%= theme.info.author || config.author || 'Redefine Team' %>">
-    
-    <!-- Completely eliminate flash of wrong theme -->
-    <script>
-        (function() {
-            const THEME_KEY = "REDEFINE-THEME-STATUS";
-            const DARK = "dark", LIGHT = "light";
-            
-            // Get preferred theme
-            function getTheme() {
-                try {
-                    const saved = localStorage.getItem(THEME_KEY);
-                    if (saved) {
-                        const { isDark } = JSON.parse(saved);
-                        return isDark ? DARK : LIGHT;
-                    }
-                } catch (e) {}
-                
-                return matchMedia("(prefers-color-scheme: dark)").matches ? DARK : LIGHT;
-            }
-            
-            // Apply theme to document
-            function applyTheme(theme) {
-                const isDark = theme === DARK;
-                const root = document.documentElement;
-                
-                // Set data attribute for CSS variables
-                root.setAttribute("data-theme", theme);
-                
-                // Set classes for compatibility
-                root.classList.add(theme);
-                root.classList.remove(isDark ? LIGHT : DARK);
-                root.style.colorScheme = theme;
-            }
-            
-            // Initial application
-            const theme = getTheme();
-            applyTheme(theme);
-            
-            // Listen for system preference changes
-            matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
-                // Only update if using system preference (no localStorage entry)
-                if (!localStorage.getItem(THEME_KEY)) {
-                    applyTheme(matches ? DARK : LIGHT);
-                }
-            });
-            
-            // Set body classes once DOM is ready
-            if (document.readyState !== "loading") {
-                document.body.classList.add(theme + "-mode");
-            } else {
-                document.addEventListener("DOMContentLoaded", () => {
-                    document.body.classList.add(theme + "-mode");
-                    document.body.classList.remove((theme === DARK ? LIGHT : DARK) + "-mode");
-                });
-            }
-        })();
-    </script>
-    
-    <!-- Critical CSS to prevent flash -->
-    <style>
-        :root[data-theme="dark"] {
-            --background-color: #202124;
-            --background-color-transparent: rgba(32, 33, 36, 0.6);
-            --second-background-color: #2d2e32;
-            --third-background-color: #34353a;
-            --third-background-color-transparent: rgba(32, 33, 36, 0.6);
-            --primary-color: #0066CC;
-            --first-text-color: #ffffff;
-            --second-text-color: #eeeeee;
-            --third-text-color: #bebec6;
-            --fourth-text-color: #999999;
-            --default-text-color: #bebec6;
-            --invert-text-color: #373D3F;
-            --border-color: rgba(255, 255, 255, 0.08);
-            --selection-color: #0066CC;
-            --shadow-color-1: rgba(255, 255, 255, 0.08);
-            --shadow-color-2: rgba(255, 255, 255, 0.05);
-        }
-        
-        :root[data-theme="light"] {
-            --background-color: #fff;
-            --background-color-transparent: rgba(255, 255, 255, 0.6);
-            --second-background-color: #f8f8f8;
-            --third-background-color: #f2f2f2;
-            --third-background-color-transparent: rgba(241, 241, 241, 0.6);
-            --primary-color: #0066CC;
-            --first-text-color: #16171a;
-            --second-text-color: #2f3037;
-            --third-text-color: #5e5e5e;
-            --fourth-text-color: #eeeeee;
-            --default-text-color: #373D3F;
-            --invert-text-color: #bebec6;
-            --border-color: rgba(0, 0, 0, 0.08);
-            --selection-color: #0066CC;
-            --shadow-color-1: rgba(0, 0, 0, 0.08);
-            --shadow-color-2: rgba(0, 0, 0, 0.05);
-        }
-        
-        body {
-            background-color: var(--background-color);
-            color: var(--default-text-color);
-        }
-        
-        /* Apply body classes as soon as DOM is ready */
-        :root[data-theme="dark"] body {
-            background-color: var(--background-color);
-            color: var(--default-text-color);
-        }
-    </style>
-    
-    <!-- preconnect -->
+    <!-- Custom Meta Tags -->
+    <% if (page.meta && page.meta.custom_description) { %>
+        <meta name="custom-description" content="<%= page.meta.custom_description %>">
+    <% } %>
+    <% if (page.meta && page.meta.robots) { %>
+        <meta name="robots" content="<%= page.meta.robots %>">
+    <% } else { %>
+        <meta name="robots" content="index,follow">
+    <% } %>
+    <meta name="revisit-after" content="1 days">
+    <!-- Preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
     <% if (theme.cdn.enable) { %>
         <% const provider = theme.cdn.provider; %>
         <% const cdnLinks = {
@@ -134,49 +33,47 @@
             <link rel="preconnect" href="<%= cdnLinks[provider] %>" crossorigin>
         <% } %>
     <% } %>
-    <!--- Seo Part-->
+    <!-- SEO Part -->
     <%- generateMeta(theme, page) %>
     <%- autoCanonical(config, page) %>
-    <meta name="robots" content="index,follow">
-    <meta name="googlebot" content="index,follow">
-    <meta name="revisit-after" content="1 days">
-    
-    <% checkDeprecation(
-      theme.global.open_graph === true,
-      'open_graph',
-      "Using 'open_graph: true' is deprecated. Please update to the new format:\nglobal:\n  open_graph:\n    enable: true\n    image: your_image_path\n    description: your_description"
-    ) %>
-    <% if (theme.global.open_graph?.enable || theme.global.open_graph === true) { %>
-        <% 
-        let ogImage = page.og_image || theme.global.open_graph?.image;
-        let ogDescription = page.og_description || theme.global.open_graph?.description || page.description || config.description;
-        let author = page.author || config.author || 'Redefine Team';
-        %>
-        <%- open_graph({
-            image: ogImage,
-            author: author,
-            description: ogDescription,
-            twitter_card: 'summary',
-            twitter_image: ogImage,
-        }) %>
-    <% } %>
+   <!-- Enhanced Open Graph -->
+<% checkDeprecation(
+  theme.global.open_graph === true,
+  'open_graph',
+  "Using 'open_graph: true' is deprecated. Please update to the new format:\nglobal:\n  open_graph:\n    enable: true\n    description: your_description"
+) %>
+<% if (theme.global.open_graph?.enable || theme.global.open_graph === true) { %>
+    <% 
+    let ogDescription = page.og_description || page.meta?.og_description || theme.global.open_graph?.description || page.description || config.description || 'Hexo Theme Redefine';
+    let ogTitle = page.og_title || page.title || theme.info.title || config.title || 'Redefine Theme';
+    let author = page.author || config.author || 'Redefine Team';
+    %>
+    <%- open_graph({
+        title: ogTitle,
+        author: author,
+        description: ogDescription,
+        twitter_card: page.meta?.twitter_card || 'summary_large_image',
+        twitter_image: page.meta?.twitter_image,
+        twitter_site: page.meta?.twitter_site || '@YourTwitterHandle',
+        url: full_url_for(page.permalink)
+    }) %>
+<% } %>
+    <!-- Google Analytics -->
     <% if (theme.global.google_analytics.enable) { %>
-        <!-- Google tag (gtag.js) -->
         <script src="https://www.googletagmanager.com/gtag/js?id=<%= theme.global.google_analytics.id %>"></script>
         <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-
         gtag('config', '<%= theme.global.google_analytics.id %>');
         </script>
     <% } %>
-    <!--- Icon Part-->
+    <!-- Icon Part -->
     <link rel="icon" type="image/png" href="<%= url_for(theme.defaults.favicon) %>" sizes="192x192">
     <link rel="apple-touch-icon" sizes="180x180" href="<%= url_for(theme.defaults.favicon) %>">
     <meta name="theme-color" content="<%= theme.colors.primary %>">
     <%- favicon_tag(theme.defaults.favicon) %>
-    <!--- Page Info-->
+    <!-- Page Info -->
     <%
     let title = page.title;
     if (is_archive()) {
@@ -195,37 +92,25 @@
     }
     %>
     <title>
-        <% if (title) { %>
-            <%= title %> | <%= theme.info.title || config.title || 'Redefine Theme' %>
-        <% } else { %>
-            <%= theme.info.title || config.title || 'Redefine Theme' %> - <%= theme.info.subtitle || config.subtitle || 'Redefine Your Hexo Journey.' %>
-        <% } %>
+        <% if (page.meta && page.meta.page_title) { %>
+        <%= page.meta.page_title %>
+    <% } else if (title) { %>
+        <%= title %> | <%= theme.info.title || config.title || 'Redefine Theme' %>
+    <% } else { %>
+        <%= theme.info.title || config.title || 'Redefine Theme' %> - <%= theme.info.subtitle || config.subtitle || 'Redefine Your Hexo Journey.' %>
+    <% } %>
     </title>
-
+    <!-- CSS and Fonts -->
     <%- renderCSS('fonts/Chillax/chillax.css') %>
-
-    <!--- Inject Part-->
-    <% if (theme.inject.enable == true) { %>
-        <% for (let i in theme.inject.head) { %>
-            <% if (theme.inject.head[i] !== null){ %>
-                <% if (theme.global.single_page == true) { %>
-                    <%- theme.inject.head[i].replace("<script", "<script data-swup-reload-script") %>
-                <% } else { %>
-                    <%- theme.inject.head[i] %>
-            <% } }%>
-    <% } }%>
-
     <%- css('css/style') %>
-
     <% if (theme.developer && theme.developer.enable) {%>
         <%- css('css/build/tailwind.css') %>
     <% } else {%>
         <%- renderCSS('css/build/tailwind.css') %>
     <% } %>
-
     <%- renderCSS('fonts/GeistMono/geist-mono.css') %>
     <%- renderCSS('fonts/Geist/geist.css') %>
-    <!--- Font Part-->
+    <!-- Custom Fonts -->
     <% if (theme.home_banner.custom_font.enable) { %>
         <link href="<%- theme.home_banner.custom_font.url %>" rel="stylesheet">
     <% } %>
@@ -241,13 +126,12 @@
     <% if (theme.global.fonts.title.enable) { %>
         <link href="<%- theme.global.fonts.title.url %>" rel="stylesheet">
     <% } %>
+    <!-- Preloader -->
     <% if (theme.global.preloader === true || theme.global.preloader.enable === true) { %>
         <%- renderJS('libs/anime.min.js')%>
     <% } %>
-
-    <%- export_config() %>
-    
-    <!--- Fontawesome Part-->
+    <link rel="stylesheet" href="<%- url_for('/css/custom.css') %>">
+    <!-- FontAwesome -->
     <%- renderCSS('fontawesome/fontawesome.min.css') %>
     <%- renderCSS('fontawesome/brands.min.css') %>
     <%- renderCSS('fontawesome/solid.min.css') %>
@@ -264,5 +148,44 @@
     <% if (theme.fontawesome.sharp_solid == true) { %>
         <%- renderCSS('fontawesome/sharp-solid.min.css') %>
     <% } %>
-</head>
+    <!-- Inject Custom Head Content -->
+    <% if (theme.inject.enable == true) { %>
+        <% for (let i in theme.inject.head) { %>
+            <% if (theme.inject.head[i] !== null){ %>
+                <% if (theme.global.single_page == true) { %>
+                    <%- theme.inject.head[i].replace("<script", "<script data-swup-reload-script") %>
+                <% } else { %>
+                    <%- theme.inject.head[i] %>
+            <% } }%>
+    <% } }%>
 
+    <!-- Custom Meta Tags from Front-Matter -->
+    <% if (page.meta) { %>
+        <% if (page.meta.charset) { %>
+            <meta charset="<%= page.meta.charset %>">
+        <% } %>
+        <% if (page.meta.android_app_name) { %>
+            <meta property="al:android:app_name" content="<%= page.meta.android_app_name %>">
+        <% } %>
+        <% if (page.meta.viewport) { %>
+            <meta name="viewport" content="<%= page.meta.viewport %>">
+        <% } %>
+        <% if (page.meta.og_title) { %>
+            <meta property="og:title" content="<%= page.meta.og_title %>">
+        <% } %>
+        <% if (page.meta.og_description) { %>
+            <meta property="og:description" content="<%= page.meta.og_description %>">
+        <% } %>
+        <% if (page.meta.article_published_time) { %>
+            <meta property="article:published_time" content="<%= page.meta.article_published_time %>">
+        <% } %>
+        <% if (page.meta.og_image) { %>
+            <meta property="og:image" content="<%= url_for(page.meta.og_image) %>">
+        <% } %>
+        <% if (page.meta.tg_channel) { %>
+            <meta property="telegram:channel" content="@<%= page.meta.tg_channel %>">
+        <% } %>
+    <% } %>
+
+    <%- export_config() %>
+</head>
