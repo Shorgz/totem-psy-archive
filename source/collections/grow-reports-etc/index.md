@@ -31,6 +31,7 @@ meta:
 • 📚[БИБЛИОТЕКА СВОБОДЫ](https://telegra.ph/BIBLIOTEKA-SVOBODY-12-13)
 
 • 🔖[Пcихoдeличеcкaя шкатулка](https://telegra.ph/Psihodelicheskaya-shkatulka-02-03)
+
 ---
 
 •🔙 [Назад](https://totem-psy-archive.vercel.app/collections/)
