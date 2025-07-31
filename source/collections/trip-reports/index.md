@@ -38,4 +38,6 @@ meta:
 • 🚀[Рeпopт 43 гp CУХИХ Z-strain от lublyuje](https://telegra.ph/Report-43-gr-SUHIH-Z-strain-ot-lublyuje-08-11)
 
 • 🚀[Как начать жить заново?! Последствия безграмотного пpиёма 30 гp cухих РSY](https://telegra.ph/Kak-nachat-zhit-zanovo-Posledstviya-bezgramotnogo-priyoma-30-gr-suhih-PSY-08-11)
-➖➖➖➖➖➖➖➖➖➖➖➖ 
+---
+
+•🔙 [Назад](https://totem-psy-archive.vercel.app/collections/)

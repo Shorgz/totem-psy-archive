@@ -13,6 +13,7 @@ meta:
   og_description: Сборник всех постов для быстрого поиска.
   article_published_time: 2022-09-01T14:46:56+0000
   og_image: images/start-head.jpg
+  tg_channel: Nikto_Archive
 ---
 
 
@@ -33,7 +34,13 @@ meta:
 • ☔️ [ Гpoв-Peпoрты / Поиск на Полях Вoлшебcтвa / Прочее ](/collections/grow-reports-etc/)
 
 • ✏️ [ Разбор LеmonTеk-Рапэ-Зверобой ](/collections/razborbi/)
-➖➖➖➖➖➖➖➖➖➖➖➖ 
+---
+
+• 🗄️ [ Архив статей PsyГрибоАрхива ](/archives/)
+
+• 💾 [ Бэкап статей telegraph ](/collections/razborbi/)
+
+---
 • 📞 Связь / Дoнат - https://t.me/Nikto_Archivarius 
 
 🍭Кошельки — для поддержки новых постов:
@@ -42,4 +49,4 @@ meta:
 👉USDT (TRC-20): TVfjG83KStoYL7BqepikyksWcr5prrGt6Y
 👉USDT (TON): UQC5iwRUCVmHPYEVYUIpVd0MFbvt11Y8WZ2EdSQ3Nv9CUgJB
 👉BTC: 1HyU8S8GtQfdv8LfcxavQ4DaahX1zgibEi
-➖➖➖➖➖➖➖➖➖➖➖➖
+---

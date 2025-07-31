@@ -31,4 +31,6 @@ meta:
    [4 часть](https://telegra.ph/PSY-VISUALS4-08-04)
 
 • 🍩[Иллюзия Просветления, или почему это миф](https://telegra.ph/Illyuziya-Prosvetleniya-10-11)
-➖➖➖➖➖➖➖➖➖➖➖➖ 
+---
+
+•🔙 [Назад](https://totem-psy-archive.vercel.app/collections/)
