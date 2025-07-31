@@ -36,9 +36,9 @@ meta:
 • ✏️ [ Разбор LеmonTеk-Рапэ-Зверобой ](/collections/razborbi/)
 ---
 
-• 🗄️ [ Архив статей PsyГрибоАрхива ](/archives/)
+• 🗄️ [ Архив статей PsyГрибоАрхива ](/archives/) 
 
-• 💾 [ Бэкап статей telegraph ](/collections/razborbi/)
+• 💾 [ Бэкап статей telegraph ](/iv-articles/links.html)
 
 ---
 • 📞 Связь / Дoнат - https://t.me/Nikto_Archivarius 
