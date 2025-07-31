@@ -8,11 +8,11 @@ meta:
   charset: UTF-8
   android_app_name: Medium
   viewport: width=device-width, initial-scale=1.0
-  custom_title: Как пoпуcтиться с мускaта-мaциса-мурaвы?
-  og_title: Как пoпуcтиться с мускaта-мaциса-мурaвы?
+  custom_title: Методы Общения с Сальвией
+  og_title: Методы Общения с Сальвией
   og_description: Чудесное и пугающее объединяются в одном качестве растения, в отличие от многих других препаратов, оно оставляет ваше сознание и способность к трезвому причинному восприятию незамутненным, кристальным.
   article_published_time: 2022-09-01T14:46:56+0000
-  og_image: images/Kak-snizit-pobochki-Muskata-Matsisa.jpg
+  og_image: images/Metody-Obshcheniya-s-Salviej.jpg
 ---
 
 1. [На что это похоже?](#1)
