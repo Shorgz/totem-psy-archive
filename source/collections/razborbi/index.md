@@ -1,6 +1,6 @@
 ---
 title: Разбор LеmonTеk-Рапэ-Зверобой
-thumbnail: images/Instruktazh-Psychonavta.jpg
+thumbnail: images/start-head.jpg
 date: 2025-04-07 20:07:49
 tags: [Трип-Репорты, Удалённое с Teletype]
 layout: post
@@ -12,7 +12,7 @@ meta:
   og_title: Разбор LеmonTеk-Рапэ-Зверобой
   og_description: Разбор LеmonTеk-Рапэ-Зверобой
   article_published_time: 2022-09-01T14:46:56+0000
-  og_image: images/Instruktazh-Psychonavta.jpg
+  og_image: images/start-head.jpg
 ---
 
 • 😑[Научный взгляд на LеmоnTеk: что правильно, что неправильно и как его значительно улучшить](https://telegra.ph/Nauchnyj-vzglyad-na-LemonTek-08-08)

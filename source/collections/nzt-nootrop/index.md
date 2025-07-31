@@ -1,6 +1,6 @@
 ---
 title: NZT Ноотроп из фильма Области Тьмы
-thumbnail: images/Instruktazh-Psychonavta.jpg
+thumbnail: images/start-head.jpg
 date: 2025-04-07 20:07:49
 tags: [Трип-Репорты, Удалённое с Teletype]
 layout: post
@@ -12,7 +12,7 @@ meta:
   og_title: NZT Ноотроп из фильма Области Тьмы
   og_description: NZT Ноотроп из фильма Области Тьмы
   article_published_time: 2022-09-01T14:46:56+0000
-  og_image: images/Instruktazh-Psychonavta.jpg
+  og_image: images/start-head.jpg
 ---
 
 • 🧬[Флупиpтин - NZT ноотроп тaблeтка из Областей Тьмы](https://telegra.ph/Flupirtine-NZT-super-Nootrop-tabletka-iz-Oblastej-Tmy-01-03)

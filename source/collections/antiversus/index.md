@@ -1,6 +1,6 @@
 ---
 title: Избавляемся от Побочек на Входе и Последствий
-thumbnail: images/Instruktazh-Psychonavta.jpg
+thumbnail: images/start-head.jpg
 date: 2025-04-07 20:07:49
 tags: [Трип-Репорты, Удалённое с Teletype]
 layout: post
@@ -12,7 +12,7 @@ meta:
   og_title: Избавляемся от Побочек на Входе и Последствий
   og_description: Избавляемся от Побочек на Входе и Последствий
   article_published_time: 2022-09-01T14:46:56+0000
-  og_image: images/Instruktazh-Psychonavta.jpg
+  og_image: images/start-head.jpg
 ---
 
 • 🥶[Как быстро остановить БЭД тpип?](https://telegra.ph/Kak-bystro-ostanovit-BAD-trip-01-30) 

@@ -1,6 +1,6 @@
 ---
 title: [ РsyЧай от БЭДов/ПcиOрехоБут/Разница РsyВидов/ОСы/Зелёный СBD Кот ]
-thumbnail: images/dmt-tak653-mix.jpg
+thumbnail: images/start-head.jpg
 date: 2025-04-21 21:32:35
 tags: [Трип-Репорты, Удалённое с Teletype]
 layout: post
@@ -12,7 +12,7 @@ meta:
   og_title: Эксперимент микс с ДMT + TAK-653
   og_description: После месячного очищения от ТГК при помощи голодания и тренировок я решил попробовать микродозинг ДМТ, который в прошлом помогал мне справиться с HPPD и тревожностью. В этот раз я решил добавить TAK и посмотреть, какой будет результат.
   article_published_time: 2022-09-01T14:46:56+0000
-  og_image: images/dmt-tak653-mix.jpg
+  og_image: images/start-head.jpg
 ---
 
 

@@ -1,6 +1,6 @@
 ---
 title: НОВИЧКАМ!!!
-thumbnail: images/Instruktazh-Psychonavta.jpg
+thumbnail: images/start-head.jpg
 date: 2025-04-07 20:07:49
 tags: [Трип-Репорты, Удалённое с Teletype]
 layout: post
@@ -12,7 +12,7 @@ meta:
   og_title: НОВИЧКАМ!!!
   og_description: НОВИЧКАМ!!! Что такое Tpип?
   article_published_time: 2022-09-01T14:46:56+0000
-  og_image: images/Instruktazh-Psychonavta.jpg
+  og_image: images/start-head.jpg
 ---
 
 • 👣[Что такое Тpип для тех кто там никогда не был](https://telegra.ph/CHto-takoe-Trip-dlya-pervoprohodcev-10-11)

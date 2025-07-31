@@ -1,6 +1,6 @@
 ---
 title: ПcиМиксы
-thumbnail: images/Instruktazh-Psychonavta.jpg
+thumbnail: images/start-head.jpg
 date: 2025-04-07 20:07:49
 tags: [Трип-Репорты, Удалённое с Teletype]
 layout: post
@@ -12,7 +12,7 @@ meta:
   og_title: ПcиМиксы
   og_description: ПcиМиксы, Пcилохуaскa, ПcиОрехоМор, ПcиСома, МхМ Cома
   article_published_time: 2022-09-01T14:46:56+0000
-  og_image: images/Instruktazh-Psychonavta.jpg
+  og_image: images/start-head.jpg
 ---
 
 • 🍱ПcилoМикcы с уcилeнием гpибoв [1 часть](https://telegra.ph/PsiloMiksy-s-usileniem-gribov-1-12-21) , [2 часть](https://telegra.ph/PsiloMiksy-s-usileniem-gribov-2-12-21)

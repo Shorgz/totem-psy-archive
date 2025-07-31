@@ -1,6 +1,6 @@
 ---
 title: Гpoв-Peпoрты / Поиск на Полях Вoлшебcтвa / Прочее
-thumbnail: images/Instruktazh-Psychonavta.jpg
+thumbnail: images/start-head.jpg
 date: 2025-04-07 20:07:49
 tags: [Трип-Репорты, Удалённое с Teletype]
 layout: post
@@ -12,7 +12,7 @@ meta:
   og_title: Гpoв-Peпoрты / Поиск на Полях Вoлшебcтвa / Прочее
   og_description: Гpoв-Peпoрты / Поиск на Полях Вoлшебcтвa / Прочее
   article_published_time: 2022-09-01T14:46:56+0000
-  og_image: images/Instruktazh-Psychonavta.jpg
+  og_image: images/start-head.jpg
 ---
 
 
