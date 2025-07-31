@@ -1,7 +1,7 @@
 ---
 title: Как снизить побочки Мускатного Ореха - Мациса
 thumbnail: images/Kak-snizit-pobochki-Muskata-Matsisa.jpg
-date: 2024-04-07 20:03:14
+date: 2025-04-07 20:03:14
 tags: [Мускатный Орех / Мацис, Удалённое с Teletype]
 layout: post
 meta:
