@@ -677,7 +677,7 @@ figure{
   .telegram-container{
     right: 50%; /* Используем right */
     transform: translateX(-50%); /* Сдвигаем на 50% ширины блока влево */
-    bottom: 200px;
+    bottom: 100px;
     left: 50%;
     width: 310px;
   }
