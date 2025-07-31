@@ -24,9 +24,9 @@ meta:
     [1 гайд](https://telegra.ph/Dolgozhdannyj-obobshchayushchij-post-09-12)
 	[2 гайд по топографии](https://telegra.ph/Gajd-po-poisku-semilancetyTopografiya-i-priroda-griba-10-01)
 
-• 🔄[Методы Общения с Cальвиeй](/2025/04/07/metody-obsheniya-salviej/)
+• 🔄[Методы Общения с Cальвиeй](/metody-obsheniya-salviej/)
 
-• 🐈‍⬛[Разные подходы работы с Caльвиeй](/2025/04/07/podhody-raboty-salviej/)
+• 🐈‍⬛[Разные подходы работы с Caльвиeй](/podhody-raboty-salviej/)
 
 • 📚[БИБЛИОТЕКА СВОБОДЫ](https://telegra.ph/BIBLIOTEKA-SVOBODY-12-13)
 

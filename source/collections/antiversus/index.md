@@ -25,7 +25,7 @@ meta:
 
 • 🚁[Устранение последствий и вpeда от использования TГK](https://telegra.ph/Ustranenie-posledstvij-i-vreda-ot-ispolzovaniya-TGK-08-06)
 
-• 🏋️‍♀️[Избавляемся от Никотиновой зависимости с помощью Биохакинга](/2025/04/07/izbavlenie-ot-nicotine/)
+• 🏋️‍♀️[Избавляемся от Никотиновой зависимости с помощью Биохакинга](/izbavlenie-ot-nicotine/)
 
 ---
 
