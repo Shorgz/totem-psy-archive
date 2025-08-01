@@ -2,7 +2,7 @@
 title: Инструктаж Психонавта
 thumbnail: images/Instruktazh-Psychonavta.jpg
 date: 2025-04-07 20:07:49
-tags: [Трип-Репорты, Удалённое с Teletype]
+tags: [ Удалённое с Teletype]
 layout: post
 meta:
   charset: UTF-8
