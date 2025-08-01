@@ -18,6 +18,14 @@ const mediaConfig = {
     srcPriority: ['data-src', 'src'],
     template: (src) => `<figure><video class="iv_vid" controls><source src="${src}" type="video/mp4"></video><figcaption></figcaption></figure>`
   },
+  gif: {
+    selector: 'video, video source',
+    command: 'gif',
+    removeAttrs: ['data-src', 'lazyload', 'loading', 'style', 'class'],
+    addAttrs: { class: 'iv_gif', width: '560', height: '315' },
+    srcPriority: ['data-src', 'src'],
+    template: (src) => `<figure><video class="iv_gif" autoplay muted loop><source src="${src}" type="video/mp4"></video><figcaption></figcaption></figure>`
+  },
   iframe: {
     selector: 'iframe',
     command: 'iframe',

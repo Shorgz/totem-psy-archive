@@ -126,6 +126,17 @@ figure{
     margin: 0 auto;
 }
 
+/* Стиль для gif */
+.iv_gif {
+    width: 100%;
+    height: auto;
+    display: block;
+    max-width: 800px;
+    aspect-ratio: 16/9; /* стандартное соотношение для видео (можно изменить) */
+    border: none;
+    margin: 0 auto;
+}
+
 /* Стиль для iframe (например, встроенные видео) */
 .iv_iframe {
     width: 100%;
@@ -862,10 +873,12 @@ figure{
 @media (max-width: 600px) {
   .iv_pic,
   .iv_vid,
+  .iv_gif,
   .iv_iframe {
     max-width: 100%;
   }
   .iv_vid,
+  .iv_gif,
   .iv_iframe {
     height: 200px; /* Уменьшенная высота для мобильных */
   }
