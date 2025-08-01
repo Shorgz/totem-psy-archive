@@ -86,7 +86,7 @@ function processElement($element, config, $) {
 
 // Функция для обработки команд [[pic()]], [[vid()]], [[iframe()]], [[anc()]]
 function processCommands(html, config) {
-  const commandRegex = /\[\[(pic|vid|iframe|anc)\(([^)]+)\)\]\]/g;
+  const commandRegex = /\[\[(pic|vid|iframe|anc|gif)\(([^)]+)\)\]\]/g;
   return html.replace(commandRegex, (match, type, value) => {
     value = value.trim();
     const media = Object.values(config).find(c => c.command === type);
