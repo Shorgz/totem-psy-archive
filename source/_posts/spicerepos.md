@@ -1,5 +1,5 @@
 ---
-title: Тpип-Рeпoрты на Кулирных Специях... ( НЕ мускат/мацис )
+title: Тpип-Рeпoрты на Кулинарных Специях... ( НЕ мускат/мацис )
 thumbnail: images/spicerepos.jpg
 date: 2025-07-31 02:56:50
 tags: [Трип-Репорты, Удалённое с Teletype]
@@ -8,8 +8,8 @@ meta:
   charset: UTF-8
   android_app_name: Medium
   viewport: width=device-width, initial-scale=1.0
-  custom_title: Тpип-Рeпорты на Кулирных Специях... ( НЕ мускат/мацис )
-  og_title: Тpип-Рeпорты на Кулирных Специях... ( НЕ мускат/мацис )
+  custom_title: Тpип-Рeпорты на Кулинарных Специях... ( НЕ мускат/мацис )
+  og_title: Тpип-Рeпорты на Кулинарных Специях... ( НЕ мускат/мацис )
   og_description: Кто бы мог подумать, что можно одной лишь кулинарией этого достичь, при этом НЕ используя мускат или мацис...
   article_published_time: 2022-09-01T14:46:56+0000
   og_image: images/spicerepos.jpg
