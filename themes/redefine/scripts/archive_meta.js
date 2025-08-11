@@ -2,7 +2,7 @@ const cheerio = require('cheerio');
 
 hexo.extend.filter.register('after_render:html', function(str, data) {
   // Проверяем, что это страница /archives/
-  if (data.path === 'archives/index.html' || data.path === 'archives/' || data.path === 'test1/index.html' || data.path === 'test2/index.html' || data.path === '/iv-articles/test1/index.html' || data.path === '/iv-articles/test2/index.html') {
+  if (data.path === 'archives/index.html' || data.path === 'archives/') {
     const $ = cheerio.load(str, { decodeEntities: true });
 
     // Удаляем существующие мета-теги, чтобы избежать дублирования
