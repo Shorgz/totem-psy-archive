@@ -15,6 +15,7 @@ meta:
   og_image: images/IntimGirl-DurmanDPH.jpg
 ---
 
+# Интим с тенью - протокол делирия Дурмана x DPH
 Опыт: Трава Дьявола & DРH — результаты эксперимента от Isopropanol
 
 Дата: 19.08.2014
