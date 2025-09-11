@@ -1,6 +1,6 @@
 ---
 title: to6d Архив
-thumbnail: images/start-head.jpg
+thumbnail: images/to6d.jpg
 layout: post
 date: 2025-04-07 20:15:00
 tags: [Трип-Репорты]
@@ -12,7 +12,7 @@ meta:
   og_title: to6d Архив
   og_description: Чтобы не потерять важное наследие таких редких невиданных отчётов, обязательно нужно такое сохранять для страждующих редкой информации.
   article_published_time: 2022-09-01T14:46:56+0000
-  og_image: images/start-head.jpg
+  og_image: images/to6d.jpg
 ---
 
 
