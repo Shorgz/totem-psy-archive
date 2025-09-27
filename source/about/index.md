@@ -88,11 +88,11 @@ meta:
 
 ### 🌟 Кошельки для поддержки 🌟
 
-TONcoin: UQC5iwRUCVmHPYEVYUIpVd0MFbvt11Y8WZ2EdSQ3Nv9CUgJB
+TONcoin: UQBlVrsHydeHyMzsnNWpVVRUOFmFvaul310-Db_CfhJfOkTz
 
 USDT (TRC-20): TQoofToZo2rtKoUwnYSkG8rxv3AihSxDuS
 
-USDT (TON): UQC5iwRUCVmHPYEVYUIpVd0MFbvt11Y8WZ2EdSQ3Nv9CUgJB
+USDT (TON): UQBlVrsHydeHyMzsnNWpVVRUOFmFvaul310-Db_CfhJfOkTz
 
 BTC: 1HyU8S8GtQfdv8LfcxavQ4DaahX1zgibEi
 
