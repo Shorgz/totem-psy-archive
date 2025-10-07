@@ -109,16 +109,16 @@ BTC: 1HyU8S8GtQfdv8LfcxavQ4DaahX1zgibEi
 
 ---
 
-🌏 [ Веб-журнал OneiroMagic (https://t.me/+gwEBbaPhvLJiZjQy)🍄 Biohack (https://t.me/+gwEBbaPhvLJiZjQy)📚 Alchemists (https://t.me/+gwEBbaPhvLJiZjQy)🗿 ] 👈  
+🌏 [ Веб-журнал OneiroMagic 🍄 Biohack 📚 Alchemists 🗿 ](https://t.me/+gwEBbaPhvLJiZjQy) 👈  
 Здесь будет продолжение и уведомления об обновлениях новой экзотики и всякого вкусного 🌏
 
-🌟 [ Основная ТГ группа OneiroMagic (https://t.me/+7QncKq6vLuZjYjU6)🍄 Biohack (https://t.me/+7QncKq6vLuZjYjU6)📚 Alchemists (https://t.me/+7QncKq6vLuZjYjU6)🗿 ] 👈
+🌟 [ Основная ТГ группа OneiroMagic 🍄 Biohack 📚 Alchemists 🗿 ](https://t.me/+7QncKq6vLuZjYjU6) 👈
 Здесь будет новый формат иного плана о тех же наших сочетаниях, а так же всё что есть сохранённое из исследованного, отзывов, нейро-артов/скриншотов, вопросов-ответов или... memes 😔
 
-💬 [ Старый чат архива для общения (https://t.me/+3b6ahucAN8EzYTNi)🗿 ] 👈
+💬 [ Старый чат архива для общения 🗿 ](https://t.me/+3b6ahucAN8EzYTNi) 👈
 Здесь если что-то нужно спросить или разобрать из всякого непонятного)
 
-🔠 [ Переходник по Группам-резервам (https://t.me/Nikto_Archive)🗿 ] 👈
+🔠 [ Переходник по Группам-резервам 🗿 ](https://t.me/Nikto_Archive) 👈
 Все ссылки, и если снесут какую-либо группу, будет внесена новая информация.
 
 ---
