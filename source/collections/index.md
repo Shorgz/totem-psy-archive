@@ -53,6 +53,8 @@ meta:
 👉TONcoin: UQBlVrsHydeHyMzsnNWpVVRUOFmFvaul310-Db_CfhJfOkTz
 👉USDT (TRC-20): TQoofToZo2rtKoUwnYSkG8rxv3AihSxDuS
 👉USDT (TON): UQBlVrsHydeHyMzsnNWpVVRUOFmFvaul310-Db_CfhJfOkTz
+👉USDT (SOL): 5V4ySyymq1Vk4RnsarETSuGi1sSYDdjXXb7EC7Yr2EAY
+👉USDT (ERC20): 0x40cB955108B84a2211c9599f44A85C357b53ecA6
 👉BTC: 1HyU8S8GtQfdv8LfcxavQ4DaahX1zgibEi
 
 ---
