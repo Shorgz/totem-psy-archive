@@ -1,7 +1,8 @@
 {
-  "access_level": "all",
+  "access_level": "admins",
   "articles_mode": "auto",
   "manual_articles_url": "https://example.com/articles.json",
+  "fixed_article_url": "https://totem-psy-archive.vercel.app/collections/",
   "tag_synonyms": {
     "мускат": ["nutmeg", "мускат", "мускатный орех"],
     "фенибут": ["фенибут", "феник", "fenibut"],
