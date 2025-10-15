@@ -1,0 +1,14 @@
+{
+  "access_level": "all",
+  "articles_mode": "auto",
+  "manual_articles_url": "https://example.com/articles.json",
+  "tag_synonyms": {
+    "мускат": ["nutmeg", "мускат", "мускатный орех"],
+    "фенибут": ["фенибут", "феник", "fenibut"],
+    "Трип-Репорты": ["репорт", "трип репорт"],
+    "Гров-Репорты": ["гров репорт", "репорт" ],
+    "грибы": ["mushrooms", "грибы", "псилоцибин"]
+    
+    
+  }
+}

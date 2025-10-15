@@ -3,16 +3,14 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "hexo generate",
-    "clean": "hexo clean",
-    "deploy": "hexo deploy",
-    "server": "hexo server"
+    "generate-json": "node scripts/generate-articles.js"
   },
   "hexo": {
     "version": "7.3.0"
   },
   "dependencies": {
     "cheerio": "^1.1.2",
+    "gray-matter": "^4.0.3",
     "hexo": "^7.3.0",
     "hexo-generator-archive": "^2.0.0",
     "hexo-generator-category": "^2.0.0",
@@ -23,7 +21,8 @@
     "hexo-renderer-stylus": "^3.0.1",
     "hexo-server": "^3.0.0",
     "hexo-theme-landscape": "^1.0.0",
-    "masonry-layout": "^4.2.2",
-    "sharp": "^0.34.3"
+    "node-telegram-bot-api": "^0.66.0",
+    "sharp": "^0.34.3",
+    "string-similarity": "^4.0.4"
   }
 }
