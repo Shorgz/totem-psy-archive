@@ -1,6 +1,8 @@
 const TelegramBot = require('node-telegram-bot-api');
 const similarity = require('string-similarity');
 
+let stickerCache = null;  // Глобальный кэш для стикеров
+
 module.exports = async (req, res) => {
   if (req.method !== 'POST') return res.status(405).send('Method Not Allowed');
 
@@ -20,7 +22,7 @@ module.exports = async (req, res) => {
       const text = update.message.text;
 
       // Загружаем config
-      const configResponse = await fetch('https://totem-psy-archive.vercel.app/config.json');  // Замените на ваш домен
+      const configResponse = await fetch('https://your-new-site.vercel.app/config.json');  // Замените на ваш домен
       if (!configResponse.ok) throw new Error('Failed to fetch config.json');
       const config = await configResponse.json();
 
@@ -34,6 +36,15 @@ module.exports = async (req, res) => {
       }[config.access_level];
       if (!allowed) {
         await bot.sendMessage(chatId, 'У вас нет доступа к этой команде.');
+        return res.status(200).send('OK');
+      }
+
+      // Кастомные команды
+      if (config.custom_commands && config.custom_commands[text]) {
+        const fixedUrl = config.custom_commands[text];
+        const escapedTitle = 'Перейти к статье'.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        const response = `<a href="${fixedUrl}">${escapedTitle}</a>`;
+        await bot.sendMessage(chatId, response, { parse_mode: 'HTML' });
         return res.status(200).send('OK');
       }
 
@@ -52,13 +63,11 @@ module.exports = async (req, res) => {
           return res.status(200).send('OK');
         }
 
-        // Загружаем articles
-        let articlesUrl = config.articles_mode === 'manual' ? config.manual_articles_url : 'https://totem-psy-archive.vercel.app/articles.json';
+        let articlesUrl = config.articles_mode === 'manual' ? config.manual_articles_url : 'https://your-new-site.vercel.app/articles.json';
         const articlesResponse = await fetch(articlesUrl);
         if (!articlesResponse.ok) throw new Error('Failed to fetch articles.json');
         const articles = await articlesResponse.json();
 
-        // Поиск по синонимам и fuzzy
         const allSynonyms = Object.entries(config.tag_synonyms).reduce((acc, [key, synonyms]) => {
           acc[key.toLowerCase()] = synonyms.map(s => s.toLowerCase());
           return acc;
@@ -73,7 +82,7 @@ module.exports = async (req, res) => {
             if (querySynonyms.includes(normTag)) return true;
             return querySynonyms.some(syn => similarity.compareTwoStrings(syn, normTag) > 0.6);
           });
-        }).slice(0, 10);  // Ограничиваем до 10 статей
+        }).slice(0, 10);
 
         if (matchedArticles.length === 0) {
           await bot.sendMessage(chatId, `Статей с тегом "${queryTag}" не найдено.`);
@@ -84,6 +93,27 @@ module.exports = async (req, res) => {
             response += `${i + 1}. <a href="${a.url}">${escapedTitle}</a>\n`;
           });
           await bot.sendMessage(chatId, response, { parse_mode: 'HTML' });
+        }
+      } else if (text === '/sticker') {
+        if (!config.sticker_pack_name) {
+          await bot.sendMessage(chatId, 'Стикерпак не указан в настройках.');
+          return res.status(200).send('OK');
+        }
+        try {
+          if (!stickerCache) {  // Кэшируем, если не закешировано
+            const stickerSet = await bot.getStickerSet(config.sticker_pack_name);
+            stickerCache = stickerSet.stickers;
+            console.log('Stickers cached:', stickerCache.length);
+          }
+          if (stickerCache.length === 0) {
+            await bot.sendMessage(chatId, 'Стикерпак пустой.');
+            return res.status(200).send('OK');
+          }
+          const randomSticker = stickerCache[Math.floor(Math.random() * stickerCache.length)];
+          await bot.sendSticker(chatId, randomSticker.file_id);
+        } catch (error) {
+          console.error('Error fetching sticker set:', error.message);
+          await bot.sendMessage(chatId, 'Ошибка при получении стикера.');
         }
       }
     } else if (update.message) {
