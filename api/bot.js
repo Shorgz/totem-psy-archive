@@ -14,13 +14,13 @@ module.exports = async (req, res) => {
 
   try {
     const update = req.body;
-    if (update.message) {
+    if (update.message && update.message.text) {  // Добавлена проверка на наличие text
       const chatId = update.message.chat.id;
       const userId = update.message.from.id;
       const text = update.message.text;
 
       // Загружаем config
-      const configResponse = await fetch('https://totem-psy-archive.vercel.app/config.json');
+      const configResponse = await fetch('https://totem-psy-archive.vercel.app/config.json');  // Замени на новый домен
       if (!configResponse.ok) throw new Error('Failed to fetch config.json');
       const config = await configResponse.json();
 
@@ -38,7 +38,7 @@ module.exports = async (req, res) => {
       }
 
       if (text === '/articles') {
-        let articlesUrl = config.articles_mode === 'manual' ? config.manual_articles_url : 'https://totem-psy-archive.vercel.app/articles.json';
+        let articlesUrl = config.articles_mode === 'manual' ? config.manual_articles_url : 'https://totem-psy-archive.vercel.app/articles.json';  // Замени на новый домен
         const articlesResponse = await fetch(articlesUrl);
         if (!articlesResponse.ok) throw new Error('Failed to fetch articles.json');
         const articles = await articlesResponse.json();
@@ -55,25 +55,24 @@ module.exports = async (req, res) => {
           return res.status(200).send('OK');
         }
 
-        // Загружаем articles
         let articlesUrl = config.articles_mode === 'manual' ? config.manual_articles_url : 'https://totem-psy-archive.vercel.app/articles.json';
         const articlesResponse = await fetch(articlesUrl);
         if (!articlesResponse.ok) throw new Error('Failed to fetch articles.json');
         const articles = await articlesResponse.json();
 
-        // Поиск по синонимам и fuzzy
+        // Поиск по синонимам и fuzzy (как раньше)
         const allSynonyms = Object.entries(config.tag_synonyms).reduce((acc, [key, synonyms]) => {
           acc[key.toLowerCase()] = synonyms.map(s => s.toLowerCase());
           return acc;
         }, {});
-        const querySynonyms = Object.keys(allSynonyms).find(k => allSynonyms[k].includes(queryTag)) ? allSynonyms[Object.keys(allSynonyms).find(k => allSynonyms[k].includes(queryTag))] : [queryTag];
+        const querySynonyms = Object.keys(allSynonyms).find(k => allSynonyms[k].includes(queryTag)) 
+          ? allSynonyms[Object.keys(allSynonyms).find(k => allSynonyms[k].includes(queryTag))] 
+          : [queryTag];
 
         const matchedArticles = articles.filter(article => {
           return article.tags.some(tag => {
             const normTag = tag.toLowerCase();
-            // Точное совпадение с тегом или синонимом
             if (querySynonyms.includes(normTag)) return true;
-            // Fuzzy match для тега или синонимов
             return querySynonyms.some(syn => similarity.compareTwoStrings(syn, normTag) > 0.6);
           });
         });
@@ -89,7 +88,11 @@ module.exports = async (req, res) => {
           await bot.sendMessage(chatId, response, { parse_mode: 'HTML' });
         }
       }
+    } else if (update.message) {
+      // Опционально: Игнорируем не-текстовые сообщения или отвечаем подсказкой
+      console.log('Non-text message received:', update.message);
     }
+
     res.status(200).send('OK');
   } catch (error) {
     console.error('Error in bot function:', error.message);
