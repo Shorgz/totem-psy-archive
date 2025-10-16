@@ -9,10 +9,6 @@
     "Трип-Репорты": ["репорт", "трип репорт"],
     "Гров-Репорты": ["гров репорт", "репорт" ],
     "грибы": ["mushrooms", "грибы", "псилоцибин"]
-  },
-  "custom_commands": {
-    "/псиорехобут": "https://totem-psy-archive.vercel.app/iv-articles/PsyOrehoBut-Gribnoe-MDMA-blazhenstvo-09-01.html",
-    "/псимиксы": "https://telegra.ph/PsiloMiksy-s-usileniem-gribov-1-12-21"
-
+  }
   }
 }
