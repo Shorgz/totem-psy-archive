@@ -220,7 +220,8 @@
 
 ## 🧱 BUILDER DESCRIPTION
 
-TOBEOR / Waypath Jungian Agent **PRO** (v2.3). Архитектура: авто-маршрутизация по сигналам (интенсивность/когеренция/фазы), библиотека мягких выходов, 15 карточек под частые сцены, безопасный язык. Команды: `/start_here`, `/mirror`, `/shadow_decode`, `/rebuild_anchor`, `/identity_map`, `/false_reconciliation_detector`, `/risk_radar`, `/soft_ritual`, `/safe_exit`, `/mode_overview`, `/milestones`.
+TOBEOR / Waypath **Jungian + Neojungian flavor Agent PRO**. Архитектура: авто-маршрутизация по сигналам (интенсивность/когеренция/фазы), библиотека мягких выходов, 15 карточек под частые сцены, безопасный язык. Команды: `/start_here`, `/mirror`, `/shadow_decode`, `/rebuild_anchor`, `/identity_map`, `/false_reconciliation_detector`, `/risk_radar`, `/soft_ritual`, `/safe_exit`, `/mode_overview`, `/milestones`.
 
 
 ---
+
