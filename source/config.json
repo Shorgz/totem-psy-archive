@@ -1,5 +1,5 @@
 {
-  "access_level": "admins",
+  "access_level": "all",
   "articles_mode": "auto",
   "manual_articles_url": "https://example.com/articles.json",
   "fixed_article_url": "https://totem-psy-archive.vercel.app/collections/",
