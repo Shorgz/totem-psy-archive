@@ -4,10 +4,17 @@
   "manual_articles_url": "https://example.com/articles.json",
   "fixed_article_url": "https://totem-psy-archive.vercel.app/collections/",
   "tag_synonyms": {
-    "мускат": ["nutmeg", "мускат", "мускатный орех"],
-    "фенибут": ["фенибут", "феник", "fenibut"],
-    "Трип-Репорты": ["репорт", "трип репорт"],
-    "Гров-Репорты": ["гров репорт", "репорт" ],
-    "грибы": ["mushrooms", "грибы", "псилоцибин"]
+    "Гров-Репорты": ["гров репорты", "гров репорт", "репорт"],
+    "мускат": ["nutmeg", "мускат", "мускатный орех"]
+  },
+  "sticker_pack_name": "gachi_tv",
+  "custom_commands": {
+    "/псимиксы": "https://totem-psy-archive.vercel.app/collections/top/",
+    "/побочки": "https://totem-psy-archive.vercel.app/collections/antiversus/",
+    "/мускат": "https://totem-psy-archive.vercel.app/collections/muskat-matsis/",
+    "/новичкам": "https://totem-psy-archive.vercel.app/collections/for-new/",
+    "/трепорты": "https://totem-psy-archive.vercel.app/collections/trip-reports/",
+    "/грепорты": "https://totem-psy-archive.vercel.app/collections/grow-reports-etc/",
+    "/лемонтек": "https://totem-psy-archive.vercel.app/collections/razborbi/"
   }
-  }
+}
