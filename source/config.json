@@ -16,5 +16,21 @@
     "/трепорты": "https://totem-psy-archive.vercel.app/collections/trip-reports/",
     "/грепорты": "https://totem-psy-archive.vercel.app/collections/grow-reports-etc/",
     "/лемонтек": "https://totem-psy-archive.vercel.app/collections/razborbi/"
+  },
+  "owner_id": 8234718034,
+  "admin_ids": [8234718034, 8234718034, 8234718034],
+  "command_permissions": {
+    "/бан": "admin",
+    "/мейн": "all",
+    "/at": "all",
+    "/мужики": "all",
+    "/хелп": "all",
+    "/псимиксы": "all",
+    "/побочки": "all",
+    "/мускат": "all",
+    "/новичкам": "all",
+    "/трепорты": "all",
+    "/грепорты": "all",
+    "/лемонтек": "all"
   }
 }

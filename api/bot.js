@@ -1,7 +1,34 @@
 const TelegramBot = require('node-telegram-bot-api');
 const similarity = require('string-similarity');
 
-let stickerCache = null;  // Глобальный кэш для стикеров
+let stickerCache = null;
+
+// Функция проверки прав доступа
+function checkPermission(config, userId, command) {
+  // Получаем требуемый уровень для команды
+  const requiredLevel = config.command_permissions?.[command] || 'all';
+
+  switch (requiredLevel) {
+    case 'owner':
+      // Только конкретный ID владельца
+      return config.owner_id && userId === config.owner_id;
+    
+    case 'admin':
+      // Только люди из списка admin_ids
+      return config.admin_ids && config.admin_ids.includes(userId);
+    
+    case 'moderator':
+      // Люди из списка moderator_ids ИЛИ admin_ids ИЛИ owner
+      return (config.moderator_ids && config.moderator_ids.includes(userId)) ||
+             (config.admin_ids && config.admin_ids.includes(userId)) ||
+             (config.owner_id && userId === config.owner_id);
+    
+    case 'all':
+    default:
+      // Все пользователи
+      return true;
+  }
+}
 
 module.exports = async (req, res) => {
   if (req.method !== 'POST') return res.status(405).send('Method Not Allowed');
@@ -27,18 +54,14 @@ module.exports = async (req, res) => {
       if (!configResponse.ok) throw new Error('Failed to fetch config.json');
       const config = await configResponse.json();
 
-      // Проверка доступа
-      const member = await bot.getChatMember(chatId, userId);
-      const userStatus = member.status;
-      const allowed = {
-        all: true,
-        moderators: ['administrator', 'creator', 'restricted'].includes(userStatus),
-        admins: ['administrator', 'creator'].includes(userStatus)
-      }[config.access_level];
+      // Определяем команду (берем первое слово из сообщения)
+      const command = text.split(' ')[0];
 
-      if (!allowed) {
+      // Проверка доступа для конкретной команды (только по ID, без проверки статуса в чате)
+      const hasAccess = checkPermission(config, userId, command);
+
+      if (!hasAccess) {
         const noAccessMsg = await bot.sendMessage(chatId, 'У вас нет доступа к этой команде.');
-        // Удаляем сообщение о доступе через 3 секунды (оставляем, но это может не сработать в serverless)
         setTimeout(async () => {
           try {
             await bot.deleteMessage(chatId, noAccessMsg.message_id);
@@ -47,7 +70,52 @@ module.exports = async (req, res) => {
           }
         }, 3000);
         try {
-          await bot.deleteMessage(chatId, messageId);  // Удаляем запрос пользователя сразу
+          await bot.deleteMessage(chatId, messageId);
+        } catch (err) {
+          console.error('Error deleting user message:', err.message);
+        }
+        return res.status(200).send('OK');
+      }
+
+      // Пример команды только для владельца
+      if (text.startsWith('/бан ')) {
+        const args = text.split(' ');
+        if (args.length < 2) {
+          await bot.sendMessage(chatId, 'Использование: /бан @username или ID');
+          try {
+            await bot.deleteMessage(chatId, messageId);
+          } catch (err) {
+            console.error('Error deleting user message:', err.message);
+          }
+          return res.status(200).send('OK');
+        }
+
+        // Здесь логика бана пользователя
+        await bot.sendMessage(chatId, `Команда бана выполнена владельцем. Цель: ${args[1]}`);
+        try {
+          await bot.deleteMessage(chatId, messageId);
+        } catch (err) {
+          console.error('Error deleting user message:', err.message);
+        }
+        return res.status(200).send('OK');
+      }
+
+      // Пример команды для админов
+      if (text.startsWith('/кик ')) {
+        const args = text.split(' ');
+        if (args.length < 2) {
+          await bot.sendMessage(chatId, 'Использование: /кик @username или ID');
+          try {
+            await bot.deleteMessage(chatId, messageId);
+          } catch (err) {
+            console.error('Error deleting user message:', err.message);
+          }
+          return res.status(200).send('OK');
+        }
+
+        await bot.sendMessage(chatId, `Команда кика выполнена админом. Цель: ${args[1]}`);
+        try {
+          await bot.deleteMessage(chatId, messageId);
         } catch (err) {
           console.error('Error deleting user message:', err.message);
         }
@@ -61,7 +129,7 @@ module.exports = async (req, res) => {
         const response = `<a href="${fixedUrl}">${escapedTitle}</a>`;
         await bot.sendMessage(chatId, response, { parse_mode: 'HTML' });
         try {
-          await bot.deleteMessage(chatId, messageId);  // Удаляем запрос сразу
+          await bot.deleteMessage(chatId, messageId);
         } catch (err) {
           console.error('Error deleting user message:', err.message);
         }
@@ -145,7 +213,7 @@ module.exports = async (req, res) => {
           return res.status(200).send('OK');
         }
         try {
-          if (!stickerCache) {  // Кэшируем, если не закешировано
+          if (!stickerCache) {
             const stickerSet = await bot.getStickerSet(config.sticker_pack_name);
             stickerCache = stickerSet.stickers;
             console.log('Stickers cached:', stickerCache.length);
@@ -175,12 +243,10 @@ module.exports = async (req, res) => {
             console.error('Error deleting user message:', err.message);
           }
         }
-      } else if (text === '/хелп') {  // Изменено на /хелп
-        // Список доступных команд (впишите сюда свои команды)
+      } else if (text === '/хелп') {
         const helpText = `
 Доступные команды:
 - /мейн
-
 - /псимиксы
 - /побочки
 - /мускат
