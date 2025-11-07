@@ -106,25 +106,174 @@ module.exports = async (req, res) => {
             return res.status(200).send('OK');
           }
 
-          // Баним пользователя
-          await bot.banChatMember(chatId, targetUserId);
+          // Баним пользователя НАВСЕГДА (until_date = 0 означает постоянный бан)
+          await bot.banChatMember(chatId, targetUserId, {
+            until_date: 0  // Постоянный бан
+          });
           
-          // Удаляем сообщение пользователя, которого банят
+          // Удаляем сообщение пользователя, на которое ответили
           try {
             await bot.deleteMessage(chatId, update.message.reply_to_message.message_id);
           } catch (err) {
             console.error('Error deleting banned user message:', err.message);
           }
 
-          // Отправляем уведомление
-          const banMsg = await bot.sendMessage(chatId, `✅ Пользователь ${targetUsername} забанен.`);
+          // Отправляем уведомление с инструкцией
+          const banMsg = await bot.sendMessage(chatId, 
+            `✅ Пользователь ${targetUsername} забанен.\n` +
+            `💡 Чтобы удалить его сообщения, ответьте на любое его сообщение командой /удалить`
+          );
           
-          // Удаляем уведомление через 5 секунд
+          // Удаляем уведомление через 10 секунд
           setTimeout(async () => {
             try {
               await bot.deleteMessage(chatId, banMsg.message_id);
             } catch (err) {
               console.error('Error deleting ban notification:', err.message);
+            }
+          }, 10000);
+
+          // Удаляем команду
+          try {
+            await bot.deleteMessage(chatId, messageId);
+          } catch (err) {
+            console.error('Error deleting command message:', err.message);
+          }
+
+        } catch (error) {
+          console.error('Error banning user:', error.message);
+          await bot.sendMessage(chatId, '❌ Ошибка при бане. Убедитесь, что бот имеет права администратора с правом удаления сообщений.');
+          try {
+            await bot.deleteMessage(chatId, messageId);
+          } catch (err) {
+            console.error('Error deleting user message:', err.message);
+          }
+        }
+        return res.status(200).send('OK');
+      }
+
+      // Команда разбана
+      if (text.startsWith('/разбан')) {
+        try {
+          if (!update.message.reply_to_message) {
+            await bot.sendMessage(chatId, '⚠️ Ответьте на сообщение пользователя, которого нужно разбанить.');
+            try {
+              await bot.deleteMessage(chatId, messageId);
+            } catch (err) {
+              console.error('Error deleting user message:', err.message);
+            }
+            return res.status(200).send('OK');
+          }
+
+          const targetUserId = update.message.reply_to_message.from.id;
+          const targetUsername = update.message.reply_to_message.from.username || 
+                                update.message.reply_to_message.from.first_name;
+
+          // Разбаниваем пользователя
+          await bot.unbanChatMember(chatId, targetUserId, {
+            only_if_banned: true  // Разбанить только если действительно забанен
+          });
+
+          const unbanMsg = await bot.sendMessage(chatId, `✅ Пользователь ${targetUsername} разбанен.`);
+          
+          setTimeout(async () => {
+            try {
+              await bot.deleteMessage(chatId, unbanMsg.message_id);
+            } catch (err) {
+              console.error('Error deleting unban notification:', err.message);
+            }
+          }, 5000);
+
+          try {
+            await bot.deleteMessage(chatId, messageId);
+          } catch (err) {
+            console.error('Error deleting command message:', err.message);
+          }
+
+        } catch (error) {
+          console.error('Error unbanning user:', error.message);
+          await bot.sendMessage(chatId, '❌ Ошибка при разбане. Возможно, пользователь не забанен.');
+          try {
+            await bot.deleteMessage(chatId, messageId);
+          } catch (err) {
+            console.error('Error deleting user message:', err.message);
+          }
+        }
+        return res.status(200).send('OK');
+      }
+
+      // Команда удаления сообщений пользователя
+      if (text.startsWith('/удалить')) {
+        try {
+          if (!update.message.reply_to_message) {
+            await bot.sendMessage(chatId, '⚠️ Ответьте на сообщение пользователя, чьи сообщения нужно удалить.');
+            try {
+              await bot.deleteMessage(chatId, messageId);
+            } catch (err) {
+              console.error('Error deleting user message:', err.message);
+            }
+            return res.status(200).send('OK');
+          }
+
+          const targetUserId = update.message.reply_to_message.from.id;
+          const targetUsername = update.message.reply_to_message.from.username || 
+                                update.message.reply_to_message.from.first_name;
+          const replyMessageId = update.message.reply_to_message.message_id;
+
+          // Определяем количество сообщений для удаления (по умолчанию 50)
+          const args = text.split(' ');
+          const limit = args[1] ? parseInt(args[1]) : 50;
+          
+          if (isNaN(limit) || limit < 1 || limit > 100) {
+            await bot.sendMessage(chatId, '⚠️ Укажите число от 1 до 100. Пример: /удалить 50');
+            try {
+              await bot.deleteMessage(chatId, messageId);
+            } catch (err) {
+              console.error('Error deleting user message:', err.message);
+            }
+            return res.status(200).send('OK');
+          }
+
+          const statusMsg = await bot.sendMessage(chatId, `🔄 Удаляю сообщения пользователя ${targetUsername}...`);
+
+          let deletedCount = 0;
+          // Идем от текущего сообщения назад
+          for (let i = 0; i < limit; i++) {
+            const msgIdToDelete = replyMessageId - i;
+            if (msgIdToDelete < 1) break;
+
+            try {
+              // Пытаемся удалить сообщение
+              await bot.deleteMessage(chatId, msgIdToDelete);
+              deletedCount++;
+              
+              // Небольшая задержка чтобы избежать rate limit
+              await new Promise(resolve => setTimeout(resolve, 50));
+            } catch (err) {
+              // Сообщение не найдено или нет прав - пропускаем
+              if (!err.message.includes('message to delete not found')) {
+                console.error(`Error deleting message ${msgIdToDelete}:`, err.message);
+              }
+            }
+          }
+
+          // Удаляем статус-сообщение
+          try {
+            await bot.deleteMessage(chatId, statusMsg.message_id);
+          } catch (err) {
+            console.error('Error deleting status message:', err.message);
+          }
+
+          // Отправляем результат
+          const resultMsg = await bot.sendMessage(chatId, 
+            `✅ Удалено сообщений: ${deletedCount}`
+          );
+
+          setTimeout(async () => {
+            try {
+              await bot.deleteMessage(chatId, resultMsg.message_id);
+            } catch (err) {
+              console.error('Error deleting result message:', err.message);
             }
           }, 5000);
 
@@ -136,8 +285,8 @@ module.exports = async (req, res) => {
           }
 
         } catch (error) {
-          console.error('Error banning user:', error.message);
-          await bot.sendMessage(chatId, '❌ Ошибка при бане. Убедитесь, что бот имеет права администратора.');
+          console.error('Error deleting messages:', error.message);
+          await bot.sendMessage(chatId, '❌ Ошибка при удалении сообщений. Убедитесь, что бот имеет права администратора.');
           try {
             await bot.deleteMessage(chatId, messageId);
           } catch (err) {
