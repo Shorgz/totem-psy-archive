@@ -77,47 +77,137 @@ module.exports = async (req, res) => {
         return res.status(200).send('OK');
       }
 
-      // Пример команды только для владельца
+      // Команда бана (только для людей из admin_ids)
       if (text.startsWith('/бан ')) {
-        const args = text.split(' ');
-        if (args.length < 2) {
-          await bot.sendMessage(chatId, 'Использование: /бан @username или ID');
+        try {
+          // Проверяем, что сообщение является ответом на другое сообщение
+          if (!update.message.reply_to_message) {
+            await bot.sendMessage(chatId, '⚠️ Используйте команду /бан как ответ на сообщение пользователя, которого хотите забанить.');
+            try {
+              await bot.deleteMessage(chatId, messageId);
+            } catch (err) {
+              console.error('Error deleting user message:', err.message);
+            }
+            return res.status(200).send('OK');
+          }
+
+          const targetUserId = update.message.reply_to_message.from.id;
+          const targetUsername = update.message.reply_to_message.from.username || 
+                                update.message.reply_to_message.from.first_name;
+
+          // Проверяем, что не пытаемся забанить админа из списка
+          if (config.admin_ids && config.admin_ids.includes(targetUserId)) {
+            await bot.sendMessage(chatId, '❌ Нельзя забанить администратора бота.');
+            try {
+              await bot.deleteMessage(chatId, messageId);
+            } catch (err) {
+              console.error('Error deleting user message:', err.message);
+            }
+            return res.status(200).send('OK');
+          }
+
+          // Баним пользователя
+          await bot.banChatMember(chatId, targetUserId);
+          
+          // Удаляем сообщение пользователя, которого банят
+          try {
+            await bot.deleteMessage(chatId, update.message.reply_to_message.message_id);
+          } catch (err) {
+            console.error('Error deleting banned user message:', err.message);
+          }
+
+          // Отправляем уведомление
+          const banMsg = await bot.sendMessage(chatId, `✅ Пользователь ${targetUsername} забанен.`);
+          
+          // Удаляем уведомление через 5 секунд
+          setTimeout(async () => {
+            try {
+              await bot.deleteMessage(chatId, banMsg.message_id);
+            } catch (err) {
+              console.error('Error deleting ban notification:', err.message);
+            }
+          }, 5000);
+
+          // Удаляем команду
+          try {
+            await bot.deleteMessage(chatId, messageId);
+          } catch (err) {
+            console.error('Error deleting command message:', err.message);
+          }
+
+        } catch (error) {
+          console.error('Error banning user:', error.message);
+          await bot.sendMessage(chatId, '❌ Ошибка при бане. Убедитесь, что бот имеет права администратора.');
           try {
             await bot.deleteMessage(chatId, messageId);
           } catch (err) {
             console.error('Error deleting user message:', err.message);
           }
-          return res.status(200).send('OK');
-        }
-
-        // Здесь логика бана пользователя
-        await bot.sendMessage(chatId, `Команда бана выполнена владельцем. Цель: ${args[1]}`);
-        try {
-          await bot.deleteMessage(chatId, messageId);
-        } catch (err) {
-          console.error('Error deleting user message:', err.message);
         }
         return res.status(200).send('OK');
       }
 
-      // Пример команды для админов
+      // Команда кика (временное удаление)
       if (text.startsWith('/кик ')) {
-        const args = text.split(' ');
-        if (args.length < 2) {
-          await bot.sendMessage(chatId, 'Использование: /кик @username или ID');
+        try {
+          if (!update.message.reply_to_message) {
+            await bot.sendMessage(chatId, '⚠️ Используйте команду /кик как ответ на сообщение пользователя.');
+            try {
+              await bot.deleteMessage(chatId, messageId);
+            } catch (err) {
+              console.error('Error deleting user message:', err.message);
+            }
+            return res.status(200).send('OK');
+          }
+
+          const targetUserId = update.message.reply_to_message.from.id;
+          const targetUsername = update.message.reply_to_message.from.username || 
+                                update.message.reply_to_message.from.first_name;
+
+          if (config.admin_ids && config.admin_ids.includes(targetUserId)) {
+            await bot.sendMessage(chatId, '❌ Нельзя кикнуть администратора бота.');
+            try {
+              await bot.deleteMessage(chatId, messageId);
+            } catch (err) {
+              console.error('Error deleting user message:', err.message);
+            }
+            return res.status(200).send('OK');
+          }
+
+          // Баним и сразу разбаниваем (это и есть кик)
+          await bot.banChatMember(chatId, targetUserId);
+          await bot.unbanChatMember(chatId, targetUserId);
+          
+          try {
+            await bot.deleteMessage(chatId, update.message.reply_to_message.message_id);
+          } catch (err) {
+            console.error('Error deleting kicked user message:', err.message);
+          }
+
+          const kickMsg = await bot.sendMessage(chatId, `✅ Пользователь ${targetUsername} кикнут.`);
+          
+          setTimeout(async () => {
+            try {
+              await bot.deleteMessage(chatId, kickMsg.message_id);
+            } catch (err) {
+              console.error('Error deleting kick notification:', err.message);
+            }
+          }, 5000);
+
+          try {
+            await bot.deleteMessage(chatId, messageId);
+          } catch (err) {
+            console.error('Error deleting command message:', err.message);
+          }
+
+        } catch (error) {
+          console.error('Error kicking user:', error.message);
+          await bot.sendMessage(chatId, '❌ Ошибка при кике. Убедитесь, что бот имеет права администратора.');
           try {
             await bot.deleteMessage(chatId, messageId);
           } catch (err) {
             console.error('Error deleting user message:', err.message);
           }
-          return res.status(200).send('OK');
-        }
-
-        await bot.sendMessage(chatId, `Команда кика выполнена админом. Цель: ${args[1]}`);
-        try {
-          await bot.deleteMessage(chatId, messageId);
-        } catch (err) {
-          console.error('Error deleting user message:', err.message);
         }
         return res.status(200).send('OK');
       }
