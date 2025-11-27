@@ -51,10 +51,9 @@ ryderlefeg Revised by Meso aka Deya Rabbie Neuropharmacology, B.Sc. † RIP
 14. [Фибромиалгия](#14)
 15. [Комплекс для Восстановления После Злоупотребления Кaннaбисoм](#15)
 16. [Комплекс для Лечения Печени](#16)
-
----
 <!-- Код для вставки изображения -->
 [[pic(/images/mixes-from-biohacking-bible-2.jpg)]]
+
 ---
 <!-- Флаги разделов -->
 [[anc(1)]]
