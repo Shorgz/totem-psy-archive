@@ -95,17 +95,17 @@ meta:
 
 ### 🌟 Кошельки для поддержки(ВРЕМЕННО НЕ РАБОТАЮТ ВСЕ, НЕ КОПИРУЙТЕ) 🌟
 
-TONcoin: U
+TONcoin: UQC7LEwIL24mFrIujEhH4XKSnYRd1wmcTmaePeWpYcI4u49_
 
-USDT (TRC-20): T
+USDT (TRC-20): TQZWoDeGMpr61VkvnfHtsqcvKp9PF4QDHx
 
-USDT (TON): U
+USDT (TON): UQC7LEwIL24mFrIujEhH4XKSnYRd1wmcTmaePeWpYcI4u49_
 
-USDT (SOL): 5
+USDT (SOL): 3GbdcAoHL4DvXw2WH4tVEsMkue58SNTQGy3YJqAiTbim
 
-USDT (ERC20): 0
+USDT (ERC20): 0xaA928842CcBA241F4252726097EdD6e495d228b1
 
-BTC: 1
+BTC: bc1qmvemch8exp56sg4awwcv6gefwlcs4dlek8wsmg
 
 ---
 
