@@ -46,16 +46,16 @@ meta:
 • 💾 [ Новый архив сайта ](/archives/) 
 
 ---
-• 📞 Связь / Дoнат - https://t.me/Nikto_Archivarius 
+• 📞 Связь / Дoнат - https://t.me/ToTeM_Archivarius 
 
 🍭Кошельки — для поддержки новых постов:
 
-👉TONcoin: UQBlVrsHydeHyMzsnNWpVVRUOFmFvaul310-Db_CfhJfOkTz
-👉USDT (TRC-20): TQoofToZo2rtKoUwnYSkG8rxv3AihSxDuS
-👉USDT (TON): UQBlVrsHydeHyMzsnNWpVVRUOFmFvaul310-Db_CfhJfOkTz
-👉USDT (SOL): 5V4ySyymq1Vk4RnsarETSuGi1sSYDdjXXb7EC7Yr2EAY
-👉USDT (ERC20): 0x40cB955108B84a2211c9599f44A85C357b53ecA6
-👉BTC: 1HyU8S8GtQfdv8LfcxavQ4DaahX1zgibEi
+👉TONcoin: UQC7LEwIL24mFrIujEhH4XKSnYRd1wmcTmaePeWpYcI4u49_
+👉USDT (TRC-20): TQZWoDeGMpr61VkvnfHtsqcvKp9PF4QDHx
+👉USDT (TON): UQC7LEwIL24mFrIujEhH4XKSnYRd1wmcTmaePeWpYcI4u49_
+👉USDT (SOL): 3GbdcAoHL4DvXw2WH4tVEsMkue58SNTQGy3YJqAiTbim
+👉USDT (ERC20): 0xaA928842CcBA241F4252726097EdD6e495d228b1
+👉BTC: bc1qmvemch8exp56sg4awwcv6gefwlcs4dlek8wsmg
 
 ---
 
@@ -65,7 +65,7 @@ meta:
 🌟 [ Основная ТГ группа OneiroMagic 🍄 Biohack 📚 Alchemists 🗿 ](https://t.me/+7QncKq6vLuZjYjU6) 👈
 Здесь будет новый формат иного плана о тех же наших сочетаниях, а так же всё что есть сохранённое из исследованного, отзывов, нейро-артов/скриншотов, вопросов-ответов или... memes 😔
 
-💬 [ Старый чат архива для общения 🗿 ](https://t.me/+3b6ahucAN8EzYTNi) 👈
+💬 [ Новый чат архива для общения 🗿 ](https://t.me/+eObLJZ71EDoxNzVi) 👈
 Здесь если что-то нужно спросить или разобрать из всякого непонятного)
 
 🔠 [ Переходник по Группам-резервам 🗿 ](https://t.me/Nikto_Archive) 👈
