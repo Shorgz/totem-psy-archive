@@ -296,7 +296,3 @@ ________________________________________
 - Shao L.-X. et al. (2021) *Psilocybin induces rapid and persistent growth of dendritic spines*, Neuron 109:2535–2544.
 - Nardou R. et al. / Dölen G. (2023) *Psychedelics reopen the social reward learning critical period*, Nature 618:790–798. *(Открытие окон пластичности)*.
 
-
-
-<!-- Код для вставки изображения -->
-[[pic(/images/rebus-bad-tripa-z.jpg)]]
